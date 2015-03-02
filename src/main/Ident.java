@@ -4,6 +4,9 @@ import main.Enumeration.*;
 
 public abstract class Ident {
 	protected Type type;
-	protected int val;
+	
+	public Ident(Type t) {
+		type = t;
+	}
 	
 }

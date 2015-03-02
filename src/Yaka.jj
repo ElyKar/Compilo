@@ -10,7 +10,7 @@
 
 
 options{
-	JDK_VERSION="1.5";	
+	JDK_VERSION="1.8";	
 }
 
 PARSER_BEGIN(Yaka)
@@ -18,6 +18,10 @@ PARSER_BEGIN(Yaka)
 
 
 public class Yaka {
+	public static Expression expression = new Expression();
+	public static TabIdent tabident = new TabIdent(0);
+	public static Declaration declaration = new Declaration();
+	public static YVM yvm = new YVM();
 
 
   public static void main(String args[]) { 
@@ -57,7 +61,8 @@ PARSER_END(Yaka)
 /***************************************/
 
 TOKEN_MGR_DECLS :
-{public static String identLu,chaineLue;
+{public static String identLu
+ public static String chaineLue;
  public static int entierLu;}
 
 /*** Skip whitespace and comments ***/
@@ -110,6 +115,10 @@ TOKEN :
 | <ECRIRE : "ECRIRE">
 | <LIRE : "LIRE">
 | <ALALIGNE : "ALALIGNE">
+| <PLUS : "+">
+| <MINUS : "-">
+| <DIV : "/">
+| <MUL : "*">
 
 }
 
@@ -209,19 +218,22 @@ void simpleExpr() : {}
 {
    terme() 
    (opAdd() 
-   terme()	
+   terme()
+   {expression.operation();}
    )*
 } 
 void terme() : {}
 {
   facteur() 
   (opMul() 
-  facteur()	
+  facteur()
+  {expression.operation();}	
   )*
 }
 void facteur() : {}
 {   primaire() 
-  |  opNeg() primaire() 
+    |opNeg() primaire()
+    {expression.operation();}
 }
 
 void primaire (): {}
@@ -232,7 +244,7 @@ void primaire (): {}
 }
 
 void valeur () : {}
-{ <entier> 		
+{ <entier> {expression.addOperand(YakaTokenManager.entierLu);}		
  | <ident> 		
  | <VRAI> 		
  | <FAUX> 		
@@ -251,20 +263,20 @@ void opRel() : {}
 
 void opAdd() : {}
 {
-    "+"		
-  |  "-"  
+    "+"	 {expression.addOperator('+');}	
+  |  "-" {expression.addOperator('-');} 
   | <OU> 	
 }
 
 void opMul() : {}
 {
-  "*"		
-  | "/"		
+  "*"    {expression.addOperator('*');}		
+  | "/"	 {expression.addOperator('/');}	
   | <ET>	
 } 
 
 void opNeg() : {}
-{ "-" 		
+{ "-"    {expression.addOperator('_');}		
  | <NON>	
 }
 
