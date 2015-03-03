@@ -4,14 +4,9 @@ import java.util.ArrayDeque;
 
 public class Expression {
 	private ArrayDeque<Character> operators;
-	YVM yvm;
 	
 	public Expression() {
 		operators = new ArrayDeque<>();
-	}
-	
-	public void setWriter(YVM y) {
-		yvm = y;
 	}
 	
 	public void pushOperator(char op) {
@@ -19,45 +14,45 @@ public class Expression {
 	}
 	
 	public void pushOperand(int val) {
-		yvm.writeln("iconst "+val);
+		Yaka.yvm.writeln("iconst "+val);
 	}
 	
 	public void iadd() {
-		yvm.writeln("iadd");
+		Yaka.yvm.writeln("iadd");
 	}
 	
 	public void imul() {
-		yvm.writeln("imul");
+		Yaka.yvm.writeln("imul");
 	}
 	
 	public void idiv() {
-		yvm.writeln("idiv");
+		Yaka.yvm.writeln("idiv");
 	}
 	
 	public void isub() {
-		yvm.writeln("isub");
+		Yaka.yvm.writeln("isub");
 	}
 	
 	public void ineg() {
-		yvm.writeln("ineg");
+		Yaka.yvm.writeln("ineg");
 	}
 	
 	public void operation() {
 		char c = operators.pop();
 		switch(c) {
-		case '+' :
+		case Constant.PLUS :
 			iadd();
 			break;
-		case '-':
+		case Constant.MINUS:
 			isub();
 			break;
-		case '*':
+		case Constant.MUL:
 			imul();
 			break;
-		case '/':
+		case Constant.DIV:
 			idiv();
 			break;
-		case '_':
+		case Constant.NEG:
 			ineg();
 			break;
 		default:

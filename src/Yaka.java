@@ -4,15 +4,12 @@ import java.io.IOException;
 public class Yaka implements YakaConstants {
         public static Expression expression = new Expression();
         public static TabIdent tabident = new TabIdent();
-        public static Constant constant = new Constant();
         public static Declaration declaration = new Declaration();
         public static YVM yvm;
 
         static {
                 try {
                         yvm = new YVM();
-                        expression.setWriter(yvm);
-                        declaration.setWriter(yvm);
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
@@ -322,7 +319,7 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case integer:
       jj_consume_token(integer);
-             expression.pushOperand(YakaTokenManager.entierLu);
+             expression.pushOperand(YakaTokenManager.intRead);
       break;
     case ident:
       jj_consume_token(ident);
@@ -371,11 +368,11 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case PLUS:
       jj_consume_token(PLUS);
-          expression.pushOperator(constant.PLUS);
+                  expression.pushOperator(Constant.PLUS);
       break;
     case MINUS:
       jj_consume_token(MINUS);
-          expression.pushOperator(constant.MINUS);
+              expression.pushOperator(Constant.MINUS);
       break;
     case OR:
       jj_consume_token(OR);
@@ -391,11 +388,11 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case MUL:
       jj_consume_token(MUL);
-          expression.pushOperator(constant.MUL);
+              expression.pushOperator(Constant.MUL);
       break;
     case DIV:
       jj_consume_token(DIV);
-          expression.pushOperator(constant.DIV);
+                  expression.pushOperator(Constant.DIV);
       break;
     case AND:
       jj_consume_token(AND);
@@ -411,7 +408,7 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case MINUS:
       jj_consume_token(MINUS);
-          expression.pushOperator(constant.NEG);
+              expression.pushOperator(Constant.NEG);
       break;
     case NOT:
       jj_consume_token(NOT);

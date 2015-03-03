@@ -20,15 +20,12 @@ import java.io.IOException;
 public class Yaka {
 	public static Expression expression = new Expression();
 	public static TabIdent tabident = new TabIdent();
-	public static Constant constant = new Constant();
 	public static Declaration declaration = new Declaration();
 	public static YVM yvm;
 	
 	static {
 		try {
 			yvm = new YVM();
-			expression.setWriter(yvm);
-			declaration.setWriter(yvm);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,9 +70,9 @@ PARSER_END(Yaka)
 /***************************************/
 
 TOKEN_MGR_DECLS :
-{public static String identLu;
- public static String chaineLue;
- public static int entierLu;}
+{public static String identRead;
+ public static String stringRead;
+ public static int intRead;}
 
 /*** Skip whitespace and comments ***/
 SKIP :
@@ -141,14 +138,14 @@ TOKEN  :
 {
   < #figure : ["0"-"9"] >
 | < integer : (<figure>)+ > 
-	{ entierLu = Integer.parseInt(image.toString());
+	{ intRead = Integer.parseInt(image.toString());
         }
 | < #letter: ["A"-"Z","a"-"z"] >
 | < ident : <letter> (<letter> | <figure>)* >
-	{identLu =image.toString();	
+	{identRead =image.toString();	
 	}
 | < string : "\"" (~["\""])* "\"" | "'" (~["'"])* "'" >
-	{ chaineLue = image.toString();
+	{ stringRead = image.toString();
 	 }
 }
 
@@ -256,7 +253,7 @@ void primary (): {}
 }
 
 void value () : {}
-{ <integer> {expression.pushOperand(YakaTokenManager.entierLu);}		
+{ <integer> {expression.pushOperand(YakaTokenManager.intRead);}		
  | <ident> 		
  | <TRUE> 		
  | <FALSE> 		
@@ -275,20 +272,20 @@ void opRel() : {}
 
 void opAdd() : {}
 {
-    "+"	 {expression.pushOperator(constant.PLUS);}	
-  |  "-" {expression.pushOperator(constant.MINUS);} 
+    <PLUS>	 {expression.pushOperator(Constant.PLUS);}	
+  | <MINUS>  {expression.pushOperator(Constant.MINUS);} 
   | <OR> 	
 }
 
 void opMul() : {}
 {
-  "*"    {expression.pushOperator(constant.MUL);}		
-  | "/"	 {expression.pushOperator(constant.DIV);}	
+    <MUL>    {expression.pushOperator(Constant.MUL);}		
+  | <DIV>	 {expression.pushOperator(Constant.DIV);}	
   | <AND>	
 } 
 
 void opNeg() : {}
-{ "-"    {expression.pushOperator(constant.NEG);}		
+{  <MINUS>   {expression.pushOperator(Constant.NEG);}		
  | <NOT>	
 }
 

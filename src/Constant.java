@@ -2,10 +2,10 @@
 
 public class Constant {
 	
-	protected final char PLUS = '+';
-	protected final char MINUS = '-';
-	protected final char DIV = '/';
-	protected final char MUL = '*';
-	protected final char NEG = '_';
+	protected static final char PLUS = '+';
+	protected static final char MINUS = '-';
+	protected static final char DIV = '/';
+	protected static final char MUL = '*';
+	protected static final char NEG = '_';
 
 }

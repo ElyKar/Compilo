@@ -4,9 +4,9 @@ import java.io.IOException;
 /** Token Manager. */
 public class YakaTokenManager implements YakaConstants
 {
- public static String identLu;
- public static String chaineLue;
- public static int entierLu;
+ public static String identRead;
+ public static String stringRead;
+ public static int intRead;
 
   /** Debug output. */
   public static  java.io.PrintStream debugStream = System.out;
@@ -940,15 +940,15 @@ static void TokenLexicalActions(Token matchedToken)
    {
       case 40 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-          entierLu = Integer.parseInt(image.toString());
+          intRead = Integer.parseInt(image.toString());
          break;
       case 42 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-         identLu =image.toString();
+         identRead =image.toString();
          break;
       case 43 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-          chaineLue = image.toString();
+          stringRead = image.toString();
          break;
       default :
          break;
