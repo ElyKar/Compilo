@@ -15,13 +15,25 @@ options{
 
 PARSER_BEGIN(Yaka)
 
-
+import java.io.IOException;
 
 public class Yaka {
 	public static Expression expression = new Expression();
-	public static TabIdent tabident = new TabIdent(0);
+	public static TabIdent tabident = new TabIdent();
+	public static Constant constant = new Constant();
 	public static Declaration declaration = new Declaration();
-	public static YVM yvm = new YVM();
+	public static YVM yvm;
+	
+	static {
+		try {
+			yvm = new YVM();
+			expression.setWriter(yvm);
+			declaration.setWriter(yvm);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 
   public static void main(String args[]) { 
@@ -61,7 +73,7 @@ PARSER_END(Yaka)
 /***************************************/
 
 TOKEN_MGR_DECLS :
-{public static String identLu
+{public static String identLu;
  public static String chaineLue;
  public static int entierLu;}
 
@@ -88,37 +100,37 @@ SKIP :
 
 TOKEN :
 {
-  < BOOLEEN: "BOOLEEN" >
+  < BOOLEAN: "BOOLEEN" >
 | < VAR: "VAR" >
-| < FAIRE: "FAIRE" >
-| < SINON: "SINON" >
-| < POUR: "POUR" >
-| < SI: "SI" >
-| < FSI: "FSI">
-| < ENTIER: "ENTIER" >
-| < RETOURNE: "RETOURNE" >
-| < VRAI: "VRAI" >
-| < TANTQUE: "TANTQUE" >
-| <CONST : "CONST">
-| <FAUX : "FAUX">
-| <FAIT : "FAIT">
-| <OU : "OU">
-| <ET : "ET">
-| <NON : "NON">
-| <FONCTION : "FONCTION">
-| <FFONCTION  : "FFONCTION">
-| <PROGRAMME : "PROGRAMME" >
-| <FPROGRAMME: "FPROGRAMME" >
-| <PRINCIPAL : "PRINCIPAL">
-| <FPRINCIPAL : "FPRINCIPAL">
-| <ALORS : "ALORS">
-| <ECRIRE : "ECRIRE">
-| <LIRE : "LIRE">
-| <ALALIGNE : "ALALIGNE">
-| <PLUS : "+">
-| <MINUS : "-">
-| <DIV : "/">
-| <MUL : "*">
+| < DO: "FAIRE" >
+| < ELSE: "SINON" >
+| < FOR: "POUR" >
+| < IF: "SI" >
+| < FI: "FSI">
+| < INT: "ENTIER" >
+| < RETURN: "RETOURNE" >
+| < TRUE: "VRAI" >
+| < WHILE: "TANTQUE" >
+| < CONST : "CONST">
+| < FALSE : "FAUX">
+| < DONE : "FAIT">
+| < OR : "OU">
+| < AND : "ET">
+| < NOT : "NON">
+| < FUNCTION : "FONCTION">
+| < EFUNCTION  : "FFONCTION">
+| < PROGRAM : "PROGRAMME" >
+| < EPROGRAM: "FPROGRAMME" >
+| < MAIN : "PRINCIPAL">
+| < EMAIN : "FPRINCIPAL">
+| < THEN : "ALORS">
+| < WRITE : "ECRIRE">
+| < READ : "LIRE">
+| < GOTOLINE : "ALALIGNE">
+| < PLUS : "+">
+| < MINUS : "-">
+| < DIV : "/">
+| < MUL : "*">
 
 }
 
@@ -127,15 +139,15 @@ TOKEN :
 /*** unites de base nombres, idents,  strings ***/
 TOKEN  :
 {
-  < #chiffre : ["0"-"9"] >
-| < entier : (<chiffre>)+ > 
+  < #figure : ["0"-"9"] >
+| < integer : (<figure>)+ > 
 	{ entierLu = Integer.parseInt(image.toString());
         }
-| < #lettre: ["A"-"Z","a"-"z"] >
-| < ident : <lettre> (<lettre> | <chiffre>)* >
+| < #letter: ["A"-"Z","a"-"z"] >
+| < ident : <letter> (<letter> | <figure>)* >
 	{identLu =image.toString();	
 	}
-| < chaine : "\"" (~["\""])* "\"" | "'" (~["'"])* "'" >
+| < string : "\"" (~["\""])* "\"" | "'" (~["'"])* "'" >
 	{ chaineLue = image.toString();
 	 }
 }
@@ -146,9 +158,9 @@ TOKEN  :
 /**************************************/
 void analyse() : {}
 {
-   <PROGRAMME> <ident>	
+   <PROGRAM> <ident>	
    bloc()
-   <FPROGRAMME> 
+   <EPROGRAM> 
 }
 
 void bloc() : {}{
@@ -171,10 +183,10 @@ void defConst() : {}
 }
 
 void valConst() : {}{
-  <entier> 		
+  <integer> 		
  | <ident>		
- | <VRAI> 		
- | <FAUX> 		
+ | <TRUE> 		
+ | <FALSE> 		
 }
 
 
@@ -190,8 +202,8 @@ void declVar() : {}
 
 void type() :{}
 {
-   <ENTIER> 			
- | <BOOLEEN>	
+   <INT> 			
+ | <BOOLEAN>	
 }
 /*
  * Syntaxe des instructions.
@@ -216,38 +228,38 @@ void expression() : {}
 
 void simpleExpr() : {}
 {
-   terme() 
+   term() 
    (opAdd() 
-   terme()
+   term()
    {expression.operation();}
    )*
 } 
-void terme() : {}
+void term() : {}
 {
-  facteur() 
+  factor() 
   (opMul() 
-  facteur()
+  factor()
   {expression.operation();}	
   )*
 }
-void facteur() : {}
-{   primaire() 
-    |opNeg() primaire()
+void factor() : {}
+{   primary() 
+    |opNeg() primary()
     {expression.operation();}
 }
 
-void primaire (): {}
+void primary (): {}
 {
-   valeur()
+   value()
  | "(" expression() ")" 
  
 }
 
-void valeur () : {}
-{ <entier> {expression.addOperand(YakaTokenManager.entierLu);}		
+void value () : {}
+{ <integer> {expression.pushOperand(YakaTokenManager.entierLu);}		
  | <ident> 		
- | <VRAI> 		
- | <FAUX> 		
+ | <TRUE> 		
+ | <FALSE> 		
  
 }
 
@@ -263,21 +275,21 @@ void opRel() : {}
 
 void opAdd() : {}
 {
-    "+"	 {expression.addOperator('+');}	
-  |  "-" {expression.addOperator('-');} 
-  | <OU> 	
+    "+"	 {expression.pushOperator(constant.PLUS);}	
+  |  "-" {expression.pushOperator(constant.MINUS);} 
+  | <OR> 	
 }
 
 void opMul() : {}
 {
-  "*"    {expression.addOperator('*');}		
-  | "/"	 {expression.addOperator('/');}	
-  | <ET>	
+  "*"    {expression.pushOperator(constant.MUL);}		
+  | "/"	 {expression.pushOperator(constant.DIV);}	
+  | <AND>	
 } 
 
 void opNeg() : {}
-{ "-"    {expression.addOperator('_');}		
- | <NON>	
+{ "-"    {expression.pushOperator(constant.NEG);}		
+ | <NOT>	
 }
 
 
