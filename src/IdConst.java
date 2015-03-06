@@ -11,4 +11,8 @@ public class IdConst extends Ident {
 	public String toString() {
 		return "CONSTANT\t"+type+"\t"+"VALUE : "+value;
 	}
+	
+	public String getMethod(){
+		return "iconst " +value;
+	}
 }

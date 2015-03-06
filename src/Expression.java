@@ -31,11 +31,8 @@ public class Expression {
 			types.push(Type.ERROR);
 		else
 			types.push(this.identifiers.getIdent(id).type);
-		if(this.identifiers.getIdent(id) instanceof IdVar)
-			Yaka.yvm.writeln("iload "+ this.identifiers.getIdent(id).value);
-		else
-			Yaka.yvm.writeln("iconst "+ this.identifiers.getIdent(id).value);
-	}
+		Yaka.yvm.writeln(this.identifiers.getIdent(id).getMethod());
+		}
 	
 	public void pushOperand(int val) {
 		types.push(Type.INTEGER);

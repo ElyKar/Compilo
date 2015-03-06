@@ -8,4 +8,5 @@ public abstract class Ident {
 		type = t;
 	}
 	
+	abstract String getMethod();
 }
