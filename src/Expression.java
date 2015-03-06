@@ -11,6 +11,10 @@ public class Expression {
 		types = new ArrayDeque<>();
 	}
 	
+	public boolean typesEmpty(){
+		return this.types.isEmpty();
+	}
+	
 	public void pushOperator(char op) {
 		operators.push(op);
 	}

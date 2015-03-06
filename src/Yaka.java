@@ -40,7 +40,7 @@ public class Yaka implements YakaConstants {
       analyseur = new Yaka(input);
       analyseur.analyse();
                 System.out.println("analyse syntaxique r\u00e9ussie!");
-          if(expression.types().isEmpty())
+          if(expression.typesEmpty())
                 System.out.println("analyse s\u00e9mantique r\u00e9ussie!");
     } catch (ParseException e) {
       String msg = e.getMessage();
