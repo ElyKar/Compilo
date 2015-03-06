@@ -255,8 +255,8 @@ void primary (): {}
 void value () : {}
 { <integer> {expression.pushOperand(YakaTokenManager.intRead);}		
  | <ident> 		
- | <TRUE> 		
- | <FALSE> 		
+ | <TRUE> 	{expression.pushOperand(true);}
+ | <FALSE> 	{expression.pushOperand(false);}	
  
 }
 

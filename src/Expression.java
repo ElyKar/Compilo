@@ -4,9 +4,11 @@ import java.util.ArrayDeque;
 
 public class Expression {
 	private ArrayDeque<Character> operators;
+	private ArrayDeque<Character> types;
 	
 	public Expression() {
 		operators = new ArrayDeque<>();
+		types = new ArrayDeque<>();
 	}
 	
 	public void pushOperator(char op) {
@@ -14,7 +16,13 @@ public class Expression {
 	}
 	
 	public void pushOperand(int val) {
+		types.push('e');
 		Yaka.yvm.writeln("iconst "+val);
+	}
+	
+	public void pushOperand(boolean val) {
+		types.push('b');
+		Yaka.yvm.writeln("iconst " + String.valueOf(val).toUpperCase());
 	}
 	
 	public void iadd() {

@@ -326,9 +326,11 @@ public class Yaka implements YakaConstants {
       break;
     case TRUE:
       jj_consume_token(TRUE);
+                 expression.pushOperand(true);
       break;
     case FALSE:
       jj_consume_token(FALSE);
+                 expression.pushOperand(false);
       break;
     default:
       jj_la1[14] = jj_gen;
