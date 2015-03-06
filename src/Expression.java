@@ -45,6 +45,18 @@ public class Expression {
 		Yaka.yvm.writeln("ineg");
 	}
 	
+	public void iand() {
+		Yaka.yvm.writeln("iand");
+	}
+	
+	public void ior() {
+		Yaka.yvm.writeln("ior");
+	}
+	
+	public void inot() {
+		Yaka.yvm.writeln("inot");
+	}
+	
 	public void operation() {
 		char c = operators.pop();
 		switch(c) {
@@ -62,6 +74,15 @@ public class Expression {
 			break;
 		case Constant.NEG:
 			ineg();
+			break;
+		case Constant.AND:
+			iand();
+			break;
+		case Constant.OR:
+			ior();
+			break;
+		case Constant.NOT:
+			inot();
 			break;
 		default:
 			System.err.println("Unrecognized operator : "+c);

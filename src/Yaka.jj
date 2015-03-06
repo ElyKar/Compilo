@@ -274,19 +274,19 @@ void opAdd() : {}
 {
     <PLUS>	 {expression.pushOperator(Constant.PLUS);}	
   | <MINUS>  {expression.pushOperator(Constant.MINUS);} 
-  | <OR> 	
+  | <OR>  	 {expression.pushOperator(Constant.OR);}
 }
 
 void opMul() : {}
 {
     <MUL>    {expression.pushOperator(Constant.MUL);}		
   | <DIV>	 {expression.pushOperator(Constant.DIV);}	
-  | <AND>	
+  | <AND>	 {expression.pushOperator(Constant.AND);}
 } 
 
 void opNeg() : {}
 {  <MINUS>   {expression.pushOperator(Constant.NEG);}		
- | <NOT>	
+ | <NOT>	 {expression.pushOperator(Constant.NOT);}
 }
 
 
