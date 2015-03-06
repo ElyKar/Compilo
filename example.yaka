@@ -7,5 +7,6 @@ VAR ENTIER c1,c2;
 VAR BOOLEEN b1,b2;
 (aa+cc/2)/5;
 c1+3*c1-aa;
+c2+1;
 ba OU VRAI;
 FPROGRAMME

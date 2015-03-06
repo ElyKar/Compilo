@@ -34,7 +34,7 @@ public class Expression {
 		if(this.identifiers.getIdent(id) instanceof IdVar)
 			Yaka.yvm.writeln("iload "+ this.identifiers.getIdent(id).value);
 		else
-			Yaka.yvm.writeln("icosnt "+ this.identifiers.getIdent(id).value);
+			Yaka.yvm.writeln("iconst "+ this.identifiers.getIdent(id).value);
 	}
 	
 	public void pushOperand(int val) {
