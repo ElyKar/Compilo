@@ -71,16 +71,19 @@ public class Expression {
 			Yaka.yvm.writeln("ineg");
 	}
 	
-	public void iand() {
-		Yaka.yvm.writeln("iand");
+	public void iand() {		
+		if(testTypes(Constant.T_BOOLEAN))
+			Yaka.yvm.writeln("iand");
 	}
 	
 	public void ior() {
-		Yaka.yvm.writeln("ior");
+		if(testTypes(Constant.T_BOOLEAN))
+			Yaka.yvm.writeln("ior");
 	}
 	
 	public void inot() {
-		Yaka.yvm.writeln("inot");
+		if(testType(Constant.T_BOOLEAN))
+			Yaka.yvm.writeln("inot");
 	}
 	
 	public void operation() {
