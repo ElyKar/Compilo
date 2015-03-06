@@ -16,12 +16,12 @@ public class Expression {
 	}
 	
 	public void pushOperand(int val) {
-		types.push('e');
+		types.push(T_ENTIER);
 		Yaka.yvm.writeln("iconst "+val);
 	}
 	
 	public void pushOperand(boolean val) {
-		types.push('b');
+		types.push(T_BOOLEAN);
 		Yaka.yvm.writeln("iconst " + String.valueOf(val).toUpperCase());
 	}
 	
