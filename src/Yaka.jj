@@ -18,8 +18,8 @@ PARSER_BEGIN(Yaka)
 import java.io.IOException;
 
 public class Yaka {
-	public static Expression expression = new Expression();
-	public static TabIdent tabident = new TabIdent();
+	public static TabIdent tabIdent = new TabIdent();
+	public static Expression expression = new Expression(tabIdent);
 	public static Declaration declaration = new Declaration();
 	public static YVM yvm;
 	
@@ -178,33 +178,33 @@ void declConst() : {}
 void defConst() : {}
 {
 	
-  <ident>  	  	
+  <ident>  {tabIdent.setNextAffectation(YakaTokenManager.identRead);}	  	
    "=" valConst()
     
 }
 
 void valConst() : {}{
-  <integer> 		
- | <ident>		
- | <TRUE> 		
- | <FALSE> 		
+  <integer> {tabIdent.putConst(YakaTokenManager.intRead);}	
+ | <ident>	{tabIdent.putConst(YakaTokenManager.identRead);}
+ | <TRUE> 	{tabIdent.putConst(true);}
+ | <FALSE>  {tabIdent.putConst(false);}
 }
 
 
 void declVar() : {}
 {
   <VAR> type()	
-  <ident>		
+  <ident> {tabIdent.setVar(YakaTokenManager.identRead);}		
   ("," 
-      <ident>  
+      <ident> {tabIdent.setVar(YakaTokenManager.identRead);}
   )* ";"
 	
 }
 
 void type() :{}
 {
-   <INT> 			
- | <BOOLEAN>	
+   <INT> {tabIdent.setNextType(Type.INTEGER);}	
+ | <BOOLEAN> {tabIdent.setNextType(Type.BOOLEAN);}
 }
 /*
  * Syntaxe des instructions.
@@ -258,7 +258,7 @@ void primary (): {}
 
 void value () : {}
 { <integer> {expression.pushOperand(YakaTokenManager.intRead);}		
- | <ident> 		
+ | <ident> 	{expression.pushOperand(YakaTokenManager.identRead);}
  | <TRUE> 	{expression.pushOperand(true);}
  | <FALSE> 	{expression.pushOperand(false);}	
  

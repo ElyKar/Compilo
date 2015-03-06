@@ -1,7 +1,6 @@
 
 
 public class IdConst extends Ident {
-	private int value;
 	
 	public IdConst(Type t, int value) {
 		super(t);

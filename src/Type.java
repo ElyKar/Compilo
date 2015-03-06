@@ -1,4 +1,4 @@
 
 public enum Type {
-	BOOLEAN, INTEGER;
+	BOOLEAN, INTEGER, ERROR;
 }

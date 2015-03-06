@@ -2,8 +2,8 @@
 import java.io.IOException;
 
 public class Yaka implements YakaConstants {
-        public static Expression expression = new Expression();
-        public static TabIdent tabident = new TabIdent();
+        public static TabIdent tabIdent = new TabIdent();
+        public static Expression expression = new Expression(tabIdent);
         public static Declaration declaration = new Declaration();
         public static YVM yvm;
 
@@ -110,6 +110,7 @@ public class Yaka implements YakaConstants {
 
   static final public void defConst() throws ParseException {
     jj_consume_token(ident);
+            tabIdent.setNextAffectation(YakaTokenManager.identRead);
     jj_consume_token(46);
     valConst();
   }
@@ -118,15 +119,19 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case integer:
       jj_consume_token(integer);
+             tabIdent.putConst(YakaTokenManager.intRead);
       break;
     case ident:
       jj_consume_token(ident);
+                 tabIdent.putConst(YakaTokenManager.identRead);
       break;
     case TRUE:
       jj_consume_token(TRUE);
+                 tabIdent.putConst(true);
       break;
     case FALSE:
       jj_consume_token(FALSE);
+             tabIdent.putConst(false);
       break;
     default:
       jj_la1[3] = jj_gen;
@@ -139,6 +144,7 @@ public class Yaka implements YakaConstants {
     jj_consume_token(VAR);
     type();
     jj_consume_token(ident);
+           tabIdent.setVar(YakaTokenManager.identRead);
     label_4:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -151,6 +157,7 @@ public class Yaka implements YakaConstants {
       }
       jj_consume_token(44);
       jj_consume_token(ident);
+               tabIdent.setVar(YakaTokenManager.identRead);
     }
     jj_consume_token(45);
   }
@@ -159,9 +166,11 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case INT:
       jj_consume_token(INT);
+          tabIdent.setNextType(Type.INTEGER);
       break;
     case BOOLEAN:
       jj_consume_token(BOOLEAN);
+              tabIdent.setNextType(Type.BOOLEAN);
       break;
     default:
       jj_la1[5] = jj_gen;
@@ -328,6 +337,7 @@ public class Yaka implements YakaConstants {
       break;
     case ident:
       jj_consume_token(ident);
+                 expression.pushOperand(YakaTokenManager.identRead);
       break;
     case TRUE:
       jj_consume_token(TRUE);

@@ -4,11 +4,13 @@ import java.util.ArrayDeque;
 
 public class Expression {
 	private ArrayDeque<Character> operators;
-	private ArrayDeque<Character> types;
+	private ArrayDeque<Type> types;
+	private TabIdent identifiers;
 	
-	public Expression() {
+	public Expression(TabIdent id) {
 		operators = new ArrayDeque<>();
 		types = new ArrayDeque<>();
+		identifiers = id;
 	}
 	
 	public boolean typesEmpty(){
@@ -20,34 +22,45 @@ public class Expression {
 	}
 	
 	public void finLigne(){
-		if(types.peek() != Constant.T_ERROR)
+		if(types.peek() != Type.ERROR)
 			types.pop();
 	}
 	
+	public void pushOperand(String id){
+		if(!this.identifiers.contains(id))
+			types.push(Type.ERROR);
+		else
+			types.push(this.identifiers.getIdent(id).type);
+		if(this.identifiers.getIdent(id) instanceof IdVar)
+			Yaka.yvm.writeln("iload "+ this.identifiers.getIdent(id).value);
+		else
+			Yaka.yvm.writeln("icosnt "+ this.identifiers.getIdent(id).value);
+	}
+	
 	public void pushOperand(int val) {
-		types.push(Constant.T_ENTIER);
+		types.push(Type.INTEGER);
 		Yaka.yvm.writeln("iconst "+val);
 	}
 	
 	public void pushOperand(boolean val) {
-		types.push(Constant.T_BOOLEAN);
+		types.push(Type.BOOLEAN);
 		Yaka.yvm.writeln("iconst " + String.valueOf(val).toUpperCase());
 	}
-	public boolean testType(char c){
-		char t = types.pop();
+	public boolean testType(Type c){
+		Type t = types.pop();
 		if(t!=c){
-			types.push(Constant.T_ERROR);
+			types.push(Type.ERROR);
 			return false;
 		}
 		types.push(c);
 		return true;
 	}
 	
-	public boolean testTypes(char c){
-		char t2 = types.pop();
-		char t1 = types.pop();
+	public boolean testTypes(Type c){
+		Type t2 = types.pop();
+		Type t1 = types.pop();
 		if (t1!=c || t2!=c){
-			types.push(Constant.T_ERROR);
+			types.push(Type.ERROR);
 			return false;
 		}
 		types.push(c);
@@ -55,43 +68,43 @@ public class Expression {
 	}
 	
 	public void iadd() {
-		if(testTypes(Constant.T_ENTIER))
+		if(testTypes(Type.INTEGER))
 			Yaka.yvm.writeln("iadd");
 		//Todo : say error on line x
 	}
 	
 	public void imul() {
-		if(testTypes(Constant.T_ENTIER))
+		if(testTypes(Type.INTEGER))
 			Yaka.yvm.writeln("imul");
 	}
 	
 	public void idiv() {
-		if(testTypes(Constant.T_ENTIER))
+		if(testTypes(Type.INTEGER))
 			Yaka.yvm.writeln("idiv");
 	}
 	
 	public void isub() {
-		if(testTypes(Constant.T_ENTIER))
+		if(testTypes(Type.INTEGER))
 			Yaka.yvm.writeln("isub");
 	}
 	
 	public void ineg() {
-		if(testType(Constant.T_ENTIER))
+		if(testType(Type.INTEGER))
 			Yaka.yvm.writeln("ineg");
 	}
 	
 	public void iand() {		
-		if(testTypes(Constant.T_BOOLEAN))
+		if(testTypes(Type.BOOLEAN))
 			Yaka.yvm.writeln("iand");
 	}
 	
 	public void ior() {
-		if(testTypes(Constant.T_BOOLEAN))
+		if(testTypes(Type.BOOLEAN))
 			Yaka.yvm.writeln("ior");
 	}
 	
 	public void inot() {
-		if(testType(Constant.T_BOOLEAN))
+		if(testType(Type.BOOLEAN))
 			Yaka.yvm.writeln("inot");
 	}
 	
