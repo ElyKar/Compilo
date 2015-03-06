@@ -380,6 +380,7 @@ public class Yaka implements YakaConstants {
       break;
     case OR:
       jj_consume_token(OR);
+                  expression.pushOperator(Constant.OR);
       break;
     default:
       jj_la1[16] = jj_gen;
@@ -400,6 +401,7 @@ public class Yaka implements YakaConstants {
       break;
     case AND:
       jj_consume_token(AND);
+                  expression.pushOperator(Constant.AND);
       break;
     default:
       jj_la1[17] = jj_gen;
@@ -416,6 +418,7 @@ public class Yaka implements YakaConstants {
       break;
     case NOT:
       jj_consume_token(NOT);
+                  expression.pushOperator(Constant.NOT);
       break;
     default:
       jj_la1[18] = jj_gen;
