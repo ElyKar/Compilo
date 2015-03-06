@@ -55,9 +55,11 @@ public class Yaka {
     try {
       analyseur = new Yaka(input);
       analyseur.analyse();
-   	  	System.out.println("analyse syntaxique réussie!");
+  		System.out.println("analyse syntaxique réussie!");
    	  if(expression.typesEmpty())
    	  	System.out.println("analyse sémantique réussie!");
+   	  else
+   	  	System.out.println("analyse sémantique ratée!");
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\n"));
