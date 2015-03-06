@@ -24,25 +24,51 @@ public class Expression {
 		types.push(Constant.T_BOOLEAN);
 		Yaka.yvm.writeln("iconst " + String.valueOf(val).toUpperCase());
 	}
+	public boolean testType(char c){
+		char t = types.pop();
+		if(t!=c){
+			types.push(Constant.T_ERROR);
+			return false;
+		}
+		types.push(c);
+		return true;
+	}
+	
+	public boolean testTypes(char c){
+		char t2 = types.pop();
+		char t1 = types.pop();
+		if (t1!=c || t2!=c){
+			types.push(Constant.T_ERROR);
+			return false;
+		}
+		types.push(c);
+		return true;
+	}
 	
 	public void iadd() {
-		Yaka.yvm.writeln("iadd");
+		if(testTypes(Constant.T_ENTIER))
+			Yaka.yvm.writeln("iadd");
+		//Todo : say error on line x
 	}
 	
 	public void imul() {
-		Yaka.yvm.writeln("imul");
+		if(testTypes(Constant.T_ENTIER))
+			Yaka.yvm.writeln("imul");
 	}
 	
 	public void idiv() {
-		Yaka.yvm.writeln("idiv");
+		if(testTypes(Constant.T_ENTIER))
+			Yaka.yvm.writeln("idiv");
 	}
 	
 	public void isub() {
-		Yaka.yvm.writeln("isub");
+		if(testTypes(Constant.T_ENTIER))
+			Yaka.yvm.writeln("isub");
 	}
 	
 	public void ineg() {
-		Yaka.yvm.writeln("ineg");
+		if(testType(Constant.T_ENTIER))
+			Yaka.yvm.writeln("ineg");
 	}
 	
 	public void operation() {
