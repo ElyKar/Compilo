@@ -210,7 +210,7 @@ void type() :{}
  * Syntaxe des instructions.
  */
 void suiteExpr() : {}
-{ (expression() (";" (expression())? )*)? }
+{ (expression() (";"{expression.finLigne();} (expression())? )*)? }
 
 
 

@@ -19,6 +19,11 @@ public class Expression {
 		operators.push(op);
 	}
 	
+	public void finLigne(){
+		if(types.peek() != Constant.T_ERROR)
+			types.pop();
+	}
+	
 	public void pushOperand(int val) {
 		types.push(Constant.T_ENTIER);
 		Yaka.yvm.writeln("iconst "+val);

@@ -194,6 +194,7 @@ public class Yaka implements YakaConstants {
           break label_5;
         }
         jj_consume_token(45);
+                     expression.finLigne();
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case TRUE:
         case FALSE:
