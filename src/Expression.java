@@ -27,8 +27,10 @@ public class Expression {
 	}
 	
 	public void pushOperand(String id){
-		if(!this.identifiers.contains(id))
+		if(!this.identifiers.contains(id)) {
+			System.out.println("Error line "+Yaka.line+" : Unknown variable : "+id);
 			types.push(Type.ERROR);
+		}
 		else
 			types.push(this.identifiers.getIdent(id).type);
 		Yaka.yvm.writeln(this.identifiers.getIdent(id).getMethod());
@@ -45,7 +47,8 @@ public class Expression {
 	}
 	public boolean testType(Type c){
 		Type t = types.pop();
-		if(t!=c){
+		if(t != c){
+			System.out.println("Error on line "+Yaka.line+" : Expecting "+c+" : received "+t);
 			types.push(Type.ERROR);
 			return false;
 		}
@@ -56,8 +59,9 @@ public class Expression {
 	public boolean testTypes(Type c){
 		Type t2 = types.pop();
 		Type t1 = types.pop();
-		if (t1!=c || t2!=c){
+		if (t1!=c || t2!=c) {
 			types.push(Type.ERROR);
+			System.out.println("Error on line "+Yaka.line+" : Expecting "+c+","+c+" : received "+t1+","+t2);
 			return false;
 		}
 		types.push(c);
@@ -67,7 +71,6 @@ public class Expression {
 	public void iadd() {
 		if(testTypes(Type.INTEGER))
 			Yaka.yvm.writeln("iadd");
-		//Todo : say error on line x
 	}
 	
 	public void imul() {

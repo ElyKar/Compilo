@@ -5,6 +5,7 @@ public class Yaka implements YakaConstants {
         public static TabIdent tabIdent = new TabIdent();
         public static Expression expression = new Expression(tabIdent);
         public static Declaration declaration = new Declaration();
+        public static int line = 1;
         public static YVM yvm;
 
         static {
@@ -22,7 +23,7 @@ public class Yaka implements YakaConstants {
     java.io.InputStream input;
 
     if (args.length==1) {
-      System.out.print(args[args.length-1] + ": ");
+      System.out.println(args[args.length-1] + ": ");
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
       } catch (java.io.FileNotFoundException e) {

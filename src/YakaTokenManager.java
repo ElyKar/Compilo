@@ -124,6 +124,8 @@ static private int jjMoveStringLiteralDfa0_0()
 {
    switch(curChar)
    {
+      case 10:
+         return jjStopAtPos(0, 3);
       case 40:
          jjmatchedKind = 47;
          return jjMoveStringLiteralDfa1_0(0x20L);
@@ -850,7 +852,7 @@ public static Token getNextToken()
      {
        case 0:
          try { input_stream.backup(0);
-            while (curChar <= 32 && (0x100002600L & (1L << curChar)) != 0L)
+            while (curChar <= 32 && (0x100002200L & (1L << curChar)) != 0L)
                curChar = input_stream.BeginToken();
          }
          catch (java.io.IOException e1) { continue EOFLoop; }
@@ -926,6 +928,10 @@ static void SkipLexicalActions(Token matchedToken)
 {
    switch(jjmatchedKind)
    {
+      case 3 :
+         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
+ Yaka.line++;
+         break;
       case 7 :
          image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
               SwitchTo(DEFAULT);

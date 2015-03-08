@@ -21,6 +21,7 @@ public class Yaka {
 	public static TabIdent tabIdent = new TabIdent();
 	public static Expression expression = new Expression(tabIdent);
 	public static Declaration declaration = new Declaration();
+	public static int line = 1;
 	public static YVM yvm;
 	
 	static {
@@ -83,7 +84,7 @@ SKIP :
 {
   " "
 | "\t"
-| "\n"
+| "\n"{Yaka.line++;}
 | "\r"
 | "(*"   : IN_COMMENT
 }
