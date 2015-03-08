@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class Yaka {
 	public static TabIdent tabIdent = new TabIdent();
-	public static Expression expression = new Expression(tabIdent);
+	public static Expression expression = new Expression();
 	public static Declaration declaration = new Declaration();
 	public static int line = 1;
 	public static YVM yvm;
@@ -39,7 +39,7 @@ public class Yaka {
     java.io.InputStream input;
 
     if (args.length==1) {
-      System.out.print(args[args.length-1] + ": ");
+      System.out.println(args[args.length-1] + ": ");
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
       } catch (java.io.FileNotFoundException e) {
@@ -59,8 +59,8 @@ public class Yaka {
   		System.out.println("analyse syntaxique réussie!");
    	  if(expression.typesEmpty())
    	  	System.out.println("analyse sémantique réussie!");
-   	  else
-   	  	System.out.println("analyse sémantique ratée!");
+   	  else {
+   	  	System.out.println("analyse sémantique ratée!");   	 }
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\n"));
@@ -133,6 +133,12 @@ TOKEN :
 | < MINUS : "-">
 | < DIV : "/">
 | < MUL : "*">
+| < EQU : "=">
+| < DIF : "<>">
+| < INF : "<">
+| < EINF : "<=">
+| < SUP : ">">
+| < ESUP : ">=">
 
 }
 
@@ -222,7 +228,8 @@ void expression() : {}
 {
   simpleExpr() 
   (opRel() 
-  simpleExpr() 
+  simpleExpr()
+  {expression.operation();}
   )?
 }
 
@@ -267,12 +274,12 @@ void value () : {}
 
 void opRel() : {}
 {
-   "=" 		
- | "<>" 	
- | "<" 		
- | "<=" 	
- | ">" 		
- | ">=" 	
+   <EQU> 	{expression.pushOperator(Constant.EQU);}	
+ | <DIF>	{expression.pushOperator(Constant.DIF);}	
+ | <INF> 	{expression.pushOperator(Constant.INF);}	
+ | <EINF> 	{expression.pushOperator(Constant.EINF);}	
+ | <SUP> 	{expression.pushOperator(Constant.SUP);}	
+ | <ESUP> 	{expression.pushOperator(Constant.ESUP);}	
 } 
 
 void opAdd() : {}

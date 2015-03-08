@@ -71,15 +71,27 @@ public interface YakaConstants {
   /** RegularExpression Id. */
   int MUL = 38;
   /** RegularExpression Id. */
-  int figure = 39;
+  int EQU = 39;
   /** RegularExpression Id. */
-  int integer = 40;
+  int DIF = 40;
   /** RegularExpression Id. */
-  int letter = 41;
+  int INF = 41;
   /** RegularExpression Id. */
-  int ident = 42;
+  int EINF = 42;
   /** RegularExpression Id. */
-  int string = 43;
+  int SUP = 43;
+  /** RegularExpression Id. */
+  int ESUP = 44;
+  /** RegularExpression Id. */
+  int figure = 45;
+  /** RegularExpression Id. */
+  int integer = 46;
+  /** RegularExpression Id. */
+  int letter = 47;
+  /** RegularExpression Id. */
+  int ident = 48;
+  /** RegularExpression Id. */
+  int string = 49;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -127,6 +139,12 @@ public interface YakaConstants {
     "\"-\"",
     "\"/\"",
     "\"*\"",
+    "\"=\"",
+    "\"<>\"",
+    "\"<\"",
+    "\"<=\"",
+    "\">\"",
+    "\">=\"",
     "<figure>",
     "<integer>",
     "<letter>",
@@ -134,14 +152,8 @@ public interface YakaConstants {
     "<string>",
     "\",\"",
     "\";\"",
-    "\"=\"",
     "\"(\"",
     "\")\"",
-    "\"<>\"",
-    "\"<\"",
-    "\"<=\"",
-    "\">\"",
-    "\">=\"",
   };
 
 }

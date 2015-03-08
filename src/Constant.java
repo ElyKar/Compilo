@@ -13,5 +13,11 @@ public class Constant {
 	protected static final char AND = '&';
 	protected static final char OR = '|';
 	protected static final char NOT = '!';
+	protected static final char EQU = '=';
+	protected static final char DIF = '^';
+	protected static final char INF = '<';
+	protected static final char EINF = 'i';
+	protected static final char SUP = '>';
+	protected static final char ESUP = 's';
 
 }

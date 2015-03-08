@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 
 public class Expression {
 	private ArrayDeque<Character> operators;
-	private ArrayDeque<Type> types;
+	public ArrayDeque<Type> types;
 	
 	public Expression() {
 		operators = new ArrayDeque<>();
@@ -116,32 +116,32 @@ public class Expression {
 	}
 	
 	public void iegal() {
-		if(updateType(Type.INTEGER, Type.BOOLEAN))
+		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.writeln("iegal");
 	}
 	
 	public void idiff() {
-		if(updateType(Type.INTEGER, Type.BOOLEAN))
+		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.writeln("idiff");
 	}
 	
 	public void iinf() {
-		if(updateType(Type.INTEGER, Type.BOOLEAN))
+		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.writeln("iinf");
 	}
 	
 	public void iinfegal() {
-		if(updateType(Type.INTEGER, Type.BOOLEAN))
+		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.writeln("iinfegal");
 	}
 	
 	public void isup() {
-		if(updateType(Type.INTEGER, Type.BOOLEAN))
+		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.writeln("isup");
 	}
 	
 	public void isupegal() {
-		if(updateType(Type.INTEGER, Type.BOOLEAN))
+		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.writeln("isupegal");
 	}
 	

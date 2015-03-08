@@ -9,4 +9,5 @@ VAR BOOLEEN b1,b2;
 c1+3*c1-aa;
 c2+1;
 ba OU VRAI;
+c1<=(c2+4);
 FPROGRAMME
