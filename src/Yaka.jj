@@ -178,33 +178,33 @@ void declConst() : {}
 void defConst() : {}
 {
 	
-  <ident>  {tabIdent.setNextAffectation(YakaTokenManager.identRead);}	  	
+  <ident>  {declaration.setNextAffectation(YakaTokenManager.identRead);}	  	
    "=" valConst()
     
 }
 
 void valConst() : {}{
-  <integer> {tabIdent.putConst(YakaTokenManager.intRead);}	
- | <ident>	{tabIdent.putConst(YakaTokenManager.identRead);}
- | <TRUE> 	{tabIdent.putConst(true);}
- | <FALSE>  {tabIdent.putConst(false);}
+  <integer> {declaration.putConst(YakaTokenManager.intRead);}	
+ | <ident>	{declaration.putConst(YakaTokenManager.identRead);}
+ | <TRUE> 	{declaration.putConst(true);}
+ | <FALSE>  {declaration.putConst(false);}
 }
 
 
 void declVar() : {}
 {
   <VAR> type()	
-  <ident> {tabIdent.setVar(YakaTokenManager.identRead);}		
+  <ident> {declaration.setVar(YakaTokenManager.identRead);}		
   ("," 
-      <ident> {tabIdent.setVar(YakaTokenManager.identRead);}
+      <ident> {declaration.setVar(YakaTokenManager.identRead);}
   )* ";"
 	
 }
 
 void type() :{}
 {
-   <INT> {tabIdent.setNextType(Type.INTEGER);}	
- | <BOOLEAN> {tabIdent.setNextType(Type.BOOLEAN);}
+   <INT> {declaration.setNextType(Type.INTEGER);}	
+ | <BOOLEAN> {declaration.setNextType(Type.BOOLEAN);}
 }
 /*
  * Syntaxe des instructions.
