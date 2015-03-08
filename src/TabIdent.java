@@ -5,9 +5,6 @@ import java.util.Map;
 
 public class TabIdent {
 	private Map<String, Ident> table;
-	private String nextAffectation;
-	private Type nextType;
-	private int nextOffset = -2;
 	
 	public TabIdent(int size) {
 		table = new HashMap<>(size);
