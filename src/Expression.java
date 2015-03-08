@@ -5,12 +5,10 @@ import java.util.ArrayDeque;
 public class Expression {
 	private ArrayDeque<Character> operators;
 	private ArrayDeque<Type> types;
-	private TabIdent identifiers;
 	
-	public Expression(TabIdent id) {
+	public Expression() {
 		operators = new ArrayDeque<>();
 		types = new ArrayDeque<>();
-		identifiers = id;
 	}
 	
 	public boolean typesEmpty(){
@@ -27,13 +25,13 @@ public class Expression {
 	}
 	
 	public void pushOperand(String id){
-		if(!this.identifiers.contains(id)) {
-			System.out.println("Error line "+Yaka.line+" : Unknown variable : "+id);
+		if(!Yaka.tabIdent.contains(id)) {
+			System.out.println("Error on line "+Yaka.line+" : Unknown variable : "+id);
 			types.push(Type.ERROR);
 		}
 		else
-			types.push(this.identifiers.getIdent(id).type);
-		Yaka.yvm.writeln(this.identifiers.getIdent(id).getMethod());
+			types.push(Yaka.tabIdent.getIdent(id).type);
+		Yaka.yvm.writeln(Yaka.tabIdent.getIdent(id).getMethod());
 		}
 	
 	public void pushOperand(int val) {
@@ -45,18 +43,19 @@ public class Expression {
 		types.push(Type.BOOLEAN);
 		Yaka.yvm.writeln("iconst " + String.valueOf(val).toUpperCase());
 	}
-	public boolean testType(Type c){
+	
+	public boolean updateType(Type c, Type r){
 		Type t = types.pop();
 		if(t != c){
 			System.out.println("Error on line "+Yaka.line+" : Expecting "+c+" : received "+t);
 			types.push(Type.ERROR);
 			return false;
 		}
-		types.push(c);
+		types.push(r);
 		return true;
 	}
 	
-	public boolean testTypes(Type c){
+	public boolean updateTypes(Type c, Type r){
 		Type t2 = types.pop();
 		Type t1 = types.pop();
 		if (t1!=c || t2!=c) {
@@ -64,48 +63,86 @@ public class Expression {
 			System.out.println("Error on line "+Yaka.line+" : Expecting "+c+","+c+" : received "+t1+","+t2);
 			return false;
 		}
-		types.push(c);
+		types.push(r);
 		return true;
 	}
 	
+	public boolean updateTypes(Type c) {
+		return updateTypes(c, c);
+	}
+	
+	public boolean updateType(Type c) {
+		return updateType(c, c);
+	}
+	
 	public void iadd() {
-		if(testTypes(Type.INTEGER))
+		if(updateTypes(Type.INTEGER))
 			Yaka.yvm.writeln("iadd");
 	}
 	
 	public void imul() {
-		if(testTypes(Type.INTEGER))
+		if(updateTypes(Type.INTEGER))
 			Yaka.yvm.writeln("imul");
 	}
 	
 	public void idiv() {
-		if(testTypes(Type.INTEGER))
+		if(updateTypes(Type.INTEGER))
 			Yaka.yvm.writeln("idiv");
 	}
 	
 	public void isub() {
-		if(testTypes(Type.INTEGER))
+		if(updateTypes(Type.INTEGER))
 			Yaka.yvm.writeln("isub");
 	}
 	
 	public void ineg() {
-		if(testType(Type.INTEGER))
+		if(updateType(Type.INTEGER))
 			Yaka.yvm.writeln("ineg");
 	}
 	
 	public void iand() {		
-		if(testTypes(Type.BOOLEAN))
+		if(updateTypes(Type.BOOLEAN))
 			Yaka.yvm.writeln("iand");
 	}
 	
 	public void ior() {
-		if(testTypes(Type.BOOLEAN))
+		if(updateTypes(Type.BOOLEAN))
 			Yaka.yvm.writeln("ior");
 	}
 	
 	public void inot() {
-		if(testType(Type.BOOLEAN))
+		if(updateType(Type.BOOLEAN))
 			Yaka.yvm.writeln("inot");
+	}
+	
+	public void iegal() {
+		if(updateType(Type.INTEGER, Type.BOOLEAN))
+			Yaka.yvm.writeln("iegal");
+	}
+	
+	public void idiff() {
+		if(updateType(Type.INTEGER, Type.BOOLEAN))
+			Yaka.yvm.writeln("idiff");
+	}
+	
+	public void iinf() {
+		if(updateType(Type.INTEGER, Type.BOOLEAN))
+			Yaka.yvm.writeln("iinf");
+	}
+	
+	public void iinfegal() {
+		if(updateType(Type.INTEGER, Type.BOOLEAN))
+			Yaka.yvm.writeln("iinfegal");
+	}
+	
+	public void isup() {
+		if(updateType(Type.INTEGER, Type.BOOLEAN))
+			Yaka.yvm.writeln("isup");
+	}
+	
+	public void isupegal() {
+		if(updateType(Type.INTEGER, Type.BOOLEAN))
+			Yaka.yvm.writeln("isupegal");
 	}
 	
 	public void operation() {
@@ -134,6 +171,24 @@ public class Expression {
 			break;
 		case Constant.NOT:
 			inot();
+			break;
+		case Constant.EQU:
+			iegal();
+			break;
+		case Constant.DIF:
+			idiff();
+			break;
+		case Constant.INF:
+			iinf();
+			break;
+		case Constant.EINF:
+			iinfegal();
+			break;
+		case Constant.SUP:
+			isup();
+			break;
+		case Constant.ESUP:
+			isupegal();
 			break;
 		default:
 			System.err.println("Unrecognized operator : "+c);
