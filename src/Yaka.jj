@@ -278,7 +278,7 @@ void instruction() : {}
 
 void affectation() : {}
 {
-	<ident> "=" expression()
+	<ident>{declaration.setNextAffectation(YakaTokenManager.identRead);} "=" expression() {declaration.putVar();}
 }
 
 void lecture() : {}

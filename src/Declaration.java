@@ -23,6 +23,14 @@ public class Declaration {
 		}
 	}
 	
+	public void putVar(){
+		if(!Yaka.tabIdent.contains(this.nextAffectation))
+			// Semantic exception
+			;
+		else
+			Yaka.yvm.istore(Yaka.tabIdent.getIdent(this.nextAffectation).getValue());
+	}
+	
 	public void setVar(String id){
 		Ident toPush = new IdVar(this.nextType, nextOffset );
 		nextOffset-=2;
