@@ -12,5 +12,9 @@ public abstract class Ident {
 		return value;
 	}
 	
+	public Type getType() {
+		return type;
+	}
+	
 	abstract void write();
 }
