@@ -19,7 +19,7 @@ public class Yaka implements YakaConstants {
       {
                 Yaka.yvm = new YVM(args[args.length-1]);
       } catch (IOException e) {
-                System.out.println("Impossible de cr\u00e9er le fichier "+args[args.length-1]+".yvm");
+                System.out.println("Impossible de cr\u00c3\u00a9er le fichier "+args[args.length-1]+".yvm");
                 return;
       }
       try {
@@ -38,15 +38,15 @@ public class Yaka implements YakaConstants {
     try {
       analyseur = new Yaka(input);
       analyseur.analyse();
-                System.out.println("analyse syntaxique r\u00e9ussie!");
+                System.out.println("analyse syntaxique r\u00c3\u00a9ussie!");
           if(expression.typesEmpty())
-                System.out.println("analyse s\u00e9mantique r\u00e9ussie!");
+                System.out.println("analyse s\u00c3\u00a9mantique r\u00c3\u00a9ussie!");
           else {
-                System.out.println("analyse s\u00e9mantique rat\u00e9e!");
+                System.out.println("analyse s\u00c3\u00a9mantique rat\u00c3\u00a9e!");
          }
     } catch (ParseException e) {
       String msg = e.getMessage();
-      msg = msg.substring(0,msg.indexOf("\u005cn"));
+      msg = msg.substring(0,msg.indexOf("\n"));
       System.out.println("Erreur de syntaxe : "+msg);
     }
   }
@@ -89,7 +89,7 @@ public class Yaka implements YakaConstants {
       declVar();
     }
   declaration.setStack();
-    suiteExpr();
+    suiteInstr();
   }
 
   static final public void declConst() throws ParseException {
@@ -185,47 +185,79 @@ public class Yaka implements YakaConstants {
 /*
  * Syntaxe des instructions.
  */
-  static final public void suiteExpr() throws ParseException {
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case TRUE:
-    case FALSE:
-    case NOT:
-    case MINUS:
-    case integer:
-    case ident:
-    case 52:
-      expression();
-      label_5:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case 51:
-          ;
-          break;
-        default:
-          jj_la1[6] = jj_gen;
-          break label_5;
-        }
-        jj_consume_token(51);
-                     expression.finLigne();
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case TRUE:
-        case FALSE:
-        case NOT:
-        case MINUS:
-        case integer:
-        case ident:
-        case 52:
-          expression();
-          break;
-        default:
-          jj_la1[7] = jj_gen;
-          ;
-        }
+  static final public void suiteInstr() throws ParseException {
+    instruction();
+    label_5:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case 51:
+        ;
+        break;
+      default:
+        jj_la1[6] = jj_gen;
+        break label_5;
       }
+      jj_consume_token(51);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case WRITE:
+      case READ:
+      case GOTOLINE:
+      case ident:
+        instruction();
+        break;
+      default:
+        jj_la1[7] = jj_gen;
+
+      }
+    }
+  }
+
+  static final public void instruction() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case ident:
+      affectation();
+      break;
+    case READ:
+      lecture();
+      break;
+    case WRITE:
+    case GOTOLINE:
+      ecriture();
       break;
     default:
       jj_la1[8] = jj_gen;
-      ;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  static final public void affectation() throws ParseException {
+    jj_consume_token(ident);
+    jj_consume_token(EQU);
+    expression();
+  }
+
+  static final public void lecture() throws ParseException {
+    jj_consume_token(READ);
+    jj_consume_token(ident);
+
+  }
+
+  static final public void ecriture() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case WRITE:
+      jj_consume_token(WRITE);
+      jj_consume_token(ident);
+
+      break;
+    case GOTOLINE:
+      jj_consume_token(GOTOLINE);
+
+      break;
+    default:
+      jj_la1[9] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
   }
 
@@ -246,7 +278,7 @@ public class Yaka implements YakaConstants {
    expression.operation();
       break;
     default:
-      jj_la1[9] = jj_gen;
+      jj_la1[10] = jj_gen;
       ;
     }
   }
@@ -262,7 +294,7 @@ public class Yaka implements YakaConstants {
         ;
         break;
       default:
-        jj_la1[10] = jj_gen;
+        jj_la1[11] = jj_gen;
         break label_6;
       }
       opAdd();
@@ -282,7 +314,7 @@ public class Yaka implements YakaConstants {
         ;
         break;
       default:
-        jj_la1[11] = jj_gen;
+        jj_la1[12] = jj_gen;
         break label_7;
       }
       opMul();
@@ -307,7 +339,7 @@ public class Yaka implements YakaConstants {
      expression.operation();
       break;
     default:
-      jj_la1[12] = jj_gen;
+      jj_la1[13] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -327,7 +359,7 @@ public class Yaka implements YakaConstants {
       jj_consume_token(53);
       break;
     default:
-      jj_la1[13] = jj_gen;
+      jj_la1[14] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -352,7 +384,7 @@ public class Yaka implements YakaConstants {
                  expression.pushOperand(false);
       break;
     default:
-      jj_la1[14] = jj_gen;
+      jj_la1[15] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -385,7 +417,7 @@ public class Yaka implements YakaConstants {
                  expression.pushOperator(Constant.ESUP);
       break;
     default:
-      jj_la1[15] = jj_gen;
+      jj_la1[16] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -406,7 +438,7 @@ public class Yaka implements YakaConstants {
                   expression.pushOperator(Constant.OR);
       break;
     default:
-      jj_la1[16] = jj_gen;
+      jj_la1[17] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -427,7 +459,7 @@ public class Yaka implements YakaConstants {
                   expression.pushOperator(Constant.AND);
       break;
     default:
-      jj_la1[17] = jj_gen;
+      jj_la1[18] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -444,45 +476,39 @@ public class Yaka implements YakaConstants {
                   expression.pushOperator(Constant.NOT);
       break;
     default:
-      jj_la1[18] = jj_gen;
+      jj_la1[19] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
   }
 
   static private boolean jj_initialized_once = false;
-  /** Generated Token Manager. */
   static public YakaTokenManager token_source;
   static SimpleCharStream jj_input_stream;
-  /** Current token. */
-  static public Token token;
-  /** Next token. */
-  static public Token jj_nt;
+  static public Token token, jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[19];
+  static final private int[] jj_la1 = new int[20];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
-      jj_la1_init_0();
-      jj_la1_init_1();
+      jj_la1_0();
+      jj_la1_1();
    }
-   private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x1120000,0x1120000,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
+   private static void jj_la1_0() {
+      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x0,0x0,0x0,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
    }
-   private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x40000,0x14000,0x40000,0x0,0x80000,0x114010,0x114010,0x1f80,0x18,0x60,0x114010,0x114000,0x14000,0x1f80,0x18,0x60,0x10,};
+   private static void jj_la1_1() {
+      jj_la1_1 = new int[] {0x0,0x0,0x40000,0x14000,0x40000,0x0,0x80000,0x10007,0x10007,0x5,0x1f80,0x18,0x60,0x114010,0x114000,0x14000,0x1f80,0x18,0x60,0x10,};
    }
 
-  /** Constructor with InputStream. */
   public Yaka(java.io.InputStream stream) {
      this(stream, null);
   }
-  /** Constructor with InputStream and supplied encoding */
   public Yaka(java.io.InputStream stream, String encoding) {
     if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser.  ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("ERROR: Second call to constructor of static parser.  You must");
+      System.out.println("       either use ReInit() or set the JavaCC option STATIC to false");
       System.out.println("       during parser generation.");
       throw new Error();
     }
@@ -492,28 +518,25 @@ public class Yaka implements YakaConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
   }
 
-  /** Reinitialise. */
   static public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
-  /** Reinitialise. */
   static public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
   }
 
-  /** Constructor. */
   public Yaka(java.io.Reader stream) {
     if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("ERROR: Second call to constructor of static parser.  You must");
+      System.out.println("       either use ReInit() or set the JavaCC option STATIC to false");
       System.out.println("       during parser generation.");
       throw new Error();
     }
@@ -523,24 +546,22 @@ public class Yaka implements YakaConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
   }
 
-  /** Reinitialise. */
   static public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
   }
 
-  /** Constructor with generated Token Manager. */
   public Yaka(YakaTokenManager tm) {
     if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("ERROR: Second call to constructor of static parser.  You must");
+      System.out.println("       either use ReInit() or set the JavaCC option STATIC to false");
       System.out.println("       during parser generation.");
       throw new Error();
     }
@@ -549,19 +570,18 @@ public class Yaka implements YakaConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
   }
 
-  /** Reinitialise. */
   public void ReInit(YakaTokenManager tm) {
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 20; i++) jj_la1[i] = -1;
   }
 
-  static private Token jj_consume_token(int kind) throws ParseException {
+  static final private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -575,8 +595,6 @@ public class Yaka implements YakaConstants {
     throw generateParseException();
   }
 
-
-/** Get the next Token. */
   static final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -585,7 +603,6 @@ public class Yaka implements YakaConstants {
     return token;
   }
 
-/** Get the specific Token. */
   static final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
@@ -595,26 +612,28 @@ public class Yaka implements YakaConstants {
     return t;
   }
 
-  static private int jj_ntk() {
+  static final private int jj_ntk() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
     else
       return (jj_ntk = jj_nt.kind);
   }
 
-  static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  static private java.util.Vector jj_expentries = new java.util.Vector();
   static private int[] jj_expentry;
   static private int jj_kind = -1;
 
-  /** Generate ParseException. */
   static public ParseException generateParseException() {
-    jj_expentries.clear();
+    jj_expentries.removeAllElements();
     boolean[] la1tokens = new boolean[54];
+    for (int i = 0; i < 54; i++) {
+      la1tokens[i] = false;
+    }
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 19; i++) {
+    for (int i = 0; i < 20; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -630,21 +649,19 @@ public class Yaka implements YakaConstants {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
-        jj_expentries.add(jj_expentry);
+        jj_expentries.addElement(jj_expentry);
       }
     }
     int[][] exptokseq = new int[jj_expentries.size()][];
     for (int i = 0; i < jj_expentries.size(); i++) {
-      exptokseq[i] = jj_expentries.get(i);
+      exptokseq[i] = (int[])jj_expentries.elementAt(i);
     }
     return new ParseException(token, exptokseq, tokenImage);
   }
 
-  /** Enable tracing. */
   static final public void enable_tracing() {
   }
 
-  /** Disable tracing. */
   static final public void disable_tracing() {
   }
 
