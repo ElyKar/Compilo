@@ -18,7 +18,7 @@ iload -4
 iconst 1
 iadd
 iconst -1
-iconst TRUE
+iconst -1
 ior
 iload -2
 iload -4
