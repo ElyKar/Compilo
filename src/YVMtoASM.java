@@ -24,6 +24,14 @@ public class YVMtoASM {
 		Method methodToCall = null;
 		List<Integer> args = new ArrayList<Integer>();
 		Method[] methods = null;
+		
+		//get YVMAsm method list
+		try {
+			methods = this.yvmasm.getClass().getMethods();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		
 		while((line = this.reader.readLine()) != null) {
 			//separate tokens by space
 			tokenizer = new StringTokenizer(line, " ");
@@ -37,16 +45,15 @@ public class YVMtoASM {
 			}
 			
 			//find the method to call
-			try {
-				methods = this.yvmasm.getClass().getMethods();
-			} catch (SecurityException e) {
-				e.printStackTrace();
-			}
 			for(Method m : methods) {
 				if(m.getName().equals(methodName)) {
 					methodToCall = m;
 					break;
 				}
+			}
+			
+			if(methodToCall == null) {
+				throw new IllegalArgumentException("No " + methodName + " method in YVMasm");
 			}
 			
 			//call the appropriate YVMasm method
@@ -57,8 +64,9 @@ public class YVMtoASM {
 				e.printStackTrace();
 			}
 			
-			//clear the token list for the next line
+			//clear the argument list for the next line
 			args.clear();
+			methodToCall = null;
 		}
 		this.reader.close();
 	}
