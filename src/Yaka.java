@@ -162,7 +162,7 @@ public class Yaka implements YakaConstants {
 
   static final public void defConst() throws ParseException {
     jj_consume_token(ident);
-            declaration.setNextAffectation(YakaTokenManager.identRead);
+            declaration.setNextIdent(YakaTokenManager.identRead);
     jj_consume_token(EQU);
     valConst();
   }
@@ -282,10 +282,10 @@ public class Yaka implements YakaConstants {
 
   static final public void affectation() throws ParseException {
     jj_consume_token(ident);
-                declaration.setNextAffectation(YakaTokenManager.identRead);
+                 declaration.setNextIdent(YakaTokenManager.identRead);
     jj_consume_token(EQU);
     expression();
-                                                                                               declaration.putVar();
+                      declaration.putVar();
   }
 
   static final public void lecture() throws ParseException {

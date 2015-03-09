@@ -235,7 +235,7 @@ void declConst() : {}
 void defConst() : {}
 {
 	
-  <ident>  {declaration.setNextAffectation(YakaTokenManager.identRead);}	  	
+  <ident>  {declaration.setNextIdent(YakaTokenManager.identRead);}	  	
    "=" valConst()
     
 }
