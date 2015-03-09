@@ -1,8 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 public class Declaration {
 	private String nextAffectation;
 	private Type nextType;
