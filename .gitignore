@@ -3,4 +3,5 @@
 .project
 .settings
 .gitignore
-output.yvm
+*.yvm
+*.asm

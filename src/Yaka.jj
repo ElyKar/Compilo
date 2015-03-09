@@ -231,17 +231,12 @@ void affectation() : {}
 
 void lecture() : {}
 {
-	<READ> <ident> {yvm.writeln("lireEnt " + tabIdent.getIdent(YakaTokenManager.identRead).getValue());}
+	<READ>"(" <ident> {yvm.writeln("lireEnt " + tabIdent.getIdent(YakaTokenManager.identRead).getValue());}")"
 }
 
 void ecriture() : {}
 {
-	(<WRITE>
-		"("
-		(("\"" <ident> {yvm.writeln("ecrireChaine \"" + YakaTokenManager.identRead + "\"");} "\"")
-		| (expression() {yvm.writeln("ecrireEnt");}))
-		")"
-	)
+	(<WRITE>"("((<string> {yvm.writeln("ecrireChaine " + YakaTokenManager.stringRead);})|(expression() {yvm.writeln("ecrireEnt");}))")")
 	| (<GOTOLINE> {yvm.writeln("aLaLigne");})
 }
 
