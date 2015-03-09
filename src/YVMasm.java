@@ -14,6 +14,10 @@ public class YVMasm extends YVM {
 	
 	public void entete() {
 		StringBuilder entete = new StringBuilder();
+		entete.append("\t;entete\n");
+		entete.append("\textrn lirent:proc, ecrent:proc\n");
+		entete.append("\textrn ecrbool:proc\n");
+		entete.append("\textrn ecrchn:proc, ligsuiv:proc\n");
 		entete.append(".model SMALL\n");
 		entete.append(".586\n\n");
 		entete.append(".CODE\n");
