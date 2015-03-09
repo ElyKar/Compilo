@@ -9,7 +9,7 @@ public class IdVar extends Ident {
 	
 	@Override
 	public String toString() {
-		return "VARIABLE\t"+type+"\t"+"offset : "+value;
+		return "VARIABLE\t"+type+"\t"+"offset\t"+value;
 	}
 
 	public String getMethod(){

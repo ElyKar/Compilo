@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+// CONFIGURE THE WORKSPACE FOR JAVA >= 1.7 !!
 public class YVMtoASM {
 	private YVMasm yvmasm;
 	private BufferedReader reader;

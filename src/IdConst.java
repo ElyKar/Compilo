@@ -9,7 +9,7 @@ public class IdConst extends Ident {
 	
 	@Override
 	public String toString() {
-		return "CONSTANT\t"+type+"\t"+"VALUE : "+value;
+		return "CONSTANT\t"+type+"\t"+"VALUE\t"+value;
 	}
 	
 	public String getMethod(){

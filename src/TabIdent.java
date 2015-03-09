@@ -30,7 +30,7 @@ public class TabIdent {
 	public String toString() {
 		StringBuilder res = new StringBuilder();
 		for (Map.Entry<String, Ident> m : table.entrySet()) {
-			res.append(m.getKey()+"\t : "+m.getValue()+"\t\n");
+			res.append(m.getKey()+"\t"+m.getValue()+"\t\n");
 		}
 		return res.toString();
 	}
