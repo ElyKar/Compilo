@@ -1,11 +1,14 @@
 PROGRAMME entreeSortie
 VAR ENTIER x,y,z;
-ECRIRE(" x= ");
+ECRIRE("x= ");
 LIRE(x);
 ALALIGNE;
-ECRIRE(" x+y=");
+ECRIRE("y= ");
+LIRE(y);
+ALALIGNE;
+ECRIRE("x+y=");
 ECRIRE(x+y);
 ALALIGNE;
-(x+y/2)/5;
-(y+3*y-4;
+z=(x+y/2)/5;
+x=y+3*y-4;
 FPROGRAMME
