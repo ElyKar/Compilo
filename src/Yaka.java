@@ -199,10 +199,16 @@ public class Yaka implements YakaConstants {
       }
       jj_consume_token(51);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case TRUE:
+      case FALSE:
+      case NOT:
       case WRITE:
       case READ:
       case GOTOLINE:
+      case MINUS:
+      case integer:
       case ident:
+      case 52:
         instruction();
         break;
       default:
@@ -220,8 +226,14 @@ public class Yaka implements YakaConstants {
     case READ:
       lecture();
       break;
+    case TRUE:
+    case FALSE:
+    case NOT:
     case WRITE:
     case GOTOLINE:
+    case MINUS:
+    case integer:
+    case 52:
       ecriture();
       break;
     default:
@@ -247,12 +259,24 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case WRITE:
       jj_consume_token(WRITE);
+      jj_consume_token(52);
       jj_consume_token(ident);
 
       break;
+    case TRUE:
+    case FALSE:
+    case NOT:
+    case MINUS:
+    case integer:
+    case ident:
+    case 52:
+      expression();
+
+      jj_consume_token(53);
+      break;
     case GOTOLINE:
       jj_consume_token(GOTOLINE);
-
+                      yvm.writeln("");
       break;
     default:
       jj_la1[9] = jj_gen;
@@ -496,10 +520,10 @@ public class Yaka implements YakaConstants {
       jj_la1_1();
    }
    private static void jj_la1_0() {
-      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x0,0x0,0x0,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
+      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x1120000,0x1120000,0x1120000,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
    }
    private static void jj_la1_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x40000,0x14000,0x40000,0x0,0x80000,0x10007,0x10007,0x5,0x1f80,0x18,0x60,0x114010,0x114000,0x14000,0x1f80,0x18,0x60,0x10,};
+      jj_la1_1 = new int[] {0x0,0x0,0x40000,0x14000,0x40000,0x0,0x80000,0x114017,0x114017,0x114015,0x1f80,0x18,0x60,0x114010,0x114000,0x14000,0x1f80,0x18,0x60,0x10,};
    }
 
   public Yaka(java.io.InputStream stream) {
