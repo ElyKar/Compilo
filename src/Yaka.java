@@ -8,15 +8,6 @@ public class Yaka implements YakaConstants {
         public static int line = 1;
         public static YVM yvm;
 
-        static {
-                try {
-                        yvm = new YVM();
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-        }
-
-
 
   public static void main(String args[]) {
     Yaka analyseur;
@@ -24,6 +15,13 @@ public class Yaka implements YakaConstants {
 
     if (args.length==1) {
       System.out.println(args[args.length-1] + ": ");
+      try
+      {
+                Yaka.yvm = new YVM(args[args.length-1]);
+      } catch (IOException e) {
+                System.out.println("Impossible de cr\u00e9er le fichier "+args[args.length-1]+".yvm");
+                return;
+      }
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
       } catch (java.io.FileNotFoundException e) {
@@ -45,7 +43,6 @@ public class Yaka implements YakaConstants {
                 System.out.println("analyse s\u00e9mantique r\u00e9ussie!");
           else {
                 System.out.println("analyse s\u00e9mantique rat\u00e9e!");
-                System.out.println(expression.types);
          }
     } catch (ParseException e) {
       String msg = e.getMessage();
