@@ -4,6 +4,8 @@ import java.io.IOException;
 
 public class YVMasm extends YVM {
 	
+	int msgcounter = 0;
+	
 	public YVMasm(String fileName) throws IOException {
 		file = new FileOutputStream(fileName+".asm");
 	}
@@ -192,6 +194,37 @@ public class YVMasm extends YVM {
 		push(0);
 	}
 	
+	/********************
+	 * Fonctions inout
+	 *******************/
+	
+	public void lireEnt(int offset){
+		writeln("\tlea dx,[bp-2]");
+		writeln("\tpush dx");
+		writeln("\tcall lirent");
+	}
+	
+	public void aLaLigne(){
+		writeln("\tcall ligsuiv");
+	}
+	
+	public void ecrireChaine(String s){
+		writeln(".DATA");
+		writeln("\tmess"+msgcounter+" DB " + s.substring(0, s.length() -1) + "$\"");
+		writeln(".CODE");
+		writeln("\tlea dx,mess"+msgcounter);
+		pushDx();
+		writeln("\tcall ecrch");
+		msgcounter++;
+	}
+	
+	public void ecrireEnt(){
+		writeln("\tcall ecrent");
+	}
+	
+	public void ecrireBool(){
+		writeln("\tcall ecrbool");
+	}
 	/*********************
 	 * Helper functions
 	 ********************/
@@ -201,63 +234,66 @@ public class YVMasm extends YVM {
 	}
 	
 	private void push(int c) {
-		writeln("\tpush "+c+"\n");
+		writeln("\tpush "+c);
 	}
 	
 	private void pushAx() {
-		writeln("\tpush ax\n");
+		writeln("\tpush ax");
 	}
-	
+
+	private void pushDx() {
+		writeln("\tpush dx");
+	}
 	private void pushOffset(int offset) {
-		writeln("\tpush word ptr [bp"+offset+"]\n");
+		writeln("\tpush word ptr[bp"+offset+"]");
 	}
 	
 	private void popAx() {
-		writeln("\tpop ax\n");
+		writeln("\tpop ax");
 	}
 	
 	private void popBx() {
-		writeln("\tpop bx\n");
+		writeln("\tpop bx");
 	}
 	
 	private void mov(String r1, String r2) {
-		writeln("\tmov "+r1+", "+r2+"\n");
+		writeln("\tmov "+r1+", "+r2);
 	}
 	
 	private void mov(int offset) {
-		writeln("\tmov word ptr [bp"+offset+"], ax\n");
+		writeln("\tmov word ptr [bp"+offset+"], ax");
 	}
 	
 	private void mov(String r, int c) {
-		writeln("\tmov "+r+", "+c+"\n");
+		writeln("\tmov "+r+", "+c);
 	}
 	
 	private void add() {
-		writeln("\tadd ax, bx\n");
+		writeln("\tadd ax, bx");
 	}
 	
 	private void div() {
-		writeln("\tidiv bx\n");
+		writeln("\tidiv bx");
 	}
 	
 	private void mul() {
-		writeln("\timul bx\n");
+		writeln("\timul bx");
 	}
 	
 	private void sub() {
-		writeln("\tsub ax, bx\n");
+		writeln("\tsub ax, bx");
 	}
 	
 	private void sub(String r, int c) {
-		writeln("\tsub "+r+", "+c+"\n");
+		writeln("\tsub "+r+", "+c);
 	}
 	
 	private void and() {
-		writeln("\tand ax, bx\n");
+		writeln("\tand ax, bx");
 	}
 	
 	private void or() {
-		writeln("\tor ax, bx\n");
+		writeln("\tor ax, bx");
 	}
 	
 	private void not() {
@@ -265,39 +301,39 @@ public class YVMasm extends YVM {
 	}
 	
 	private void cmp() {
-		writeln("\tcmp ax, bx\n");
+		writeln("\tcmp ax, bx");
 	}
 	
 	private void cwd() {
-		writeln("\tcwd\n");
+		writeln("\tcwd");
 	}
 	
 	private void je(int offset) {
-		writeln("\tje $+"+offset+"\n");
+		writeln("\tje $+"+offset);
 	}
 	
 	private void jne(int offset) {
-		writeln("\tjne $+"+offset+"\n");
+		writeln("\tjne $+"+offset);
 	}
 	
 	private void jg(int offset) {
-		writeln("\tjg $+"+offset+"\n");
+		writeln("\tjg $+"+offset);
 	}
 	
 	private void jge(int offset) {
-		writeln("\tjge $+"+offset+"\n");
+		writeln("\tjge $+"+offset);
 	}
 	
 	private void jl(int offset) {
-		writeln("\tjl $+"+offset+"\n");
+		writeln("\tjl $+"+offset);
 	}
 	
 	private void jle(int offset) {
-		writeln("\tjle $+"+offset+"\n");
+		writeln("\tjle $+"+offset);
 	}
 	
 	private void jmp(int offset) {
-		writeln("\tjmp $+"+offset+"\n");
+		writeln("\tjmp $+"+offset);
 	}
 	
 }

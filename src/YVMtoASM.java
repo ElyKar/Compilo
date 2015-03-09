@@ -19,10 +19,11 @@ public class YVMtoASM {
 
 	public void toAsm() throws IOException {
 		String line;
+		String token;
 		StringTokenizer tokenizer;
 		String methodName;
 		Method methodToCall = null;
-		List<Integer> args = new ArrayList<Integer>();
+		List<Object> args = new ArrayList<Object>();
 		Method[] methods = null;
 		
 		//get YVMAsm method list
@@ -41,7 +42,12 @@ public class YVMtoASM {
 			
 			//construct args list
 			while(tokenizer.hasMoreTokens()) {
-				args.add(Integer.parseInt(tokenizer.nextToken()));
+					token = tokenizer.nextToken();
+					try{
+						args.add(Integer.parseInt(token));
+					} catch(NumberFormatException e){
+						args.add(token);
+					}
 			}
 			
 			//find the method to call
@@ -59,7 +65,7 @@ public class YVMtoASM {
 			//call the appropriate YVMasm method
 			System.out.println(methodToCall.getName() + args.toString());
 			try {
-				methodToCall.invoke(this.yvmasm, (Object[]) args.toArray(new Integer[args.size()]));
+				methodToCall.invoke(this.yvmasm, (Object[]) args.toArray());
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
