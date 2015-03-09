@@ -8,6 +8,10 @@ public class YVMasm extends YVM {
 		file = new FileOutputStream(fileName+".asm");
 	}
 	
+	/*********************
+	 * Functions for writing the header and footer of the .asm file
+	 ********************/
+	
 	public void entete() {
 		StringBuilder entete = new StringBuilder();
 		entete.append(".model SMALL\n");
@@ -32,6 +36,10 @@ public class YVMasm extends YVM {
 		nextLine();
 	}
 	
+	/*********************
+	 * Functions for pushing values into the stack
+	 ********************/
+	
 	public void iconst(int c) {
 		push(c);
 		nextLine();
@@ -47,6 +55,10 @@ public class YVMasm extends YVM {
 		mov(offset);
 		nextLine();
 	}
+	
+	/*********************
+	 * Operations on integers
+	 ********************/
 	
 	public void iadd() {
 		popBx();
@@ -89,6 +101,10 @@ public class YVMasm extends YVM {
 		nextLine();
 	}
 	
+	/*********************
+	 * Operations on booleans
+	 ********************/
+	
 	public void iand() {
 		popBx();
 		popAx();
@@ -111,6 +127,10 @@ public class YVMasm extends YVM {
 		pushAx();
 		nextLine();
 	}
+	
+	/*********************
+	 * Comparisons
+	 ********************/
 	
 	public void iegal() {
 		popBx();
@@ -171,6 +191,10 @@ public class YVMasm extends YVM {
 		jmp(4);
 		push(0);
 	}
+	
+	/*********************
+	 * Helper functions
+	 ********************/
 	
 	private void nextLine() {
 		write("\n");
