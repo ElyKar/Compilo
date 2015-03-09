@@ -4,10 +4,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class YVM {
-	private FileOutputStream file;
+	protected FileOutputStream file;
 	
-	public YVM() throws IOException {
-		file = new FileOutputStream("output.yvm");
+	public YVM() {}
+	
+	public YVM(String fileName) throws IOException {
+		file = new FileOutputStream(fileName+".yvm");
 	}
 	
 	public void write(String str) {

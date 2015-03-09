@@ -23,15 +23,6 @@ public class Yaka {
 	public static Declaration declaration = new Declaration();
 	public static int line = 1;
 	public static YVM yvm;
-	
-	static {
-		try {
-			yvm = new YVM();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 
 
   public static void main(String args[]) { 
@@ -40,6 +31,10 @@ public class Yaka {
 
     if (args.length==1) {
       System.out.println(args[args.length-1] + ": ");
+      try      {		Yaka.yvm = new YVM(args[args.length-1]);
+      } catch (IOException e) {		System.out.println("Impossible de créer le fichier "+args[args.length-1]+".yvm");
+		return;
+      }
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
       } catch (java.io.FileNotFoundException e) {
@@ -166,15 +161,18 @@ TOKEN  :
 /**************************************/
 void analyse() : {}
 {
-   <PROGRAM> <ident>	
+   <PROGRAM> <ident>
+   {yvm.writeln("entete");}	
    bloc()
-   <EPROGRAM> 
+   <EPROGRAM>
+   {yvm.writeln("queue");}	 
 }
 
 void bloc() : {}{
  (declConst())*
- (declVar())*		
-   suiteExpr() 
+ (declVar())*
+ {declaration.setStack();}		
+ suiteExpr() 
 }
 
 void declConst() : {}
