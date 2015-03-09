@@ -108,6 +108,10 @@ public class YVM {
 		writeln("ecrireEnt");
 	}
 	
+	public void writeBool() {
+		writeln("ecrireBool");
+	}
+	
 	public void writeStr(String str) {
 		writeln("ecrireChaine "+str);
 	}

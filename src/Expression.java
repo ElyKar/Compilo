@@ -24,8 +24,14 @@ public class Expression {
 			types.pop();
 	}
 	
-	public void writeInt() {
-		Yaka.yvm.writeInt();
+	public void writeVal() {
+		if (types.peek() == Type.INTEGER) {
+			Yaka.yvm.writeInt();
+		} else if (types.peek() == Type.BOOLEAN) {
+			Yaka.yvm.writeBool();
+		} else {
+			System.out.println("Error on line "+Yaka.line+" : expecting INTEGER or BOOLEAN, received "+types.peek());
+		}
 		finLigne();
 	}
 	
