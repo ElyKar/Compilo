@@ -1,34 +1,33 @@
 public class Declaration {
-	private String nextAffectation;
+	private String nextIdent;
 	private Type nextType;
 	public int nextOffset = -2;
 	
 	public void putConst(int value){
 		Ident toPush = new IdConst(Type.INTEGER,value);
-		Yaka.tabIdent.putIdent(this.nextAffectation, toPush);
+		Yaka.tabIdent.putIdent(this.nextIdent, toPush);
 	}
 	
 	public void putConst(boolean value){
 		Ident toPush = new IdConst(Type.BOOLEAN,((value) ? -1 : 0));
-		Yaka.tabIdent.putIdent(this.nextAffectation, toPush);
+		Yaka.tabIdent.putIdent(this.nextIdent, toPush);
 	}
 	
 	public void putConst(String id){
 		if(!Yaka.tabIdent.contains(id))
-			// Semantic exception
-			;
+			System.out.println("Error on line "+Yaka.line+" : Unknown identifier : "+id);
 		else{
 			Ident toPush = Yaka.tabIdent.getIdent(id);
-			Yaka.tabIdent.putIdent(this.nextAffectation, toPush);
+			Yaka.tabIdent.putIdent(this.nextIdent, toPush);
 		}
 	}
 	
 	public void putVar(){
-		if(!Yaka.tabIdent.contains(this.nextAffectation))
-			// Semantic exception
-			;
+		if(!Yaka.tabIdent.contains(this.nextIdent))
+			System.out.println("Error on line "+Yaka.line+" : Unknown identifier : "+nextIdent);
 		else
-			Yaka.yvm.istore(Yaka.tabIdent.getIdent(this.nextAffectation).getValue());
+			Yaka.yvm.istore(Yaka.tabIdent.getIdent(this.nextIdent).getValue());
+		Yaka.expression.finLigne();
 	}
 	
 	public void setVar(String id){
@@ -42,8 +41,8 @@ public class Declaration {
 		return Yaka.tabIdent.toString();
 	}
 
-	public void setNextAffectation(String nextAffectation) {
-		this.nextAffectation = nextAffectation;
+	public void setNextIdent(String nextIdent) {
+		this.nextIdent = nextIdent;
 	}
 
 	public void setNextType(Type nextType) {
