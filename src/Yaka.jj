@@ -236,8 +236,8 @@ void lecture() : {}
 
 void ecriture() : {}
 {
-	<WRITE> "(" <ident> {/* ecrire(YakaTokenManager.identRead); */} | expression() {/* ecrire(); */} ")" 
-	| <GOTOLINE> {yvm.writeln("");} 
+	<WRITE> "(" <ident> {yvm.writeln("ecrireChaine \"" + YakaTokenManager.identRead + "\"");} | expression() {yvm.writeln("ecrireEnt");} ")" 
+	| <GOTOLINE> {yvm.writeln("aLaLigne");} 
 }
 
 /*
