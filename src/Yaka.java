@@ -11,39 +11,83 @@ public class Yaka implements YakaConstants {
 
   public static void main(String args[]) {
     Yaka analyseur;
-    java.io.InputStream input;
+    java.io.InputStream input = System.in;
+    char type = 'n';
+    String outputName = "toto";
+    String inputName = "";
 
-    if (args.length==1) {
-      System.out.println(args[args.length-1] + ": ");
-      try
-      {
-                Yaka.yvm = new YVM(args[args.length-1]);
-      } catch (IOException e) {
-                System.out.println("Impossible de cr\u00e9er le fichier "+args[args.length-1]+".yvm");
-                return;
-      }
-      try {
-        input = new java.io.FileInputStream(args[args.length-1]+".yaka");
-      } catch (java.io.FileNotFoundException e) {
-        System.out.println("Fichier introuvable.");
-        return;
-      }
-    } else if (args.length==0) {
+    for(int i = 0; i <args.length;i++){
+        if(args[i].equals("-i")){
+                try {
+                        input = new java.io.FileInputStream(args[i+1] + ".yaka");
+                                inputName = args[i+1];
+                        i++;
+                    } catch (java.io.FileNotFoundException e) {
+                        System.out.println("Fichier introuvable.");
+                        return;
+                    } catch (NullPointerException e){
+                        System.out.println("Veuillez sp\u00e9cifier un nom de fichier.");
+                        return;
+                    }
+                }
+                else if(args[i].equals("-o")){
+                    try{
+                                outputName = args[i+1];
+                        i++;
+                    }catch (NullPointerException e){
+                        System.out.println("Veuillez sp\u00e9cifier un nom de fichier.");
+                        return;
+                    }
+                }
+                else if(args[i].equals("-a"))
+                        type = 'a';
+                else if(args[i].equals("-b"))
+                        type = 'b';
+                else if(args[i].equals("-n"))
+                        type = 'n';
+                else{
+                        System.out.println("Option inconnue : " + args[i] + ". Usage: java Gram [-a] [-b] [-o fichier] [-i fichier]");
+                        return;
+                }
+        }
+
+        if(input.equals(System.in))
       System.out.println("Lecture sur l'entree standard...");
-      input = System.in;
-    } else {
-      System.out.println("Usage: java Gram [fichier]");
-      return;
-    }
+        else
+                System.out.println(inputName +": ");
+        if(outputName.equals("toto") && !inputName.equals(""))
+                outputName = inputName;
     try {
-      analyseur = new Yaka(input);
-      analyseur.analyse();
+        analyseur = new Yaka(input);
+        try{
+                        if(type == 'a')
+                                Yaka.yvm = new YVMasm(outputName);
+                        else
+                                Yaka.yvm = new YVM(outputName);
+                }
+                catch (IOException e) {
+                                System.out.print("Impossible de cr\u00e9er le fichier "+outputName);
+                                if(type == 'a')
+                                        System.out.println(".asm");
+                                else
+                                        System.out.println(".yvm");
+                                return;
+                }
+        analyseur.analyse();
+                if(type == 'b'){
+                        try{
+                                Yaka.yvm = new YVMasm(outputName);
+                        }
+                        catch (IOException e){
+                                System.out.println("Impossible de cr\u00e9er le fichier "+outputName+".asm");
+                                return;
+                        }
+                }
                 System.out.println("analyse syntaxique r\u00e9ussie!");
-          if(expression.typesEmpty())
-                System.out.println("analyse s\u00e9mantique r\u00e9ussie!");
-          else {
-                System.out.println("analyse s\u00e9mantique rat\u00e9e!");
-         }
+            if(expression.typesEmpty())
+                        System.out.println("analyse s\u00e9mantique r\u00e9ussie!");
+                else
+                        System.out.println("analyse s\u00e9mantique rat\u00e9e!");
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\u005cn"));

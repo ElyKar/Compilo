@@ -1,4 +1,3 @@
-
 public class Declaration {
 	private String nextAffectation;
 	private Type nextType;
