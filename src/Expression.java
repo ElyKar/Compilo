@@ -24,6 +24,11 @@ public class Expression {
 			types.pop();
 	}
 	
+	public void writeInt() {
+		Yaka.yvm.writeInt();
+		finLigne();
+	}
+	
 	public void pushOperand(String id){
 		if(!Yaka.tabIdent.contains(id)) {
 			System.out.println("Error on line "+Yaka.line+" : Unknown variable : "+id);

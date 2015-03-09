@@ -290,7 +290,8 @@ void lecture() : {}
 
 void ecriture() : {}
 {
-	(<WRITE>"("((<string> {yvm.writeStr(YakaTokenManager.stringRead);})|(expression() {yvm.writeInt();}))")")
+	(<WRITE>"("((<string> {yvm.writeStr(YakaTokenManager.stringRead);})
+	|(expression() {expression.writeInt();}))")")
 	| (<GOTOLINE> {yvm.backToLine();})
 }
 
