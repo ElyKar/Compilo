@@ -109,7 +109,7 @@ public class YVM {
 	}
 	
 	public void writeStr(String str) {
-		writeln("ecrireChaine \""+str+"\"");
+		writeln("ecrireChaine "+str);
 	}
 	
 	public void read(int offset) {
