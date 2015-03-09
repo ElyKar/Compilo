@@ -8,6 +8,7 @@ LIRE(y);
 ALALIGNE;
 ECRIRE("x+y= ");
 ECRIRE(x+y);
+ECRIRE(VRAI);
 ALALIGNE;
 z=(x+y/2)/5;
 x=y+3*y-4;
