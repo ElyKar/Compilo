@@ -161,9 +161,11 @@ TOKEN  :
 /**************************************/
 void analyse() : {}
 {
-   <PROGRAM> <ident>	
+   <PROGRAM> <ident>
+   {yvm.writeln("entete");}	
    bloc()
-   <EPROGRAM> 
+   <EPROGRAM>
+   {yvm.writeln("queue");}	 
 }
 
 void bloc() : {}{
