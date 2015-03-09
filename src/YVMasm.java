@@ -57,7 +57,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void isub() {
-		popBx();
+		popBx(); 
 		popAx();
 		sub();
 		pushAx();
@@ -110,6 +110,66 @@ public class YVMasm extends YVM {
 		not();
 		pushAx();
 		nextLine();
+	}
+	
+	public void iegal() {
+		popBx();
+		popAx();
+		cmp();
+		jne(6);
+		push(-1);
+		jmp(4);
+		push(0);
+	}
+	
+	public void idiff() {
+		popBx();
+		popAx();
+		cmp();
+		je(6);
+		push(-1);
+		jmp(4);
+		push(0);
+	}
+	
+	public void iinf() {
+		popBx();
+		popAx();
+		cmp();
+		jge(6);
+		push(-1);
+		jmp(4);
+		push(0);
+	}
+	
+	public void iinfegal() {
+		popBx();
+		popAx();
+		cmp();
+		jg(6);
+		push(-1);
+		jmp(4);
+		push(0);
+	}
+	
+	public void isup() {
+		popBx();
+		popAx();
+		cmp();
+		jle(6);
+		push(-1);
+		jmp(4);
+		push(0);
+	}
+	
+	public void isupegal() {
+		popBx();
+		popAx();
+		cmp();
+		jl(6);
+		push(-1);
+		jmp(4);
+		push(0);
 	}
 	
 	private void nextLine() {
@@ -210,6 +270,10 @@ public class YVMasm extends YVM {
 	
 	private void jle(int offset) {
 		writeln("\tjle $+"+offset+"\n");
+	}
+	
+	private void jmp(int offset) {
+		writeln("\tjmp $+"+offset+"\n");
 	}
 	
 }
