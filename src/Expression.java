@@ -41,7 +41,7 @@ public class Expression {
 	
 	public void pushOperand(boolean val) {
 		types.push(Type.BOOLEAN);
-		Yaka.yvm.writeln("iconst " + String.valueOf(val).toUpperCase());
+		Yaka.yvm.writeln("iconst " + ((val) ? -1 : 0));
 	}
 	
 	public boolean updateType(Type c, Type r){
