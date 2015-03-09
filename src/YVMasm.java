@@ -222,7 +222,7 @@ public class YVMasm extends YVM {
 	 *******************/
 	
 	public void lireEnt(int offset){
-		writeln("\tlea dx,[bp-2]");
+		writeln("\tlea dx,[bp"+offset+"]");
 		writeln("\tpush dx");
 		writeln("\tcall lirent");
 	}

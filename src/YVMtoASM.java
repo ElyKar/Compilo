@@ -21,6 +21,7 @@ public class YVMtoASM {
 		String line;
 		String token;
 		StringTokenizer tokenizer;
+		String specvar = "";
 		String methodName;
 		Method methodToCall = null;
 		List<Object> args = new ArrayList<Object>();
@@ -34,6 +35,7 @@ public class YVMtoASM {
 		}
 		
 		while((line = this.reader.readLine()) != null) {
+			specvar = "";
 			//separate tokens by space
 			tokenizer = new StringTokenizer(line, " ");
 			
@@ -46,10 +48,12 @@ public class YVMtoASM {
 					try{
 						args.add(Integer.parseInt(token));
 					} catch(NumberFormatException e){
-						args.add(token);
+						specvar += token;
 					}
 			}
 			
+			if(!specvar.equals(""))
+				args.add(specvar);
 			//find the method to call
 			for(Method m : methods) {
 				if(m.getName().equals(methodName)) {
@@ -61,6 +65,7 @@ public class YVMtoASM {
 			if(methodToCall == null) {
 				throw new IllegalArgumentException("No " + methodName + " method in YVMasm");
 			}
+			
 			
 			//call the appropriate YVMasm method
 			System.out.println(methodToCall.getName() + args.toString());
