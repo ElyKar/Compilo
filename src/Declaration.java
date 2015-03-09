@@ -1,7 +1,7 @@
 public class Declaration {
 	private String nextAffectation;
 	private Type nextType;
-	private int nextOffset = -2;
+	public int nextOffset = -2;
 	
 	public void putConst(int value){
 		Ident toPush = new IdConst(Type.INTEGER,value);
@@ -44,7 +44,7 @@ public class Declaration {
 	
 	public void setStack() {
 		if (nextOffset != -2) {
-			Yaka.yvm.writeln("ouvrePrinc "+(-nextOffset-2));
+			Yaka.yvm.ouvrePrinc(-nextOffset-2);
 		}
 	}
 	
