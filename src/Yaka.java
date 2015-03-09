@@ -26,7 +26,7 @@ public class Yaka implements YakaConstants {
                         System.out.println("Fichier introuvable.");
                         return;
                     } catch (NullPointerException e){
-                        System.out.println("Veuillez sp\u00c3\u00a9cifier un nom de fichier.");
+                        System.out.println("Veuillez sp\u00e9cifier un nom de fichier.");
                         return;
                     }
                 }
@@ -35,7 +35,7 @@ public class Yaka implements YakaConstants {
                                 outputName = args[i+1];
                         i++;
                     }catch (NullPointerException e){
-                        System.out.println("Veuillez sp\u00c3\u00a9cifier un nom de fichier.");
+                        System.out.println("Veuillez sp\u00e9cifier un nom de fichier.");
                         return;
                     }
                 }
@@ -69,7 +69,7 @@ public class Yaka implements YakaConstants {
                                 Yaka.yvm = new YVM(outputName);
                 }
                 catch (IOException e) {
-                                System.out.print("Impossible de cr\u00c3\u00a9er le fichier "+outputName);
+                                System.out.print("Impossible de cr\u00e9er le fichier "+outputName);
                                 if(type == 'a')
                                         System.out.println(".asm");
                                 else
@@ -84,15 +84,15 @@ public class Yaka implements YakaConstants {
                 yvmToAsm.toAsm();
                         }
                         catch (IOException e){
-                                System.out.println("Impossible de cr\u00c3\u00a9er le fichier "+outputName+".asm");
+                                System.out.println("Impossible de cr\u00e9er le fichier "+outputName+".asm");
                                 return;
                         }
                 }
-                System.out.println("analyse syntaxique r\u00c3\u00a9ussie!");
+                System.out.println("analyse syntaxique r\u00e9ussie!");
             if(expression.typesEmpty())
-                        System.out.println("analyse s\u00c3\u00a9mantique r\u00c3\u00a9ussie!");
+                        System.out.println("analyse s\u00e9mantique r\u00e9ussie!");
                 else
-                        System.out.println("analyse s\u00c3\u00a9mantique rat\u00c3\u00a9e!");
+                        System.out.println("analyse s\u00e9mantique rat\u00e9e!");
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\u005cn"));
@@ -106,10 +106,10 @@ public class Yaka implements YakaConstants {
   static final public void analyse() throws ParseException {
     jj_consume_token(PROGRAM);
     jj_consume_token(ident);
-    yvm.writeln("entete");
+    yvm.entete();
     bloc();
     jj_consume_token(EPROGRAM);
-    yvm.writeln("queue");
+    yvm.queue();
   }
 
   static final public void bloc() throws ParseException {
@@ -290,7 +290,7 @@ public class Yaka implements YakaConstants {
     jj_consume_token(READ);
     jj_consume_token(52);
     jj_consume_token(ident);
-                           yvm.writeln("lireEnt " + tabIdent.getIdent(YakaTokenManager.identRead).getValue());
+                           yvm.read(tabIdent.getIdent(YakaTokenManager.identRead).getValue());
     jj_consume_token(53);
   }
 
@@ -302,7 +302,7 @@ public class Yaka implements YakaConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case string:
         jj_consume_token(string);
-                               yvm.writeln("ecrireChaine " + YakaTokenManager.stringRead);
+                               yvm.writeStr(YakaTokenManager.stringRead);
         break;
       case TRUE:
       case FALSE:
@@ -312,7 +312,7 @@ public class Yaka implements YakaConstants {
       case ident:
       case 52:
         expression();
-                                                                                                            yvm.writeln("ecrireEnt");
+                                                                                           yvm.writeInt();
         break;
       default:
         jj_la1[9] = jj_gen;
@@ -323,7 +323,7 @@ public class Yaka implements YakaConstants {
       break;
     case GOTOLINE:
       jj_consume_token(GOTOLINE);
-                       yvm.writeln("aLaLigne");
+                       yvm.backToLine();
       break;
     default:
       jj_la1[10] = jj_gen;
