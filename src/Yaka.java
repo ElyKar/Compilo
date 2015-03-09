@@ -57,8 +57,10 @@ public class Yaka implements YakaConstants {
   static final public void analyse() throws ParseException {
     jj_consume_token(PROGRAM);
     jj_consume_token(ident);
+    yvm.writeln("entete");
     bloc();
     jj_consume_token(EPROGRAM);
+    yvm.writeln("queue");
   }
 
   static final public void bloc() throws ParseException {
@@ -86,6 +88,7 @@ public class Yaka implements YakaConstants {
       }
       declVar();
     }
+  declaration.setStack();
     suiteExpr();
   }
 

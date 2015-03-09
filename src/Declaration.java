@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
-
 
 
 public class Declaration {
@@ -45,6 +42,12 @@ public class Declaration {
 
 	public void setNextType(Type nextType) {
 		this.nextType = nextType;
+	}
+	
+	public void setStack() {
+		if (nextOffset != -2) {
+			Yaka.yvm.writeln("ouvrePrinc "+(-nextOffset-2));
+		}
 	}
 	
 	

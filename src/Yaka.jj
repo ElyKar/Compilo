@@ -170,8 +170,9 @@ void analyse() : {}
 
 void bloc() : {}{
  (declConst())*
- (declVar())*		
-   suiteExpr() 
+ (declVar())*
+ {declaration.setStack();}		
+ suiteExpr() 
 }
 
 void declConst() : {}
