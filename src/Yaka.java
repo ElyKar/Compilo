@@ -5,6 +5,7 @@ public class Yaka implements YakaConstants {
         public static TabIdent tabIdent = new TabIdent();
         public static Expression expression = new Expression();
         public static Declaration declaration = new Declaration();
+        public static Loop loop = new Loop();
         public static int line = 1;
         public static YVM yvm;
 
@@ -138,7 +139,7 @@ public class Yaka implements YakaConstants {
       declVar();
     }
   declaration.setStack();
-    suiteInstr();
+    listInstr();
   }
 
   static final public void declConst() throws ParseException {
@@ -234,7 +235,7 @@ public class Yaka implements YakaConstants {
 /*
  * Syntaxe des instructions.
  */
-  static final public void suiteInstr() throws ParseException {
+  static final public void listInstr() throws ParseException {
     instruction();
     label_5:
     while (true) {
@@ -267,11 +268,11 @@ public class Yaka implements YakaConstants {
       affectation();
       break;
     case READ:
-      lecture();
+      reading();
       break;
     case WRITE:
     case GOTOLINE:
-      ecriture();
+      writing();
       break;
     default:
       jj_la1[8] = jj_gen;
@@ -288,7 +289,7 @@ public class Yaka implements YakaConstants {
                       declaration.putVar();
   }
 
-  static final public void lecture() throws ParseException {
+  static final public void reading() throws ParseException {
     jj_consume_token(READ);
     jj_consume_token(52);
     jj_consume_token(ident);
@@ -296,7 +297,7 @@ public class Yaka implements YakaConstants {
     jj_consume_token(53);
   }
 
-  static final public void ecriture() throws ParseException {
+  static final public void writing() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case WRITE:
       jj_consume_token(WRITE);
@@ -325,7 +326,7 @@ public class Yaka implements YakaConstants {
       break;
     case GOTOLINE:
       jj_consume_token(GOTOLINE);
-                       yvm.backToLine();
+                      yvm.backToLine();
       break;
     default:
       jj_la1[10] = jj_gen;

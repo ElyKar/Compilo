@@ -21,6 +21,7 @@ public class Yaka {
 	public static TabIdent tabIdent = new TabIdent();
 	public static Expression expression = new Expression();
 	public static Declaration declaration = new Declaration();
+	public static Loop loop = new Loop();
 	public static int line = 1;
 	public static YVM yvm;
 
@@ -224,7 +225,7 @@ void bloc() : {}{
  (declConst())*
  (declVar())*
  {declaration.setStack();}		
- suiteInstr() 
+ listInstr() 
 }
 
 void declConst() : {}
@@ -266,14 +267,14 @@ void type() :{}
 /*
  * Syntaxe des instructions.
  */
-void suiteInstr() : {}
+void listInstr() : {}
 {
 	instruction() (";" (instruction() | {}) ) *
 }
 
 void instruction() : {}
 {
-	affectation() | lecture() | ecriture()
+	affectation() | reading() | writing()
 }
 
 void affectation() : {}
@@ -283,16 +284,16 @@ void affectation() : {}
 	expression() {declaration.putVar();}
 }
 
-void lecture() : {}
+void reading() : {}
 {
 	<READ>"(" <ident> {expression.read(YakaTokenManager.identRead);}")"
 }
 
-void ecriture() : {}
+void writing() : {}
 {
 	(<WRITE>"("((<string> {yvm.writeStr(YakaTokenManager.stringRead);})
 	|(expression() {expression.writeVal();}))")")
-	| (<GOTOLINE> {yvm.backToLine();})
+	|(<GOTOLINE> {yvm.backToLine();})
 }
 
 /*
