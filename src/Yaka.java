@@ -292,7 +292,7 @@ public class Yaka implements YakaConstants {
     jj_consume_token(READ);
     jj_consume_token(52);
     jj_consume_token(ident);
-                           yvm.read(tabIdent.getIdent(YakaTokenManager.identRead).getValue());
+                           expression.read(YakaTokenManager.identRead);
     jj_consume_token(53);
   }
 

@@ -29,6 +29,13 @@ public class Expression {
 		finLigne();
 	}
 	
+	public void read(String id) {
+		Ident i = Yaka.tabIdent.getIdent(id);
+		if (i.getType() != Type.INTEGER)
+			System.out.println("Error on line "+Yaka.line+" : expecting INTEGER and received "+i.getType());
+		Yaka.yvm.read(i.getValue());
+	}
+	
 	public void pushOperand(String id){
 		if(!Yaka.tabIdent.contains(id)) {
 			System.out.println("Error on line "+Yaka.line+" : Unknown variable : "+id);

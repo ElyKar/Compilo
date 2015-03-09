@@ -285,7 +285,7 @@ void affectation() : {}
 
 void lecture() : {}
 {
-	<READ>"(" <ident> {yvm.read(tabIdent.getIdent(YakaTokenManager.identRead).getValue());}")"
+	<READ>"(" <ident> {expression.read(YakaTokenManager.identRead);}")"
 }
 
 void ecriture() : {}
