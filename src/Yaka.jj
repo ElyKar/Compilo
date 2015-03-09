@@ -224,7 +224,7 @@ void bloc() : {}{
  (declConst())*
  (declVar())*
  {declaration.setStack();}		
- suiteExpr() 
+ suiteInstr() 
 }
 
 void declConst() : {}
@@ -266,10 +266,31 @@ void type() :{}
 /*
  * Syntaxe des instructions.
  */
-void suiteExpr() : {}
-{ (expression() (";"{expression.finLigne();} (expression())? )*)? }
+void suiteInstr() : {}
+{
+	instruction() (";" (instruction() | {}) ) *
+}
 
+void instruction() : {}
+{
+	affectation() | lecture() | ecriture()
+}
 
+void affectation() : {}
+{
+	<ident> "=" expression()
+}
+
+void lecture() : {}
+{
+	<READ>"(" <ident> {InOut.read(tabIdent.getIdent(YakaTokenManager.identRead).getValue());}")"
+}
+
+void ecriture() : {}
+{
+	(<WRITE>"("((<string> {InOut.write(YakaTokenManager.stringRead);})|(expression() {InOut.write();}))")")
+	| (<GOTOLINE> {InOut.nextLine();})
+}
 
 /*
  * Expression .

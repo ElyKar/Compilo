@@ -8,5 +8,9 @@ public abstract class Ident {
 		type = t;
 	}
 	
+	public int getValue() {
+		return value;
+	}
+	
 	abstract String getMethod();
 }
