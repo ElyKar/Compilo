@@ -12,7 +12,7 @@ public class IdVar extends Ident {
 		return "VARIABLE\t"+type+"\t"+"offset : "+value;
 	}
 
-	public String getMethod(){
-		return "iload "+value;
+	public void write() {
+		Yaka.yvm.iload(value);
 	}
 }

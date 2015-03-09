@@ -12,7 +12,7 @@ public class IdConst extends Ident {
 		return "CONSTANT\t"+type+"\t"+"VALUE : "+value;
 	}
 	
-	public String getMethod(){
-		return "iconst " +value;
+	public void write() {
+		Yaka.yvm.iconst(value);
 	}
 }

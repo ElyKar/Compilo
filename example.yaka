@@ -8,9 +8,9 @@ VAR BOOLEEN b1,b2;
 LIRE(c1);
 ALALIGNE;
 ECRIRE("y=");
-(aa+cc/2)/5;
-c1+3*c1-aa;
-c2+1;
-ba OU VRAI;
-c1<=(c2+4);
+c3=(aa+cc/2)/5;
+c3=c1+3*c1-aa;
+c4=c2+1;
+b1=ba OU VRAI;
+b2=c1<=(c2+4);
 FPROGRAMME

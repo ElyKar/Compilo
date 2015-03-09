@@ -12,5 +12,5 @@ public abstract class Ident {
 		return value;
 	}
 	
-	abstract String getMethod();
+	abstract void write();
 }

@@ -162,10 +162,10 @@ TOKEN  :
 void analyse() : {}
 {
    <PROGRAM> <ident>
-   {yvm.writeln("entete");}	
+   {yvm.entete();}	
    bloc()
    <EPROGRAM>
-   {yvm.writeln("queue");}	 
+   {yvm.queue();}	 
 }
 
 void bloc() : {}{
@@ -231,13 +231,13 @@ void affectation() : {}
 
 void lecture() : {}
 {
-	<READ>"(" <ident> {InOut.read(tabIdent.getIdent(YakaTokenManager.identRead).getValue());}")"
+	<READ>"(" <ident> {yvm.read(tabIdent.getIdent(YakaTokenManager.identRead).getValue());}")"
 }
 
 void ecriture() : {}
 {
-	(<WRITE>"("((<string> {InOut.write(YakaTokenManager.stringRead);})|(expression() {InOut.write();}))")")
-	| (<GOTOLINE> {InOut.nextLine();})
+	(<WRITE>"("((<string> {yvm.writeStr(YakaTokenManager.stringRead);})|(expression() {yvm.writeInt();}))")")
+	| (<GOTOLINE> {yvm.backToLine();})
 }
 
 /*
