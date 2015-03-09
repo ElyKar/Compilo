@@ -16,6 +16,10 @@ public class YVMasm extends YVM {
 	
 	public void entete() {
 		StringBuilder entete = new StringBuilder();
+		entete.append("\t; entete\n");
+		entete.append("\textrn lirent:proc, ecrent:proc\n");
+		entete.append("\textrn ecrbool:proc\n");
+		entete.append("\textrn ecrchn:proc, ligsuiv:proc\n");
 		entete.append(".model SMALL\n");
 		entete.append(".586\n\n");
 		entete.append(".CODE\n");
@@ -26,6 +30,7 @@ public class YVMasm extends YVM {
 	
 	public void queue() {
 		StringBuilder str = new StringBuilder();
+		str.append("\t; queue\n");
 		str.append("\tnop\n");
 		str.append("\texitcode\n");
 		str.append("\tend debut\n");
@@ -33,6 +38,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void ouvrePrinc(int n) {
+		writeln("; ouvrePrinc "+n);
 		mov("bp", "sp");
 		sub("sp", n);
 		nextLine();
@@ -43,16 +49,19 @@ public class YVMasm extends YVM {
 	 ********************/
 	
 	public void iconst(int c) {
+		writeln("\t; iconst "+c);
 		push(c);
 		nextLine();
 	}
 	
 	public void iload(int offset) {
+		writeln("\t; iload "+offset);
 		pushOffset(offset);
 		nextLine();
 	}
 	
 	public void istore(int offset) {
+		writeln("\t; istore "+offset);
 		popAx();
 		mov(offset);
 		nextLine();
@@ -63,6 +72,7 @@ public class YVMasm extends YVM {
 	 ********************/
 	
 	public void iadd() {
+		writeln("\t; iadd");
 		popBx();
 		popAx();
 		add();
@@ -71,6 +81,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void isub() {
+		writeln("\t; isub");
 		popBx(); 
 		popAx();
 		sub();
@@ -79,6 +90,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void imul() {
+		writeln("\t; imul");
 		popBx();
 		popAx();
 		mul();
@@ -87,6 +99,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void idiv() {
+		writeln("\t; idiv");
 		popBx();
 		popAx();
 		cwd();
@@ -96,6 +109,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void ineg() {
+		writeln("\t; ineg");
 		popBx();
 		mov("ax", 0);
 		sub();
@@ -108,6 +122,7 @@ public class YVMasm extends YVM {
 	 ********************/
 	
 	public void iand() {
+		writeln("\t; iand");
 		popBx();
 		popAx();
 		and();
@@ -116,6 +131,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void ior() {
+		writeln("\t; ior");
 		popBx();
 		popAx();
 		or();
@@ -124,6 +140,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void inot() {
+		writeln("\t; inot");
 		popAx();
 		not();
 		pushAx();
@@ -135,6 +152,7 @@ public class YVMasm extends YVM {
 	 ********************/
 	
 	public void iegal() {
+		writeln("\t; iegal");
 		popBx();
 		popAx();
 		cmp();
@@ -145,6 +163,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void idiff() {
+		writeln("\t; idiff");
 		popBx();
 		popAx();
 		cmp();
@@ -155,6 +174,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void iinf() {
+		writeln("\t; iinf");
 		popBx();
 		popAx();
 		cmp();
@@ -165,6 +185,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void iinfegal() {
+		writeln("\t; iinfegal");
 		popBx();
 		popAx();
 		cmp();
@@ -175,6 +196,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void isup() {
+		writeln("\t; isup");
 		popBx();
 		popAx();
 		cmp();
@@ -185,6 +207,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void isupegal() {
+		writeln("\t; isupegal");
 		popBx();
 		popAx();
 		cmp();

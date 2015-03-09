@@ -314,7 +314,7 @@ public class Yaka implements YakaConstants {
       case ident:
       case 52:
         expression();
-                        expression.writeInt();
+                        expression.writeVal();
         break;
       default:
         jj_la1[9] = jj_gen;
