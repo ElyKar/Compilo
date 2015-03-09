@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class YVMasm extends YVM {
 	
-	int msgcounter = 0;
+	int msgCounter = 0;
 	
 	public YVMasm(String fileName) throws IOException {
 		file = new FileOutputStream(fileName+".asm");
@@ -218,35 +218,45 @@ public class YVMasm extends YVM {
 	}
 	
 	/********************
-	 * Fonctions inout
+	 * Functions for input and output
 	 *******************/
 	
 	public void lireEnt(int offset){
-		writeln("\tlea dx,[bp-2]");
-		writeln("\tpush dx");
-		writeln("\tcall lirent");
+		writeln("\t; lireEnt "+offset);
+		lea("dx",offset);
+		pushDx();
+		call("lirent");
+		nextLine();
 	}
 	
 	public void aLaLigne(){
-		writeln("\tcall ligsuiv");
+		writeln("\t; aLaLigne");
+		call("ligsuiv");
+		nextLine();
 	}
 	
 	public void ecrireChaine(String s){
+		writeln("\t; ecrireChaine "+s);
 		writeln(".DATA");
-		writeln("\tmess"+msgcounter+" DB " + s.substring(0, s.length() -1) + "$\"");
+		writeln("\tmess"+msgCounter+" DB " + s.substring(0, s.length() -1) + "$\"");
 		writeln(".CODE");
-		writeln("\tlea dx,mess"+msgcounter);
+		lea("dx","mess"+msgCounter);
 		pushDx();
-		writeln("\tcall ecrch");
-		msgcounter++;
+		call("ecrch");
+		msgCounter++;
+		nextLine();
 	}
 	
 	public void ecrireEnt(){
-		writeln("\tcall ecrent");
+		writeln("\t; ecrireEnt");
+		call("ecrent");
+		nextLine();
 	}
 	
-	public void ecrireBool(){
-		writeln("\tcall ecrbool");
+	public void ecrireBool() {
+		writeln("\t; ecrireBool");
+		call("ecrbool");
+		nextLine();
 	}
 	/*********************
 	 * Helper functions
@@ -357,6 +367,18 @@ public class YVMasm extends YVM {
 	
 	private void jmp(int offset) {
 		writeln("\tjmp $+"+offset);
+	}
+	
+	private void lea(String r1, String r2) {
+		writeln("\tlea "+r1+", "+r2);
+	}
+	
+	private void lea(String r, int offset) {
+		writeln("\tlea "+r+", [bp"+offset+"]");
+	}
+	
+	private void call(String f) {
+		writeln("\tcall "+f);
 	}
 	
 }
