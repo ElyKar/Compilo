@@ -76,8 +76,11 @@ public class Yaka {
     try {
       	analyseur = new Yaka(input);
       	try{
-		  	if(type == 'a')
+		  	if(type == 'a') {
 				Yaka.yvm = new YVMasm(outputName);
+				YVMtoASM yvmToAsm = new YVMtoASM(outputName + ".yvm", (YVMasm)Yaka.yvm);
+				yvmToAsm.toAsm();
+			}
 			else
 				Yaka.yvm = new YVM(outputName);
 		}
@@ -93,6 +96,8 @@ public class Yaka {
   		if(type == 'b'){
   			try{
   				Yaka.yvm = new YVMasm(outputName);
+  				YVMtoASM yvmToAsm = new YVMtoASM(outputName + ".yvm", (YVMasm)Yaka.yvm);
+                yvmToAsm.toAsm();
   			}
   			catch (IOException e){
   				System.out.println("Impossible de créer le fichier "+outputName+".asm");
