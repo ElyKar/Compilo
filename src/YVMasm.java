@@ -285,6 +285,10 @@ public class YVMasm extends YVM {
 		nextLine();
 	}
 	
+	public void call(String f) {
+		writeln("\tcall "+f);
+	}
+	
 	/*********************
 	 * Helper functions
 	 ********************/
@@ -434,10 +438,6 @@ public class YVMasm extends YVM {
 	
 	private void lea(String r, int offset) {
 		writeln("\tlea "+r+", [bp"+offset+"]");
-	}
-	
-	private void call(String f) {
-		writeln("\tcall "+f);
 	}
 	
 }
