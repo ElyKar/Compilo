@@ -125,7 +125,7 @@ public class YVM {
 	}
 	
 	public void etiq(String etiq) {
-		writeln("\n"+etiq+":");
+		writeln(etiq+":");
 	}
 	
 	public void iffalse(String etiq) {

@@ -40,7 +40,9 @@ public class YVMtoASM {
 			tokenizer = new StringTokenizer(line, " ");
 			
 			//get method name
-			methodName = tokenizer.nextToken();
+			do {
+				methodName = tokenizer.nextToken();
+			} while (methodName.equals("\n"));
 			
 			//construct args list
 			while(tokenizer.hasMoreTokens()) {
@@ -55,10 +57,21 @@ public class YVMtoASM {
 			if(!specvar.equals(""))
 				args.add(specvar);
 			//find the method to call
-			for(Method m : methods) {
-				if(m.getName().equals(methodName)) {
-					methodToCall = m;
-					break;
+			if (methodName.charAt(methodName.length()-1)==':') {
+				try {
+				methodToCall = yvmasm.getClass().getMethod("etiq", new Class[] {"".getClass()});
+				args.add(methodName);
+				} catch (NoSuchMethodException e) {}
+			} else if (methodName.equals("goto")) {
+				try {
+					methodToCall = yvmasm.getClass().getMethod("goTo", new Class[] {"".getClass()});
+					} catch (NoSuchMethodException e) {}
+			} else {
+				for(Method m : methods) {
+					if(m.getName().equals(methodName)) {
+						methodToCall = m;
+						break;
+					}
 				}
 			}
 			

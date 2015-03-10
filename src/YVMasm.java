@@ -160,6 +160,7 @@ public class YVMasm extends YVM {
 		push(-1);
 		jmp(4);
 		push(0);
+		nextLine();
 	}
 	
 	public void idiff() {
@@ -171,6 +172,7 @@ public class YVMasm extends YVM {
 		push(-1);
 		jmp(4);
 		push(0);
+		nextLine();
 	}
 	
 	public void iinf() {
@@ -182,6 +184,7 @@ public class YVMasm extends YVM {
 		push(-1);
 		jmp(4);
 		push(0);
+		nextLine();
 	}
 	
 	public void iinfegal() {
@@ -193,6 +196,7 @@ public class YVMasm extends YVM {
 		push(-1);
 		jmp(4);
 		push(0);
+		nextLine();
 	}
 	
 	public void isup() {
@@ -204,6 +208,7 @@ public class YVMasm extends YVM {
 		push(-1);
 		jmp(4);
 		push(0);
+		nextLine();
 	}
 	
 	public void isupegal() {
@@ -215,6 +220,7 @@ public class YVMasm extends YVM {
 		push(-1);
 		jmp(4);
 		push(0);
+		nextLine();
 	}
 	
 	/********************
@@ -258,6 +264,25 @@ public class YVMasm extends YVM {
 		call("ecrbool");
 		nextLine();
 	}
+	
+	public void goTo(String etiq) {
+		writeln("\t; goto "+etiq);
+		jmp(etiq);
+		nextLine();
+	}
+	
+	public void iffaux(String etiq) {
+		writeln("\t; iffaux "+etiq);
+		popAx();
+		cmp("ax","0");
+		je(etiq);
+		nextLine();
+	}
+	
+	public void etiq(String etiq) {
+		writeln(etiq);
+		nextLine();
+	}
 	/*********************
 	 * Helper functions
 	 ********************/
@@ -267,7 +292,7 @@ public class YVMasm extends YVM {
 	}
 	
 	private void push(int c) {
-		writeln("\tpush "+c);
+		writeln("\tpush word ptr "+c);
 	}
 	
 	private void pushAx() {
@@ -278,7 +303,7 @@ public class YVMasm extends YVM {
 		writeln("\tpush dx");
 	}
 	private void pushOffset(int offset) {
-		writeln("\tpush word ptr[bp"+offset+"]");
+		writeln("\tpush word ptr [bp"+offset+"]");
 	}
 	
 	private void popAx() {
@@ -337,6 +362,10 @@ public class YVMasm extends YVM {
 		writeln("\tcmp ax, bx");
 	}
 	
+	private void cmp(String r1, String r2) {
+		writeln("\tcmp "+r1+", "+r2);
+	}
+	
 	private void cwd() {
 		writeln("\tcwd");
 	}
@@ -345,28 +374,56 @@ public class YVMasm extends YVM {
 		writeln("\tje $+"+offset);
 	}
 	
+	private void je(String etiq) {
+		writeln("\tje "+etiq);
+	}
+	
 	private void jne(int offset) {
 		writeln("\tjne $+"+offset);
+	}
+	
+	private void jne(String etiq) {
+		writeln("\tjne "+etiq);
 	}
 	
 	private void jg(int offset) {
 		writeln("\tjg $+"+offset);
 	}
 	
+	private void jg(String etiq) {
+		writeln("\tjg "+etiq);
+	}
+	
 	private void jge(int offset) {
 		writeln("\tjge $+"+offset);
+	}
+	
+	private void jge(String etiq) {
+		writeln("\tjge "+etiq);
 	}
 	
 	private void jl(int offset) {
 		writeln("\tjl $+"+offset);
 	}
 	
+	private void jl(String etiq) {
+		writeln("\tjl "+etiq);
+	}
+	
 	private void jle(int offset) {
 		writeln("\tjle $+"+offset);
 	}
 	
+	private void jle(String etiq) {
+		writeln("\tjle "+etiq);
+	}
+	
 	private void jmp(int offset) {
 		writeln("\tjmp $+"+offset);
+	}
+	
+	private void jmp(String etiq) {
+		writeln("\tjmp "+etiq);
 	}
 	
 	private void lea(String r1, String r2) {
