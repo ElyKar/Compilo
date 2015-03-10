@@ -62,7 +62,7 @@ public class Expression {
 		Yaka.yvm.iconst((val) ? -1 : 0);
 	}
 	
-	public boolean updateType(Type c, Type r){
+	public boolean checkType(Type c, Type r){
 		Type t = types.pop();
 		if(t != c){
 			System.out.println("Error on line "+Yaka.line+" : Expecting "+c+" : received "+t);
@@ -73,7 +73,7 @@ public class Expression {
 		return true;
 	}
 	
-	public boolean updateTypes(Type c, Type r){
+	public boolean checkTypes(Type c, Type r){
 		Type t2 = types.pop();
 		Type t1 = types.pop();
 		if (t1!=c || t2!=c) {
@@ -85,81 +85,81 @@ public class Expression {
 		return true;
 	}
 	
-	public boolean updateTypes(Type c) {
-		return updateTypes(c, c);
+	public boolean checkTypes(Type c) {
+		return checkTypes(c, c);
 	}
 	
-	public boolean updateType(Type c) {
-		return updateType(c, c);
+	public boolean checkType(Type c) {
+		return checkType(c, c);
 	}
 	
 	public void iadd() {
-		if(updateTypes(Type.INTEGER))
+		if(checkTypes(Type.INTEGER))
 			Yaka.yvm.iadd();
 	}
 	
 	public void imul() {
-		if(updateTypes(Type.INTEGER))
+		if(checkTypes(Type.INTEGER))
 			Yaka.yvm.imul();
 	}
 	
 	public void idiv() {
-		if(updateTypes(Type.INTEGER))
+		if(checkTypes(Type.INTEGER))
 			Yaka.yvm.idiv();
 	}
 	
 	public void isub() {
-		if(updateTypes(Type.INTEGER))
+		if(checkTypes(Type.INTEGER))
 			Yaka.yvm.isub();
 	}
 	
 	public void ineg() {
-		if(updateType(Type.INTEGER))
+		if(checkType(Type.INTEGER))
 			Yaka.yvm.ineg();
 	}
 	
 	public void iand() {		
-		if(updateTypes(Type.BOOLEAN))
+		if(checkTypes(Type.BOOLEAN))
 			Yaka.yvm.iand();
 	}
 	
 	public void ior() {
-		if(updateTypes(Type.BOOLEAN))
+		if(checkTypes(Type.BOOLEAN))
 			Yaka.yvm.ior();
 	}
 	
 	public void inot() {
-		if(updateType(Type.BOOLEAN))
+		if(checkType(Type.BOOLEAN))
 			Yaka.yvm.inot();
 	}
 	
 	public void iegal() {
-		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
+		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.iegal();
 	}
 	
 	public void idiff() {
-		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
+		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.idiff();
 	}
 	
 	public void iinf() {
-		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
+		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.iinf();
 	}
 	
 	public void iinfegal() {
-		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
+		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.iinfegal();
 	}
 	
 	public void isup() {
-		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
+		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.isup();
 	}
 	
 	public void isupegal() {
-		if(updateTypes(Type.INTEGER, Type.BOOLEAN))
+		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
 			Yaka.yvm.isupegal();
 	}
 	

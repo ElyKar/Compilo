@@ -274,7 +274,7 @@ void listInstr() : {}
 
 void instruction() : {}
 {
-	affectation() | reading() | writing()
+	affectation() | reading() | writing() | loop()
 }
 
 void affectation() : {}
@@ -294,6 +294,15 @@ void writing() : {}
 	(<WRITE>"("((<string> {yvm.writeStr(YakaTokenManager.stringRead);})
 	|(expression() {expression.writeVal();}))")")
 	|(<GOTOLINE> {yvm.backToLine();})
+}
+
+void loop() : {}
+{
+	<WHILE>			{loop.setWhile();}
+	expression()	{loop.iffalse();}
+	<DO>
+	listInstr()		{loop.goTo();}
+	<DONE>			{loop.setDone();}
 }
 
 /*
