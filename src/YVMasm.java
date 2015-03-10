@@ -280,6 +280,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void etiq(String etiq) {
+		writeln("; "+etiq);
 		writeln(etiq);
 		nextLine();
 	}
