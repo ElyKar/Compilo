@@ -1,0 +1,22 @@
+PROGRAMME max3
+VAR ENTIER x,y,z,max;
+LIRE(x);
+ALALIGNE;
+LIRE(y);
+ALALIGNE;
+max = 0;
+SI x>y ALORS
+SI x>z ALORS
+max=x;
+SINON
+max=z;
+FSI;
+SINON
+SI y>z ALORS
+max=y;
+SINON
+max=z;
+FSI;
+FSI;
+ECRIRE(max);
+FPROGRAMME
