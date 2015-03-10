@@ -22,6 +22,7 @@ public class Yaka {
 	public static Expression expression = new Expression();
 	public static Declaration declaration = new Declaration();
 	public static Loop loop = new Loop();
+	public static Condition condition = new Condition();
 	public static int line = 1;
 	public static YVM yvm;
 
@@ -274,7 +275,7 @@ void listInstr() : {}
 
 void instruction() : {}
 {
-	affectation() | reading() | writing() | loop()
+	affectation() | reading() | writing() | loop() | condition()
 }
 
 void affectation() : {}
@@ -303,6 +304,17 @@ void loop() : {}
 	<DO>
 	listInstr()		{loop.goTo();}
 	<DONE>			{loop.setDone();}
+}
+
+void condition() : {}
+{
+	<IF>			{condition.setIf();}
+	expression()	{condition.iffalse();}
+	<THEN>
+	listInstr()		{condition.then();condition.setElse();}
+	(<ELSE>
+	listInstr())?
+	<FI>			{condition.setFi();}
 }
 
 /*

@@ -283,6 +283,7 @@ public class YVMasm extends YVM {
 		writeln(etiq);
 		nextLine();
 	}
+	
 	/*********************
 	 * Helper functions
 	 ********************/
