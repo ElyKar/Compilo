@@ -124,16 +124,16 @@ public class YVM {
 		writeln("aLaLigne");
 	}
 	
-	public void etiq(String etiq) {
-		writeln("\n"+etiq+":");
+	public void label(String label) {
+		writeln("\n"+label+":");
 	}
 	
-	public void iffalse(String etiq) {
-		writeln("iffaux "+etiq);
+	public void iffalse(String label) {
+		writeln("iffaux "+label);
 	}
 	
-	public void goTo(String etiq) {
-		writeln("goto "+etiq);
+	public void goTo(String label) {
+		writeln("goto "+label);
 	}
 	
 }

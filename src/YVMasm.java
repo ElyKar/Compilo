@@ -265,23 +265,23 @@ public class YVMasm extends YVM {
 		nextLine();
 	}
 	
-	public void goTo(String etiq) {
-		writeln("\t; goto "+etiq);
-		jmp(etiq);
+	public void goTo(String label) {
+		writeln("\t; goto "+label);
+		jmp(label);
 		nextLine();
 	}
 	
-	public void iffaux(String etiq) {
-		writeln("\t; iffaux "+etiq);
+	public void iffaux(String label) {
+		writeln("\t; iffaux "+label);
 		popAx();
 		cmp("ax","0");
-		je(etiq);
+		je(label);
 		nextLine();
 	}
 	
-	public void etiq(String etiq) {
-		writeln("; "+etiq);
-		writeln(etiq);
+	public void label(String label) {
+		writeln("; "+label);
+		writeln(label);
 		nextLine();
 	}
 	
@@ -376,56 +376,56 @@ public class YVMasm extends YVM {
 		writeln("\tje $+"+offset);
 	}
 	
-	private void je(String etiq) {
-		writeln("\tje "+etiq);
+	private void je(String label) {
+		writeln("\tje "+label);
 	}
 	
 	private void jne(int offset) {
 		writeln("\tjne $+"+offset);
 	}
 	
-	private void jne(String etiq) {
-		writeln("\tjne "+etiq);
+	private void jne(String label) {
+		writeln("\tjne "+label);
 	}
 	
 	private void jg(int offset) {
 		writeln("\tjg $+"+offset);
 	}
 	
-	private void jg(String etiq) {
-		writeln("\tjg "+etiq);
+	private void jg(String label) {
+		writeln("\tjg "+label);
 	}
 	
 	private void jge(int offset) {
 		writeln("\tjge $+"+offset);
 	}
 	
-	private void jge(String etiq) {
-		writeln("\tjge "+etiq);
+	private void jge(String label) {
+		writeln("\tjge "+label);
 	}
 	
 	private void jl(int offset) {
 		writeln("\tjl $+"+offset);
 	}
 	
-	private void jl(String etiq) {
-		writeln("\tjl "+etiq);
+	private void jl(String label) {
+		writeln("\tjl "+label);
 	}
 	
 	private void jle(int offset) {
 		writeln("\tjle $+"+offset);
 	}
 	
-	private void jle(String etiq) {
-		writeln("\tjle "+etiq);
+	private void jle(String label) {
+		writeln("\tjle "+label);
 	}
 	
 	private void jmp(int offset) {
 		writeln("\tjmp $+"+offset);
 	}
 	
-	private void jmp(String etiq) {
-		writeln("\tjmp "+etiq);
+	private void jmp(String label) {
+		writeln("\tjmp "+label);
 	}
 	
 	private void lea(String r1, String r2) {

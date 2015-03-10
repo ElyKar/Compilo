@@ -6,12 +6,12 @@ public class Loop {
 	private ArrayDeque<Integer> loops = new ArrayDeque<>();
 	
 	public void setWhile() {
-		Yaka.yvm.etiq("FAIRE"+ ++nbLoop);
+		Yaka.yvm.label("FAIRE"+ ++nbLoop);
 		loops.push(nbLoop);
 	}
 	
 	public void setDone() {
-		Yaka.yvm.etiq("FAIT"+loops.pop());
+		Yaka.yvm.label("FAIT"+loops.pop());
 	}
 	
 	public void iffalse() {

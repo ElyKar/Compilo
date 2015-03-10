@@ -27,7 +27,7 @@ public class YVMtoASM {
 		String methodName;
 		String emptyLine = "^[\t| ]*$";
 		Method methodToCall = null;
-		Method etiq = null;
+		Method label = null;
 		Map<String, Method> map = new HashMap<>();
 		List<Object> args = new ArrayList<Object>();
 		Method[] methods = null;
@@ -42,7 +42,7 @@ public class YVMtoASM {
 		//constructs the Map
 		for (Method m : methods) {
 			if (m.getName().equals("goTo")) map.put("goto", m);
-			if (m.getName().equals("etiq")) etiq = m;
+			if (m.getName().equals("label")) label = m;
 			map.put(m.getName(), m);
 		}
 		
@@ -59,20 +59,20 @@ public class YVMtoASM {
 				
 				//construct args list
 				while(tokenizer.hasMoreTokens()) {
-						token = tokenizer.nextToken();
-						try{
-							args.add(Integer.parseInt(token));
-						} catch(NumberFormatException e){
-							specvar += token;
-						}
+					token = tokenizer.nextToken();
+					try{
+						args.add(Integer.parseInt(token));
+					} catch(NumberFormatException e){
+						specvar += token;
+					}
 				}
 				
 				if(!specvar.equals(""))
 					args.add(specvar);
 			
-				//find the method to call
+				//find the appropriate method to call
 				if (methodName.charAt(methodName.length()-1)==':') {
-					methodToCall = etiq;
+					methodToCall = label; //Handles the case of labels
 					args.add(methodName);
 				} else {
 					methodToCall = map.get(methodName);

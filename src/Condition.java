@@ -21,11 +21,11 @@ public class Condition {
 	}
 	
 	public void setElse() {
-		Yaka.yvm.etiq("SINON"+conditions.peek());
+		Yaka.yvm.label("SINON"+conditions.peek());
 	}
 	
 	public void setFi() {
-		Yaka.yvm.etiq("FSI"+conditions.pop());
+		Yaka.yvm.label("FSI"+conditions.pop());
 	}
 
 }
