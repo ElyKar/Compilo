@@ -150,10 +150,10 @@ public interface YakaConstants {
     "<letter>",
     "<ident>",
     "<string>",
-    "\",\"",
-    "\";\"",
     "\"(\"",
+    "\",\"",
     "\")\"",
+    "\";\"",
   };
 
 }
