@@ -1,5 +1,5 @@
 PROGRAMME iter1
-VAR ENTIER s,i,n;
+VAR ENTIER s,i,n,c;
 ECRIRE("n= ");
 LIRE(n);
 i=1;
@@ -7,6 +7,10 @@ s=0;
 TANTQUE i<=n FAIRE
 s=s+i;
 i=i+1;
+c=0;
+TANTQUE c<10 FAIRE
+c=c+1;
+FAIT;
 FAIT;
 ALALIGNE;
 ECRIRE("s= ");
