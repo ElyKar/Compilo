@@ -57,5 +57,8 @@ public class Declaration {
 		Yaka.function.setVar();
 	}
 	
+	public void clear() {
+		Yaka.declaration = new Declaration();
+	}
 	
 }

@@ -24,6 +24,7 @@ public class Yaka {
 	public static Loop loop = new Loop();
 	public static Condition condition = new Condition();
 	public static Function function = new Function();
+	public static Call call = new Call();
 	public static int line = 1;
 	public static YVM yvm;
 
@@ -293,7 +294,7 @@ void instruction() : {}
 
 void reTurn() : {}
 {
-  <RETURN> expression()
+  <RETURN> expression() {function.ireturn();}
 }
 
 void affectation() : {}

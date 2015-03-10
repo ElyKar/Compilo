@@ -26,9 +26,20 @@ public class Function {
 		nbVar++;
 	}
 	
+	public void ireturn() {
+		Yaka.yvm.ireturn(nextRank*2+4);
+		if (Yaka.expression.checkType(returnType)) {
+			System.out.println("Error on line "+Yaka.line+" : expecting return type "+returnType+", received "+Yaka.expression.types.peek());
+		}
+		Yaka.expression.finLigne();
+	}
+	
 	public void addParam() {
 		Ident p = new IdVar(Yaka.declaration.nextType, ++nextRank);
 		param.add(Yaka.declaration.nextType);
+		if (Yaka.tabIdent.containsId(YakaTokenManager.identRead)) {
+			System.out.println("Error on line "+Yaka.line+" : Parameter "+YakaTokenManager.identRead+" already there");
+		}
 		Yaka.tabIdent.putParam(YakaTokenManager.identRead, p);
 	}
 	
@@ -40,6 +51,7 @@ public class Function {
 	public void clear() {
 		Yaka.function = new Function();
 		Yaka.tabIdent.clear();
+		Yaka.declaration.clear();
 		Yaka.yvm.fermebloc(nextRank*2);
 	}
 

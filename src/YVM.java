@@ -144,4 +144,16 @@ public class YVM {
 		writeln("fermebloc "+n);
 	}
 	
+	public void ireturn(int a) {
+		writeln("ireturn "+a);
+	}
+	
+	public void call(String f) {
+		writeln("call "+f);
+	}
+	
+	public void reserveRetour() {
+		writeln("reservRetour");
+	}
+	
 }
