@@ -16,5 +16,9 @@ public abstract class Ident {
 		return type;
 	}
 	
+	public void setValue(int v) {
+		value = v;
+	}
+	
 	abstract void write();
 }

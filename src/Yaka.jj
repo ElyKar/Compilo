@@ -23,6 +23,7 @@ public class Yaka {
 	public static Declaration declaration = new Declaration();
 	public static Loop loop = new Loop();
 	public static Condition condition = new Condition();
+	public static Function function = new Function();
 	public static int line = 1;
 	public static YVM yvm;
 
@@ -227,9 +228,12 @@ void analyse() : {}
 
 void declFunction() : {}
 {
-  type() <FUNCTION> <ident> paramForms()
+  type() 			{function.setReturn();}
+  <FUNCTION>
+  <ident>			{function.setName();}
+  paramForms()		{function.addFunc();}
   bloc()
-  <EFUNCTION>
+  <EFUNCTION>		{function.clear();}
 }
 
 void paramForms() : {}
@@ -239,7 +243,7 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-  type() <ident>
+  type() <ident> {function.addParam();}
 }
 
 void bloc() : {}{

@@ -43,7 +43,7 @@ public class Expression {
 	}
 	
 	public void pushOperand(String id){
-		if(!Yaka.tabIdent.contains(id)) {
+		if(!Yaka.tabIdent.containsId(id)) {
 			System.out.println("Error on line "+Yaka.line+" : Unknown variable : "+id);
 			types.push(Type.ERROR);
 		}

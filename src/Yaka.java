@@ -7,6 +7,7 @@ public class Yaka implements YakaConstants {
         public static Declaration declaration = new Declaration();
         public static Loop loop = new Loop();
         public static Condition condition = new Condition();
+        public static Function function = new Function();
         public static int line = 1;
         public static YVM yvm;
 
@@ -131,11 +132,15 @@ public class Yaka implements YakaConstants {
 
   static final public void declFunction() throws ParseException {
     type();
+                                 function.setReturn();
     jj_consume_token(FUNCTION);
     jj_consume_token(ident);
+                                 function.setName();
     paramForms();
+                         function.addFunc();
     bloc();
     jj_consume_token(EFUNCTION);
+                         function.clear();
   }
 
   static final public void paramForms() throws ParseException {
@@ -168,6 +173,7 @@ public class Yaka implements YakaConstants {
   static final public void paramForm() throws ParseException {
     type();
     jj_consume_token(ident);
+                  function.addParam();
   }
 
   static final public void bloc() throws ParseException {

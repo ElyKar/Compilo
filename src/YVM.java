@@ -136,4 +136,12 @@ public class YVM {
 		writeln("goto "+label);
 	}
 	
+	public void ouvbloc(int n) {
+		writeln("ouvbloc "+n);
+	}
+	
+	public void fermebloc(int n) {
+		writeln("fermebloc "+n);
+	}
+	
 }
