@@ -27,96 +27,85 @@ public class Yaka {
 	public static YVM yvm;
 
 
-  public static void main(String args[]) { 
-    Yaka analyseur;
-    java.io.InputStream input = System.in;
-    char type = 'n';
-    String outputName = "toto";
-    String inputName = "";
-
-    for(int i = 0; i <args.length;i++){
-    	if(args[i].equals("-i")){
-    		try {
-		        input = new java.io.FileInputStream(args[i+1] + ".yaka");
-				inputName = args[i+1];
-		    	i++;
-		    } catch (java.io.FileNotFoundException e) {
-		        System.out.println("Fichier introuvable.");
-		        return;
-		    } catch (NullPointerException e){
-		    	System.out.println("Veuillez spécifier un nom de fichier.");
-		    	return;
-		    }
-		}
-		else if(args[i].equals("-o")){
-		    try{
-				outputName = args[i+1];
-		    	i++;
-		    }catch (NullPointerException e){
-		    	System.out.println("Veuillez spécifier un nom de fichier.");
-		    	return;
-		    }
-		}
-		else if(args[i].equals("-a"))
-			type = 'a';
-		else if(args[i].equals("-b"))
-			type = 'b';
-		else if(args[i].equals("-n"))
-			type = 'n';
-		else{
-			System.out.println("Option inconnue : " + args[i] + ". Usage: java Gram [-a] [-b] [-o fichier] [-i fichier]");
-			return;
-  		}
-  	}
- 
-  	if(input.equals(System.in))
-      System.out.println("Lecture sur l'entree standard...");
-	else
-		System.out.println(inputName +": ");
-	if(outputName.equals("toto") && !inputName.equals(""))
-		outputName = inputName;
-    try {
-      	analyseur = new Yaka(input);
-      	try{
-		  	if(type == 'a') {
-				Yaka.yvm = new YVMasm(outputName);
-				YVMtoASM yvmToAsm = new YVMtoASM(outputName + ".yvm", (YVMasm)Yaka.yvm);
-				yvmToAsm.toAsm();
+	public static void main(String args[]) { 
+	    Yaka analyseur;
+	    java.io.InputStream input = System.in;
+	    char type = 'n';
+	    String outputName = "toto";
+	    String inputName = "";
+	
+	    for(int i = 0; i <args.length;i++){
+	    	if(args[i].equals("-i")){
+	    		try {
+			        input = new java.io.FileInputStream(args[i+1] + ".yaka");
+					inputName = args[i+1];
+			    	i++;
+			    } catch (java.io.FileNotFoundException e) {
+			        System.out.println("Fichier introuvable.");
+			        return;
+			    } catch (NullPointerException e){
+			    	System.out.println("Veuillez spécifier un nom de fichier.");
+			    	return;
+			    }
 			}
-			else
-				Yaka.yvm = new YVM(outputName);
-		}
-		catch (IOException e) {
-				System.out.print("Impossible de créer le fichier "+outputName);
-				if(type == 'a')
-					System.out.println(".asm");
-				else
-					System.out.println(".yvm");
+			else if(args[i].equals("-o")){
+			    try{
+					outputName = args[i+1];
+			    	i++;
+			    }catch (NullPointerException e){
+			    	System.out.println("Veuillez spécifier un nom de fichier.");
+			    	return;
+			    }
+			}
+			else if(args[i].equals("-a"))
+				type = 'a';
+			else if(args[i].equals("-b"))
+				type = 'b';
+			else if(args[i].equals("-n"))
+				type = 'n';
+			else{
+				System.out.println("Option inconnue : " + args[i] + ". Usage: java Gram [-a] [-b] [-o fichier] [-i fichier]");
 				return;
-		}
-    	analyseur.analyse();
-  		if(type == 'b'){
-  			try{
-  				Yaka.yvm = new YVMasm(outputName);
-  				YVMtoASM yvmToAsm = new YVMtoASM(outputName + ".yvm", (YVMasm)Yaka.yvm);
-                yvmToAsm.toAsm();
-  			}
-  			catch (IOException e){
-  				System.out.println("Impossible de créer le fichier "+outputName+".asm");
-  				return;
-  			}
-  		}
-  		System.out.println("analyse syntaxique réussie!");
-   	    if(expression.typesEmpty())
-   	  		System.out.println("analyse sémantique réussie!");
-   	 	else
-   	  		System.out.println("analyse sémantique ratée!");
-    } catch (ParseException e) {
-      String msg = e.getMessage();
-      msg = msg.substring(0,msg.indexOf("\n"));
-      System.out.println("Erreur de syntaxe : "+msg);
-    }
-  } 
+	  		}
+	  	}
+	 
+	  	if(input.equals(System.in))
+	      System.out.println("Lecture sur l'entree standard...");
+		else
+			System.out.println(inputName +": ");
+		if(outputName.equals("toto") && !inputName.equals(""))
+			outputName = inputName;
+	    try {
+	      	analyseur = new Yaka(input);
+	      	try{
+				Yaka.yvm = new YVM(outputName);
+			} catch (IOException e) {
+				System.out.print("Impossible de créer le fichier "+outputName +".yvm");
+				return;
+			}
+	    	analyseur.analyse();
+	  		if(type == 'b' || type == 'a'){
+	  			try{
+	  				Yaka.yvm = new YVMasm(outputName);
+	  				YVMtoASM yvmToAsm = new YVMtoASM(outputName + ".yvm", (YVMasm)Yaka.yvm);
+	                yvmToAsm.toAsm();
+	  			}
+	  			catch (IOException e){
+	  				System.out.println("Impossible de créer le fichier "+outputName+".asm");
+	  				return;
+	  			}
+	  		}
+	  		System.out.println("analyse syntaxique réussie!");
+	   	    if(expression.typesEmpty())
+	   	  		System.out.println("analyse sémantique réussie!");
+	   	 	else
+	   	  		System.out.println("analyse sémantique ratée!");
+	    } catch (ParseException e) {
+	      String msg = e.getMessage();
+	      msg = msg.substring(0,msg.indexOf("\n"));
+	      System.out.println("Erreur de syntaxe : "+msg);
+	    }
+  	} 
 }
 PARSER_END(Yaka)
 /***************************************/
