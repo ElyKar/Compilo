@@ -216,10 +216,30 @@ TOKEN  :
 void analyse() : {}
 {
    <PROGRAM> <ident>
-   {yvm.entete();}	
+   {yvm.entete();}
+   (declFunction())*
+   <MAIN>
    bloc()
+   <EMAIN>
    <EPROGRAM>
    {yvm.queue();}	 
+}
+
+void declFunction() : {}
+{
+  type() <FUNCTION> <ident> paramForms()
+  bloc()
+  <EFUNCTION>
+}
+
+void paramForms() : {}
+{
+  "("(paramForm() ( "," paramForm())*)? ")"
+}
+
+void paramForm() : {}
+{
+  type() <ident>
 }
 
 void bloc() : {}{
@@ -262,7 +282,7 @@ void declVar() : {}
 
 void type() :{}
 {
-   <INT> {declaration.setNextType(Type.INTEGER);}	
+   <INT> 	 {declaration.setNextType(Type.INTEGER);}	
  | <BOOLEAN> {declaration.setNextType(Type.BOOLEAN);}
 }
 /*
@@ -275,7 +295,12 @@ void listInstr() : {}
 
 void instruction() : {}
 {
-	affectation() | reading() | writing() | loop() | condition()
+	affectation() | reading() | writing() | loop() | condition() | reTurn()
+}
+
+void reTurn() : {}
+{
+  <RETURN> expression()
 }
 
 void affectation() : {}
@@ -362,10 +387,16 @@ void primary (): {}
 
 void value () : {}
 { <integer> {expression.pushOperand(YakaTokenManager.intRead);}		
- | <ident> 	{expression.pushOperand(YakaTokenManager.identRead);}
+ | <ident> (argsFunc())?
+ {expression.pushOperand(YakaTokenManager.identRead);}
  | <TRUE> 	{expression.pushOperand(true);}
  | <FALSE> 	{expression.pushOperand(false);}	
  
+}
+
+void argsFunc() : {}
+{
+  "("(expression() ( "," expression())*)? ")"
 }
 
 void opRel() : {}
