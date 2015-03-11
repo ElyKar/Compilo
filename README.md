@@ -3,5 +3,10 @@ Un compilateur
 
 Version de java mini: 1.7
 
-# TODO : 
-Gestion des appels de fonctions
+v1.0 released
+
+# TODO :
+
+-Make the code better
+
+-Add any relevant feature (for loops, error/warning handling, etc..)
