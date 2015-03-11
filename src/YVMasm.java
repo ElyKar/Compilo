@@ -311,7 +311,7 @@ public class YVMasm extends YVM {
 	public void fermebloc(int n) {
 		writeln("\t; fermeBloc "+n);
 		leave();
-		ret(4);
+		ret(n);
 		nextLine();
 	}
 	
