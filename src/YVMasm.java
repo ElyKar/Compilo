@@ -36,7 +36,7 @@ public class YVMasm extends YVM {
 	}
 	
 	/*********************
-	 * Functions for pushing values into the stack
+	 * Functions for pushing values onto the stack
 	 ********************/
 	
 	public void iconst(int c) {
@@ -256,11 +256,19 @@ public class YVMasm extends YVM {
 		nextLine();
 	}
 	
+	/********************
+	 * Go to the specified label
+	 *******************/
+	
 	public void goTo(String label) {
 		writeln("\t; goto "+label);
 		jmp(label);
 		nextLine();
 	}
+	
+	/********************
+	 * Conditions
+	 *******************/
 	
 	public void iffaux(String label) {
 		writeln("\t; iffaux "+label);
@@ -269,6 +277,10 @@ public class YVMasm extends YVM {
 		je(label);
 		nextLine();
 	}
+	
+	/********************
+	 * Creates a label
+	 *******************/
 	
 	public void label(String label) {
 		writeln("; "+label);
@@ -279,6 +291,10 @@ public class YVMasm extends YVM {
 		writeln(label);
 		nextLine();
 	}
+	
+	/********************
+	 * Declaring and calling functions
+	 *******************/
 	
 	public void call(String f) {
 		writeln("\t; call "+f);
