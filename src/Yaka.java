@@ -8,6 +8,8 @@ public class Yaka implements YakaConstants {
         public static Loop loop = new Loop();
         public static Condition condition = new Condition();
         public static Function function = new Function();
+        public static Call call = new Call();
+        public static boolean evaluated;
         public static int line = 1;
         public static YVM yvm;
 
@@ -348,6 +350,7 @@ public class Yaka implements YakaConstants {
   static final public void reTurn() throws ParseException {
     jj_consume_token(RETURN);
     expression();
+                         function.ireturn();
   }
 
   static final public void affectation() throws ParseException {
@@ -557,7 +560,7 @@ public class Yaka implements YakaConstants {
         jj_la1[20] = jj_gen;
         ;
       }
-  expression.pushOperand(YakaTokenManager.identRead);
+  expression.pushOperand();
       break;
     case TRUE:
       jj_consume_token(TRUE);
@@ -576,6 +579,7 @@ public class Yaka implements YakaConstants {
 
   static final public void argsFunc() throws ParseException {
     jj_consume_token(50);
+                                         call.init();
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case TRUE:
     case FALSE:
@@ -585,6 +589,7 @@ public class Yaka implements YakaConstants {
     case ident:
     case 50:
       expression();
+                                 call.pushParameter();
       label_10:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -597,6 +602,7 @@ public class Yaka implements YakaConstants {
         }
         jj_consume_token(51);
         expression();
+                         call.pushParameter();
       }
       break;
     default:
@@ -604,6 +610,7 @@ public class Yaka implements YakaConstants {
       ;
     }
     jj_consume_token(52);
+                                         call.call();
   }
 
   static final public void opRel() throws ParseException {

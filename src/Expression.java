@@ -42,14 +42,20 @@ public class Expression {
 		Yaka.yvm.read(i.getValue());
 	}
 	
-	public void pushOperand(String id){
-		if(!Yaka.tabIdent.containsId(id)) {
+	public void pushOperand(){
+		if (Yaka.evaluated) {
+			types.push(Yaka.call.popType());
+			Yaka.evaluated = false;
+		} else {
+			String id = YakaTokenManager.identRead;
+			if(!Yaka.tabIdent.containsId(id)) {
 			System.out.println("Error on line "+Yaka.line+" : Unknown variable : "+id);
 			types.push(Type.ERROR);
-		}
-		else
-			types.push(Yaka.tabIdent.getIdent(id).type);
-		Yaka.tabIdent.getIdent(id).write();
+			}
+			else
+				types.push(Yaka.tabIdent.getIdent(id).type);
+			Yaka.tabIdent.getIdent(id).write();
+			}
 		}
 	
 	public void pushOperand(int val) {

@@ -25,6 +25,7 @@ public class Yaka {
 	public static Condition condition = new Condition();
 	public static Function function = new Function();
 	public static Call call = new Call();
+	public static boolean evaluated;
 	public static int line = 1;
 	public static YVM yvm;
 
@@ -382,7 +383,7 @@ void primary (): {}
 void value () : {}
 { <integer> {expression.pushOperand(YakaTokenManager.intRead);}		
  | <ident> (argsFunc())?
- {expression.pushOperand(YakaTokenManager.identRead);}
+ {expression.pushOperand();}
  | <TRUE> 	{expression.pushOperand(true);}
  | <FALSE> 	{expression.pushOperand(false);}	
  
@@ -390,7 +391,11 @@ void value () : {}
 
 void argsFunc() : {}
 {
-  "("(expression() ( "," expression())*)? ")"
+  "("					{call.init();}
+  (expression()			{call.pushParameter();}
+  ( "," expression()	{call.pushParameter();}
+  )*)?
+  ")"					{call.call();}
 }
 
 void opRel() : {}
