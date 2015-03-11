@@ -23,8 +23,6 @@ public class YVMasm extends YVM {
 		entete.append(".model SMALL\n");
 		entete.append(".586\n\n");
 		entete.append(".CODE\n");
-		entete.append("debut :\n");
-		entete.append("\tSTARTUPCODE\n");
 		writeln(entete.toString());
 	}
 	
@@ -274,6 +272,10 @@ public class YVMasm extends YVM {
 	
 	public void label(String label) {
 		writeln("; "+label);
+		if(label.equals("main:")){
+			writeln("debut :\n");
+			writeln("\tSTARTUPCODE\n");
+		}
 		writeln(label);
 		nextLine();
 	}

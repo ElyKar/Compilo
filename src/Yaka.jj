@@ -210,7 +210,7 @@ void analyse() : {}
    <PROGRAM> <ident>
    {yvm.entete();}
    (declFunction())*
-   <MAIN>
+   <MAIN>{yvm.mainStart();}
    bloc()
    <EMAIN>
    <EPROGRAM>

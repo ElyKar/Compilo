@@ -115,6 +115,7 @@ public class Yaka implements YakaConstants {
       declFunction();
     }
     jj_consume_token(MAIN);
+          yvm.mainStart();
     bloc();
     jj_consume_token(EMAIN);
     jj_consume_token(EPROGRAM);

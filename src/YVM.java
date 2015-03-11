@@ -197,4 +197,8 @@ public class YVM {
 		writeln("reserveRetour");
 	}
 	
+	public void mainStart(){
+		writeln("\nmain:");
+	}
+	
 }
