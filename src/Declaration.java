@@ -51,9 +51,6 @@ public class Declaration {
 	}
 	
 	public void setStack() {
-		if (nextOffset != -2) {
-			Yaka.yvm.ouvrePrinc(-nextOffset-2);
-		}
 		Yaka.function.setVar();
 	}
 	
