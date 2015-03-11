@@ -469,7 +469,7 @@ public class YVMasm extends YVM {
 	}
 	
 	private void leave() {
-		writeln("leave");
+		writeln("\tleave");
 	}
 	
 }
