@@ -19,7 +19,7 @@ public class YVMasm extends YVM {
 		entete.append("\t; entete\n");
 		entete.append("\textrn lirent:proc, ecrent:proc\n");
 		entete.append("\textrn ecrbool:proc\n");
-		entete.append("\textrn ecrchn:proc, ligsuiv:proc\n");
+		entete.append("\textrn ecrch:proc, ligsuiv:proc\n");
 		entete.append(".model SMALL\n");
 		entete.append(".586\n\n");
 		entete.append(".CODE\n");
@@ -287,6 +287,28 @@ public class YVMasm extends YVM {
 	
 	public void call(String f) {
 		writeln("\tcall "+f);
+		nextLine();
+	}
+	
+	public void ouvbloc(int n) {
+		enter(n);
+		nextLine();
+	}
+	
+	public void fermebloc(int n) {
+		leave();
+		ret(4);
+		nextLine();
+	}
+	
+	public void ireturn(int offset) {
+		popAx();
+		mov(offset);
+		nextLine();
+	}
+	
+	public void reserveRetour() {
+		sub("sp",2);
 	}
 	
 	/*********************
@@ -438,6 +460,18 @@ public class YVMasm extends YVM {
 	
 	private void lea(String r, int offset) {
 		writeln("\tlea "+r+", [bp"+offset+"]");
+	}
+	
+	private void enter(int n) {
+		writeln("\tenter "+n+",0");
+	}
+	
+	private void ret(int n) {
+		writeln("\tret "+n);
+	}
+	
+	private void leave() {
+		writeln("leave");
 	}
 	
 }
