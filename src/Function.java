@@ -28,7 +28,7 @@ public class Function {
 	
 	public void ireturn() {
 		Yaka.yvm.ireturn(nextRank*2+4);
-		if (Yaka.expression.checkType(returnType)) {
+		if (!Yaka.expression.checkType(returnType)) {
 			System.out.println("Error on line "+Yaka.line+" : expecting return type "+returnType+", received "+Yaka.expression.types.peek());
 		}
 		Yaka.expression.finLigne();
@@ -44,7 +44,7 @@ public class Function {
 	}
 	
 	public void addFunc() {
-		Yaka.tabIdent.putFunc(name, new Func(returnType,(Type[]) param.toArray()));
+		Yaka.tabIdent.putFunc(name, new Func(returnType,(Type[]) param.toArray(new Type[param.size()])));
 		Yaka.tabIdent.updateOffset(nextRank);
 	}
 	
