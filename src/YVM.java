@@ -194,7 +194,7 @@ public class YVM {
 	}
 	
 	public void reserveRetour() {
-		writeln("reservRetour");
+		writeln("reserveRetour");
 	}
 	
 }
