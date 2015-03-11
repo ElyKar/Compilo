@@ -284,24 +284,29 @@ public class YVMasm extends YVM {
 	}
 	
 	public void ouvbloc(int n) {
+		writeln("; ouvbloc "+n);
 		enter(n);
 		nextLine();
 	}
 	
 	public void fermebloc(int n) {
+		writeln("\t; fermeBloc "+n);
 		leave();
 		ret(4);
 		nextLine();
 	}
 	
 	public void ireturn(int offset) {
+		writeln("\t; ireturn "+offset);
 		popAx();
 		mov(offset);
 		nextLine();
 	}
 	
 	public void reserveRetour() {
+		writeln("\t; reserveRetour");
 		sub("sp",2);
+		nextLine();
 	}
 	
 	/*********************
