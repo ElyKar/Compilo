@@ -32,7 +32,7 @@ public class YVMasm extends YVM {
 		StringBuilder str = new StringBuilder();
 		str.append("\t; queue\n");
 		str.append("\tnop\n");
-		str.append("\texitcode\n");
+		str.append("\tEXITCODE\n");
 		str.append("\tend debut\n");
 		writeln(str.toString());
 	}
@@ -279,6 +279,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void call(String f) {
+		writeln("\t; call "+f);
 		writeln("\tcall "+f);
 		nextLine();
 	}
