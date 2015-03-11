@@ -37,13 +37,6 @@ public class YVMasm extends YVM {
 		writeln(str.toString());
 	}
 	
-	public void ouvrePrinc(int n) {
-		writeln("; ouvrePrinc "+n);
-		mov("bp", "sp");
-		sub("sp", n);
-		nextLine();
-	}
-	
 	/*********************
 	 * Functions for pushing values into the stack
 	 ********************/
@@ -331,7 +324,7 @@ public class YVMasm extends YVM {
 		writeln("\tpush dx");
 	}
 	private void pushOffset(int offset) {
-		writeln("\tpush word ptr [bp"+offset+"]");
+		writeln("\tpush word ptr [bp"+((offset<0) ? offset :"+"+offset)+"]");
 	}
 	
 	private void popAx() {
@@ -459,7 +452,7 @@ public class YVMasm extends YVM {
 	}
 	
 	private void lea(String r, int offset) {
-		writeln("\tlea "+r+", [bp"+offset+"]");
+		writeln("\tlea "+r+", [bp"+((offset<0) ? offset :"+"+offset)+"]");
 	}
 	
 	private void enter(int n) {
