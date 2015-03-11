@@ -284,7 +284,7 @@ public class YVMasm extends YVM {
 	}
 	
 	public void ouvbloc(int n) {
-		writeln("; ouvbloc "+n);
+		writeln("\t; ouvbloc "+n);
 		enter(n);
 		nextLine();
 	}
