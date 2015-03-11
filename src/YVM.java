@@ -24,6 +24,11 @@ public class YVM {
 		write(str+"\n");
 	}
 	
+	
+	/*********************
+	 * overhead and footer of the yvm program
+	 ********************/
+	
 	public void entete() {
 		writeln("entete");
 	}
@@ -36,6 +41,10 @@ public class YVM {
 		writeln("queue");
 	}
 	
+	/*********************
+	 * Storing a value on the top of the stack
+	 ********************/
+	
 	public void iconst(int c) {
 		writeln("iconst "+c);
 	}
@@ -47,6 +56,10 @@ public class YVM {
 	public void istore(int offset) {
 		writeln("istore "+offset);
 	}
+	
+	/*********************
+	 * Pop the first two values and push the result of the binary operation called
+	 ********************/
 	
 	public void iadd() {
 		writeln("iadd");
@@ -72,6 +85,10 @@ public class YVM {
 		writeln("ior");
 	}
 	
+	/*********************
+	 * Pop the first value and push the result of the unary operation
+	 ********************/
+	
 	public void ineg() {
 		writeln("ineg");
 	}
@@ -79,6 +96,10 @@ public class YVM {
 	public void inot() {
 		writeln("inot");
 	}
+	
+	/*********************
+	 * Pop the first 2 values and push the result of the comparison
+	 ********************/
 	
 	public void iegal() {
 		writeln("iegal");
@@ -104,6 +125,10 @@ public class YVM {
 		writeln("isupegal");
 	}
 	
+	/*********************
+	 * Input and Output functions
+	 ********************/
+	
 	public void writeInt() {
 		writeln("ecrireEnt");
 	}
@@ -124,17 +149,33 @@ public class YVM {
 		writeln("aLaLigne");
 	}
 	
+	/*********************
+	 * Creates a label
+	 ********************/
+	
 	public void label(String label) {
 		writeln("\n"+label+":");
 	}
+	
+	/*********************
+	 * Condition
+	 ********************/
 	
 	public void iffalse(String label) {
 		writeln("iffaux "+label);
 	}
 	
+	/*********************
+	 * Go to the specified label
+	 ********************/
+	
 	public void goTo(String label) {
 		writeln("goto "+label);
 	}
+	
+	/*********************
+	 * Functions instructions
+	 ********************/
 	
 	public void ouvbloc(int n) {
 		writeln("ouvbloc "+n);
@@ -153,7 +194,7 @@ public class YVM {
 	}
 	
 	public void reserveRetour() {
-		writeln("reservRetour");
+		writeln("reserveRetour");
 	}
 	
 }
