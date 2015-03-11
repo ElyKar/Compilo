@@ -345,7 +345,7 @@ public class YVMasm extends YVM {
 	}
 	
 	private void mov(int offset) {
-		writeln("\tmov word ptr [bp"+offset+"], ax");
+		writeln("\tmov word ptr [bp"+((offset<0) ? offset :"+"+offset)+"], ax");
 	}
 	
 	private void mov(String r, int c) {
