@@ -5,33 +5,48 @@ public class Declaration {
 	
 	public void putConst(int value){
 		Ident toPush = new IdConst(Type.INTEGER,value);
-		Yaka.tabIdent.putLocal(this.nextIdent, toPush);
+		if (Yaka.tabIdent.containsId(nextIdent))
+			PrintError.declaredVariable(nextIdent);
+		else 
+			Yaka.tabIdent.putLocal(nextIdent, toPush);
 	}
 	
 	public void putConst(boolean value){
 		Ident toPush = new IdConst(Type.BOOLEAN,((value) ? -1 : 0));
-		Yaka.tabIdent.putLocal(this.nextIdent, toPush);
+		if (Yaka.tabIdent.containsId(nextIdent))
+			PrintError.declaredVariable(nextIdent);
+		else 
+			Yaka.tabIdent.putLocal(nextIdent, toPush);
 	}
 	
 	public void putConst(String id){
 		if(!Yaka.tabIdent.containsId(id))
-			System.out.println("Error on line "+Yaka.line+" : Unknown identifier : "+id);
+			PrintError.unknownVariable(id);
 		else{
-			Ident toPush = Yaka.tabIdent.getIdent(id);
-			Yaka.tabIdent.putLocal(this.nextIdent, toPush);
+			Ident toPush = Yaka.tabIdent.getIdent(id).clone();
+			if (Yaka.tabIdent.containsId(nextIdent))
+				PrintError.declaredVariable(nextIdent);
+			else 
+				Yaka.tabIdent.putLocal(nextIdent, toPush);
 		}
 	}
 	
 	public void putVar(){
-		if(!Yaka.tabIdent.containsId(this.nextIdent))
-			System.out.println("Error on line "+Yaka.line+" : Unknown identifier : "+nextIdent);
-		else
-			Yaka.yvm.istore(Yaka.tabIdent.getIdent(this.nextIdent).getValue());
+		if(!Yaka.tabIdent.containsId(nextIdent))
+			PrintError.unknownVariable(nextIdent);
+		else {
+			if (Yaka.tabIdent.getIdent(nextIdent) instanceof IdConst)
+				PrintError.affectConstant(nextIdent);
+			if (! Yaka.expression.checkType(Yaka.tabIdent.getIdent(nextIdent).getType())) {
+				PrintError.affectTypeMis(nextIdent, Yaka.tabIdent.getIdent(nextIdent).getType(), Yaka.expression.peek());
+			}
+			Yaka.yvm.istore(Yaka.tabIdent.getIdent(nextIdent).getValue());
+		}
 		Yaka.expression.endExpr();
 	}
 	
 	public void setVar(String id){
-		Ident toPush = new IdVar(this.nextType, nextOffset );
+		Ident toPush = new IdVar(nextType, nextOffset );
 		nextOffset-=2;
 		Yaka.tabIdent.putLocal(id, toPush);
 		Yaka.function.incVar();

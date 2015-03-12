@@ -12,7 +12,11 @@ public class PrintError {
 	}
 	
 	public static void unknownVariable(String var) {
-		System.out.println("Error on line "+Yaka.line+" : Unknown Variable \""+var+"\"");
+		System.out.println("Error on line "+Yaka.line+" : Unknown Ident \""+var+"\"");
+	}
+	
+	public static void declaredVariable(String var) {
+		System.out.println("Error on line "+Yaka.line+" : Ident already declared \""+var+"\"");
 	}
 	
 	public static void affectConstant(String id) {
@@ -21,7 +25,12 @@ public class PrintError {
 	
 	public static void typeMis(Type exp1, Type exp2, Type rec) {
 		System.out.println("Error on line "+Yaka.line+" : Type mismatch");
-		System.out.println("Excepted "+exp1+" or "+exp2+" ; Received "+rec);
+		System.out.println("Expected "+exp1+" or "+exp2+" ; Received "+rec);
+	}
+	
+	public static void affectTypeMis(String id, Type exp, Type rec) {
+		System.out.println("Error on line "+Yaka.line+" : Type mismatch");
+		System.out.println("Received Type "+exp+" : Variable \""+id+"\" is of Type "+rec);
 	}
 
 }

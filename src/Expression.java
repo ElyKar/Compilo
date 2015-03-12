@@ -15,6 +15,10 @@ public class Expression {
 		return this.types.isEmpty();
 	}
 	
+	public Type peek() {
+		return types.peek();
+	}
+	
 	public void pushOperator(char op) {
 		operators.push(op);
 	}
