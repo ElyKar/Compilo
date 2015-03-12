@@ -19,7 +19,7 @@ public class Call {
 		Yaka.expression.checkType(functions.peek().getParam()[param]);
 		param++;
 		currentParam.push(param);
-		Yaka.expression.finLigne();
+		Yaka.expression.endExpr();
 	}
 	
 	public void call() {

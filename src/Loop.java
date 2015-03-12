@@ -18,7 +18,7 @@ public class Loop {
 		if(Yaka.expression.checkType(Type.BOOLEAN)) {
 			Yaka.yvm.iffalse("FAIT"+loops.peek());
 		}
-		Yaka.expression.finLigne();
+		Yaka.expression.endExpr();
 	}
 	
 	public void goTo() {

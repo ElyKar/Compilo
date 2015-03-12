@@ -27,7 +27,7 @@ public class Declaration {
 			System.out.println("Error on line "+Yaka.line+" : Unknown identifier : "+nextIdent);
 		else
 			Yaka.yvm.istore(Yaka.tabIdent.getIdent(this.nextIdent).getValue());
-		Yaka.expression.finLigne();
+		Yaka.expression.endExpr();
 	}
 	
 	public void setVar(String id){

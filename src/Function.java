@@ -31,7 +31,7 @@ public class Function {
 		if (!Yaka.expression.checkType(returnType)) {
 			System.out.println("Error on line "+Yaka.line+" : expecting return type "+returnType+", received "+Yaka.expression.types.peek());
 		}
-		Yaka.expression.finLigne();
+		Yaka.expression.endExpr();
 	}
 	
 	public void addParam() {

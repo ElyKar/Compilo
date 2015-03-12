@@ -13,7 +13,7 @@ public class Condition {
 		if(Yaka.expression.checkType(Type.BOOLEAN)) {
 			Yaka.yvm.iffalse("SINON"+conditions.peek());
 		}
-		Yaka.expression.finLigne();
+		Yaka.expression.endExpr();
 	}
 	
 	public void then() {
