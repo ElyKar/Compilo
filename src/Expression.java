@@ -19,7 +19,7 @@ public class Expression {
 		operators.push(op);
 	}
 	
-	public void finLigne(){
+	public void endExpr(){
 		if(types.peek() != Type.ERROR)
 			types.pop();
 	}
@@ -30,15 +30,21 @@ public class Expression {
 		} else if (types.peek() == Type.BOOLEAN) {
 			Yaka.yvm.writeBool();
 		} else {
-			System.out.println("Error on line "+Yaka.line+" : expecting INTEGER or BOOLEAN, received "+types.peek());
+			PrintError.typeMis(Type.INTEGER, Type.BOOLEAN, Type.ERROR);
 		}
-		finLigne();
+		endExpr();
 	}
 	
 	public void read(String id) {
 		Ident i = Yaka.tabIdent.getIdent(id);
-		if (i.getType() != Type.INTEGER)
-			System.out.println("Error on line "+Yaka.line+" : expecting INTEGER and received "+i.getType());
+		if (i == null)
+			PrintError.unknownVariable(id);
+		else {
+			if (i.getType() != Type.INTEGER)
+				PrintError.unTypeMis(Type.INTEGER, i.getType());
+			if (i.getClass() == new IdConst(null,0).getClass())
+				PrintError.affectConstant(id);
+		}	
 		Yaka.yvm.read(i.getValue());
 	}
 	
@@ -49,11 +55,10 @@ public class Expression {
 		} else {
 			String id = YakaTokenManager.identRead;
 			if(!Yaka.tabIdent.containsId(id)) {
-				System.out.println("Error on line "+Yaka.line+" : Unknown variable : "+id);
+				PrintError.unknownVariable(id);
 				types.push(Type.ERROR);
-			}
-			else {
-				types.push(Yaka.tabIdent.getIdent(id).type);
+			} else {
+				types.push(Yaka.tabIdent.getIdent(id).getType());
 				Yaka.tabIdent.getIdent(id).write();
 			}
 		}
@@ -69,105 +74,108 @@ public class Expression {
 		Yaka.yvm.iconst((val) ? -1 : 0);
 	}
 	
-	public boolean checkType(Type c, Type r){
-		Type t = types.pop();
-		if(t != c){
-			System.out.println("Error on line "+Yaka.line+" : Expecting "+c+" : received "+t);
-			types.push(Type.ERROR);
-			return false;
-		}
-		types.push(r);
-		return true;
+	public boolean checkType(Type c){
+		return (types.peek() == c);
 	}
 	
-	public boolean checkTypes(Type c, Type r){
-		Type t2 = types.pop();
+	public boolean checkTypes(Type c){
 		Type t1 = types.pop();
-		if (t1!=c || t2!=c) {
-			types.push(Type.ERROR);
-			System.out.println("Error on line "+Yaka.line+" : Expecting "+c+","+c+" : received "+t1+","+t2);
-			return false;
-		}
-		types.push(r);
-		return true;
-	}
-	
-	public boolean checkTypes(Type c) {
-		return checkTypes(c, c);
-	}
-	
-	public boolean checkType(Type c) {
-		return checkType(c, c);
+		Type t2 = types.peek();
+		types.push(t1);
+		return (t1==c && t2==c);
 	}
 	
 	public void iadd() {
-		if(checkTypes(Type.INTEGER))
-			Yaka.yvm.iadd();
+		binOperation(Type.INTEGER, Type.INTEGER);
+		Yaka.yvm.iadd();
 	}
 	
 	public void imul() {
-		if(checkTypes(Type.INTEGER))
-			Yaka.yvm.imul();
+		binOperation(Type.INTEGER, Type.INTEGER);
+		Yaka.yvm.imul();
 	}
 	
 	public void idiv() {
-		if(checkTypes(Type.INTEGER))
-			Yaka.yvm.idiv();
+		binOperation(Type.INTEGER, Type.INTEGER);
+		Yaka.yvm.idiv();
 	}
 	
 	public void isub() {
-		if(checkTypes(Type.INTEGER))
-			Yaka.yvm.isub();
+		binOperation(Type.INTEGER, Type.INTEGER);
+		Yaka.yvm.isub();
 	}
 	
 	public void ineg() {
-		if(checkType(Type.INTEGER))
-			Yaka.yvm.ineg();
+		unOperation(Type.INTEGER, Type.INTEGER);
+		Yaka.yvm.ineg();
 	}
 	
 	public void iand() {		
-		if(checkTypes(Type.BOOLEAN))
-			Yaka.yvm.iand();
+		binOperation(Type.BOOLEAN, Type.BOOLEAN);
+		Yaka.yvm.iand();
 	}
 	
 	public void ior() {
-		if(checkTypes(Type.BOOLEAN))
-			Yaka.yvm.ior();
+		binOperation(Type.BOOLEAN, Type.BOOLEAN);
+		Yaka.yvm.ior();
 	}
 	
 	public void inot() {
-		if(checkType(Type.BOOLEAN))
-			Yaka.yvm.inot();
+		unOperation(Type.BOOLEAN, Type.BOOLEAN);
+		Yaka.yvm.inot();
 	}
 	
 	public void iegal() {
-		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
-			Yaka.yvm.iegal();
+		binOperation(Type.INTEGER, Type.BOOLEAN);
+		Yaka.yvm.iegal();
 	}
 	
 	public void idiff() {
-		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
-			Yaka.yvm.idiff();
+		binOperation(Type.INTEGER, Type.BOOLEAN);
+		Yaka.yvm.idiff();
 	}
 	
 	public void iinf() {
-		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
-			Yaka.yvm.iinf();
+		binOperation(Type.INTEGER, Type.BOOLEAN);
+		Yaka.yvm.iinf();
 	}
 	
 	public void iinfegal() {
-		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
-			Yaka.yvm.iinfegal();
+		binOperation(Type.INTEGER, Type.BOOLEAN);
+		Yaka.yvm.iinfegal();
 	}
 	
 	public void isup() {
-		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
-			Yaka.yvm.isup();
+		binOperation(Type.INTEGER, Type.BOOLEAN);
+		Yaka.yvm.isup();
 	}
 	
 	public void isupegal() {
-		if(checkTypes(Type.INTEGER, Type.BOOLEAN))
-			Yaka.yvm.isupegal();
+		binOperation(Type.INTEGER, Type.BOOLEAN);
+		Yaka.yvm.isupegal();
+	}
+	
+	private void binOperation(Type exp, Type ret) {
+		if (checkTypes(exp)) {
+			types.pop();
+			types.pop();
+			types.push(ret);
+		} else {
+			Type t1 = types.pop();
+			Type t2 = types.pop();
+			types.push(Type.ERROR);
+			PrintError.binTypeMis(exp, exp, t1, t2);
+		}
+	}
+	
+	private void unOperation(Type exp, Type ret) {
+		if (checkType(exp)) {
+			types.pop();
+			types.push(ret);
+		} else {
+			PrintError.unTypeMis(exp, types.pop());
+			types.push(Type.ERROR);
+		}
 	}
 	
 	public void operation() {
