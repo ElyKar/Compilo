@@ -49,14 +49,15 @@ public class Expression {
 		} else {
 			String id = YakaTokenManager.identRead;
 			if(!Yaka.tabIdent.containsId(id)) {
-			System.out.println("Error on line "+Yaka.line+" : Unknown variable : "+id);
-			types.push(Type.ERROR);
+				System.out.println("Error on line "+Yaka.line+" : Unknown variable : "+id);
+				types.push(Type.ERROR);
 			}
-			else
+			else {
 				types.push(Yaka.tabIdent.getIdent(id).type);
-			Yaka.tabIdent.getIdent(id).write();
+				Yaka.tabIdent.getIdent(id).write();
 			}
 		}
+	}
 	
 	public void pushOperand(int val) {
 		types.push(Type.INTEGER);
