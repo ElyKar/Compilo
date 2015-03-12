@@ -15,4 +15,8 @@ public class IdConst extends Ident {
 	public void write() {
 		Yaka.yvm.iconst(value);
 	}
+	
+	public Ident clone() {
+		return new IdConst(type, value);
+	}
 }

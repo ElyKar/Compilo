@@ -15,4 +15,8 @@ public class IdVar extends Ident {
 	public void write() {
 		Yaka.yvm.iload(value);
 	}
+	
+	public Ident clone() {
+		return new IdVar(type, value);
+	}
 }

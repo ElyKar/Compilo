@@ -21,4 +21,6 @@ public abstract class Ident {
 	}
 	
 	abstract void write();
+	
+	public abstract Ident clone();
 }
