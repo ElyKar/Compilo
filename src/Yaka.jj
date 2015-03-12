@@ -174,12 +174,6 @@ TOKEN :
 | < MINUS : "-">
 | < DIV : "/">
 | < MUL : "*">
-| < EQU : "=">
-| < DIF : "<>">
-| < INF : "<">
-| < EINF : "<=">
-| < SUP : ">">
-| < ESUP : ">=">
 
 }
 
@@ -400,12 +394,12 @@ void argsFunc() : {}
 
 void opRel() : {}
 {
-   <EQU> 	{expression.pushOperator(Constant.EQU);}	
- | <DIF>	{expression.pushOperator(Constant.DIF);}	
- | <INF> 	{expression.pushOperator(Constant.INF);}	
- | <EINF> 	{expression.pushOperator(Constant.EINF);}	
- | <SUP> 	{expression.pushOperator(Constant.SUP);}	
- | <ESUP> 	{expression.pushOperator(Constant.ESUP);}	
+   "=" 		{expression.pushOperator(Constant.EQU);}	
+ | "<>"		{expression.pushOperator(Constant.DIF);}	
+ | "<"		{expression.pushOperator(Constant.INF);}	
+ | "<="		{expression.pushOperator(Constant.EINF);}	
+ | ">" 		{expression.pushOperator(Constant.SUP);}	
+ | ">=" 	{expression.pushOperator(Constant.ESUP);}	
 } 
 
 void opAdd() : {}
