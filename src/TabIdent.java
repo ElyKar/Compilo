@@ -43,7 +43,7 @@ public class TabIdent {
 		return local.containsKey(key) || param.containsKey(key);
 	}
 	
-	public boolean constainsFunc(String key) {
+	public boolean containsFunc(String key) {
 		return global.containsKey(key);
 	}
 	
