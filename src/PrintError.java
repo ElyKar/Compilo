@@ -32,5 +32,10 @@ public class PrintError {
 		System.out.println("Error on line "+Yaka.line+" : Type mismatch");
 		System.out.println("Received Type "+exp+" : Variable \""+id+"\" is of Type "+rec);
 	}
+	
+	public static void declErrType() {
+		System.out.println("Error on line "+Yaka.line+" : Invalid Type");
+		System.out.println("Cannot declare a Type ERROR");
+	}
 
 }

@@ -12,6 +12,8 @@ public class Condition {
 	public void iffalse() {
 		if(Yaka.expression.checkType(Type.BOOLEAN)) {
 			Yaka.yvm.iffalse("SINON"+conditions.peek());
+		} else {
+			PrintError.unTypeMis(Type.BOOLEAN, Yaka.expression.peek());
 		}
 		Yaka.expression.endExpr();
 	}

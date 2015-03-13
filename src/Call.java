@@ -8,6 +8,9 @@ public class Call {
 	
 	public void init() {
 		Func f = Yaka.tabIdent.getFunc(YakaTokenManager.identRead);
+		if (f == null) {
+			PrintError.unknownVariable(YakaTokenManager.identRead);
+		}
 		names.push(YakaTokenManager.identRead);
 		currentParam.push(0);
 		functions.push(f);
@@ -16,7 +19,9 @@ public class Call {
 	
 	public void pushParameter() {
 		int param = currentParam.pop();
-		Yaka.expression.checkType(functions.peek().getParam()[param]);
+		if (!Yaka.expression.checkType(functions.peek().getParam()[param])) {
+			PrintError.unTypeMis(functions.peek().getParam()[param], Yaka.expression.peek());
+		}
 		param++;
 		currentParam.push(param);
 		Yaka.expression.endExpr();

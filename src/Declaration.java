@@ -49,7 +49,6 @@ public class Declaration {
 		Ident toPush = new IdVar(nextType, nextOffset );
 		nextOffset-=2;
 		Yaka.tabIdent.putLocal(id, toPush);
-		Yaka.function.incVar();
 	}
 	
 	@Override
@@ -62,15 +61,22 @@ public class Declaration {
 	}
 
 	public void setNextType(Type nextType) {
+		if (nextType == Type.ERROR) {
+			PrintError.declErrType();
+		}
 		this.nextType = nextType;
 	}
 	
 	public void setStack() {
-		Yaka.function.setVar();
+		Yaka.yvm.ouvbloc(-nextOffset-2);
 	}
 	
 	public void clear() {
 		Yaka.declaration = new Declaration();
+	}
+	
+	public Type getNextType() {
+		return nextType;
 	}
 	
 }

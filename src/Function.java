@@ -10,7 +10,10 @@ public class Function {
 	private List<Type> param = new LinkedList<>();
 	
 	public void setReturn() {
-		returnType = Yaka.declaration.nextType;
+		returnType = Yaka.declaration.getNextType();
+		if (returnType == Type.ERROR) {
+			PrintError.declErrType();
+		}
 	}
 	
 	public void setName() {
@@ -18,18 +21,10 @@ public class Function {
 		Yaka.yvm.label(name);
 	}
 	
-	public void setVar() {
-		Yaka.yvm.ouvbloc(nbVar*2);
-	}
-	
-	public void incVar() {
-		nbVar++;
-	}
-	
 	public void ireturn() {
 		Yaka.yvm.ireturn(nextRank*2+4);
 		if (!Yaka.expression.checkType(returnType)) {
-			System.out.println("Error on line "+Yaka.line+" : expecting return type "+returnType+", received "+Yaka.expression.types.peek());
+			PrintError.unTypeMis(returnType, Yaka.expression.peek());
 		}
 		Yaka.expression.endExpr();
 	}
@@ -38,12 +33,15 @@ public class Function {
 		Ident p = new IdVar(Yaka.declaration.nextType, ++nextRank);
 		param.add(Yaka.declaration.nextType);
 		if (Yaka.tabIdent.containsId(YakaTokenManager.identRead)) {
-			System.out.println("Error on line "+Yaka.line+" : Parameter "+YakaTokenManager.identRead+" already there");
+			PrintError.declaredVariable(YakaTokenManager.identRead);
 		}
 		Yaka.tabIdent.putParam(YakaTokenManager.identRead, p);
 	}
 	
 	public void addFunc() {
+		if (Yaka.tabIdent.containsFunc(name)) {
+			PrintError.declaredVariable(name);
+		}
 		Yaka.tabIdent.putFunc(name, new Func(returnType,(Type[]) param.toArray(new Type[param.size()])));
 		Yaka.tabIdent.updateOffset(nextRank);
 	}

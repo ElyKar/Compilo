@@ -17,6 +17,8 @@ public class Loop {
 	public void iffalse() {
 		if(Yaka.expression.checkType(Type.BOOLEAN)) {
 			Yaka.yvm.iffalse("FAIT"+loops.peek());
+		} else {
+			PrintError.unTypeMis(Type.BOOLEAN, Yaka.expression.peek());
 		}
 		Yaka.expression.endExpr();
 	}
