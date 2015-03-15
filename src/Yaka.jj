@@ -11,11 +11,16 @@
 
 options{
 	JDK_VERSION="1.8";	
+	OUTPUT_DIRECTORY="yaka";
 }
 
 PARSER_BEGIN(Yaka)
+package yaka;
 
 import java.io.IOException;
+import logic.*;
+import generation.*;
+import general.*;
 
 public class Yaka {
 	public static TabIdent tabIdent = new TabIdent();
