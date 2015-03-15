@@ -1,4 +1,6 @@
+package general;
 
+import yaka.Yaka;
 
 public class IdVar extends Ident {
 	

@@ -1,3 +1,8 @@
+package logic;
+import general.*;
+import yaka.Yaka;
+import generation.PrintError;
+
 public class Declaration {
 	public String nextIdent;
 	public Type nextType;

@@ -1,3 +1,8 @@
+package logic;
+import general.*;
+import yaka.*;
+import generation.PrintError;
+
 import java.util.ArrayDeque;
 
 

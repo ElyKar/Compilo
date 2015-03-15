@@ -1,4 +1,12 @@
+package logic;
 
+import yaka.Yaka;
+import yaka.YakaTokenManager;
+import general.Constant;
+import general.IdConst;
+import general.Ident;
+import general.Type;
+import generation.PrintError;
 
 import java.util.ArrayDeque;
 

@@ -1,3 +1,7 @@
+package generation;
+import general.Type;
+import yaka.Yaka;
+
 
 public class PrintError {
 	

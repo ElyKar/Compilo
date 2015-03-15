@@ -1,10 +1,17 @@
+package logic;
+import general.Func;
+import general.IdVar;
+import general.Ident;
+import general.Type;
+import generation.PrintError;
+import yaka.Yaka;
+import yaka.YakaTokenManager;
 import java.util.List;
 import java.util.LinkedList;
 
 
 public class Function {
 	private int nextRank;
-	private int nbVar;
 	private Type returnType;
 	private String name;
 	private List<Type> param = new LinkedList<>();

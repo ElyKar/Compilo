@@ -1,3 +1,6 @@
+package general;
+
+import yaka.Yaka;
 
 
 public class IdConst extends Ident {

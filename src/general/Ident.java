@@ -1,3 +1,5 @@
+package general;
+
 
 
 public abstract class Ident {
@@ -20,7 +22,7 @@ public abstract class Ident {
 		value = v;
 	}
 	
-	abstract void write();
+	public abstract void write();
 	
 	public abstract Ident clone();
 }
