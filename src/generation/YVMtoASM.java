@@ -85,7 +85,7 @@ public class YVMtoASM {
 				
 				
 				//call the appropriate YVMasm method
-				System.out.println(methodToCall.getName() + args.toString());
+				//System.out.println(methodToCall.getName() + args.toString());
 				try {
 					methodToCall.invoke(this.yvmasm, (Object[]) args.toArray());
 				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
