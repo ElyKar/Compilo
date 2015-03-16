@@ -21,6 +21,7 @@ import java.io.IOException;
 import logic.*;
 import generation.*;
 import general.*;
+import java.io.File;
 
 public class Yaka {
 	public static TabIdent tabIdent = new TabIdent();
@@ -103,7 +104,23 @@ public class Yaka {
 	  				return;
 	  			}
 	  		}
+	  		if(type == 'a'){
+	  			try{
+	  				File f = new File(outputName + ".yvm");
+	  				f.delete();
+	  			} catch(Exception e){}
+	  		}
 	  		System.out.println("analyse syntaxique réussie!");
+	  		if(PrintError.flag){
+	  			System.out.println("analyse sémantique ratée!");
+	  			try{
+	  				File f = new File(outputName + ".yvm");
+	  				f.delete();
+	  				f = new File(outputName+ ".asm");
+	  				f.delete();
+	  			}
+	  			catch(Exception e){}
+	  		}
 	    } catch (ParseException e) {
 	      String msg = e.getMessage();
 	      msg = msg.substring(0,msg.indexOf("\n"));

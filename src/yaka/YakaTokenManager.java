@@ -4,6 +4,7 @@ import java.io.IOException;
 import logic.*;
 import generation.*;
 import general.*;
+import java.io.File;
 
 /** Token Manager. */
 public class YakaTokenManager implements YakaConstants

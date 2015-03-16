@@ -5,6 +5,7 @@ import java.io.IOException;
 import logic.*;
 import generation.*;
 import general.*;
+import java.io.File;
 
 public class Yaka implements YakaConstants {
         public static TabIdent tabIdent = new TabIdent();
@@ -87,7 +88,23 @@ public class Yaka implements YakaConstants {
                                         return;
                                 }
                         }
+                        if(type == 'a'){
+                                try{
+                                        File f = new File(outputName + ".yvm");
+                                        f.delete();
+                                } catch(Exception e){}
+                        }
                         System.out.println("analyse syntaxique r\u00e9ussie!");
+                        if(PrintError.flag){
+                                System.out.println("analyse s\u00e9mantique rat\u00e9e!");
+                                try{
+                                        File f = new File(outputName + ".yvm");
+                                        f.delete();
+                                        f = new File(outputName+ ".asm");
+                                        f.delete();
+                                }
+                                catch(Exception e){}
+                        }
             } catch (ParseException e) {
               String msg = e.getMessage();
               msg = msg.substring(0,msg.indexOf("\u005cn"));
