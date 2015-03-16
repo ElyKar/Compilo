@@ -1,0 +1,15 @@
+PROGRAMME max
+PRINCIPAL
+CONST 
+	a=2,
+	b=a,
+	c=VRAI,
+	a=5,
+	d=c,
+	d=e; 
+	
+VAR ENTIER i,j,k,n,s;
+VAR	BOOLEEN c,d,e,f;	
+	a=5;
+FPRINCIPAL
+FPROGRAMME
