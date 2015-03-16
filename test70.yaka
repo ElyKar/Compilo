@@ -1,0 +1,14 @@
+PROGRAMME affecTypeMisVar
+
+PRINCIPAL
+VAR ENTIER i,j,k;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+i = k+8;
+b = 651;
+FPRINCIPAL
+
+FPROGRAMME

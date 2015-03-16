@@ -1,0 +1,13 @@
+PROGRAMME testVarAlreadyThere
+
+PRINCIPAL
+VAR ENTIER i,j,k,b;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+i = k+8;
+FPRINCIPAL
+
+FPROGRAMME

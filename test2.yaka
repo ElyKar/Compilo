@@ -1,0 +1,18 @@
+PROGRAMME testUnaryOpErrorType
+
+PRINCIPAL
+CONST a;
+a = true+5;
+VAR ENTIER i,j,k;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+i = -i;
+b = NON b;
+i = NON i;
+k = i+j;
+FPRINCIPAL
+
+FPROGRAMME

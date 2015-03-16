@@ -1,0 +1,15 @@
+PROGRAMME testAffectConst
+
+PRINCIPAL
+CONST aa;
+aa = 1;
+VAR ENTIER i,j,k;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+aa = k+8;
+FPRINCIPAL
+
+FPROGRAMME

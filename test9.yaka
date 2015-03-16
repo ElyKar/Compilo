@@ -1,0 +1,23 @@
+PROGRAMME returnTypeMisFunc
+
+ENTIER FONCTION max (ENTIER i, ENTIER j)
+VAR BOOLEEN b,c;
+VAR ENTIER k;
+k = i;
+SI k>j ALORS RETOURNE true
+SINON RETOURNE 1 FSI
+FFONCTION
+
+PRINCIPAL
+CONST a
+a = true AND 5;
+VAR ENTIER i,j,k;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+i = k+8;
+FPRINCIPAL
+
+FPROGRAMME

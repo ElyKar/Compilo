@@ -1,0 +1,14 @@
+PROGRAMME testUnknownFunc
+
+PRINCIPAL
+VAR ENTIER i,j,k;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+k = k+max(i,j);
+i = k+8;
+FPRINCIPAL
+
+FPROGRAMME

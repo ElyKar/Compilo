@@ -1,0 +1,9 @@
+Test 1 : Type Mismatch on binary op
+Test 2 : Type mismatch on unary op
+Test 3 : Unknown variable (func, var, const)
+Test 4 : Variable already there(func, var, const)
+Test 5 : Cannot affect constant
+Test 6 : type Mismatch on WriteVal from expression class
+Test 7 : affectation type mismatch(func, var, param)
+Test 8 : Cannot declare an error type(const, var, func)
+Test 9 : Type Mismatch return function

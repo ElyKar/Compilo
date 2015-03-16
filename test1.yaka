@@ -1,0 +1,14 @@
+PROGRAMME testBinaryOpErrorType
+
+PRINCIPAL
+VAR ENTIER i,j,k;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+k = k+b;
+i = k+8;
+FPRINCIPAL
+
+FPROGRAMME

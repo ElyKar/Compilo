@@ -1,0 +1,16 @@
+PROGRAMME testConstAlreadyThere
+
+PRINCIPAL
+CONST c,d,c;
+c = 1;
+d = 5; 
+VAR ENTIER i,j,k;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+i = k+8;
+FPRINCIPAL
+
+FPROGRAMME

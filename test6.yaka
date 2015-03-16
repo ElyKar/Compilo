@@ -1,0 +1,15 @@
+PROGRAMME testTypeMismatchWriteVal
+
+PRINCIPAL
+VAR ENTIER i,j,k;
+VAR BOOLEEN b;
+i = 1;
+j = i+3;
+b = true;
+LIRE(k);
+i = k+8;
+k=k+b;
+ECRIRE(k);
+FPRINCIPAL
+
+FPROGRAMME
