@@ -52,8 +52,12 @@ public class Declaration {
 	
 	public void setVar(String id){
 		Ident toPush = new IdVar(nextType, nextOffset );
-		nextOffset-=2;
-		Yaka.tabIdent.putLocal(id, toPush);
+		if (Yaka.tabIdent.containsId(id)) {
+			PrintError.declaredVariable(id);
+		} else {
+			nextOffset-=2;
+			Yaka.tabIdent.putLocal(id, toPush);
+		}
 	}
 	
 	@Override

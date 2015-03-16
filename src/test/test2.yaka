@@ -1,13 +1,13 @@
 PROGRAMME testUnaryOpErrorType
 
 PRINCIPAL
-CONST a;
-a = true+5;
+CONST 
+a = VRAI;
 VAR ENTIER i,j,k;
 VAR BOOLEEN b;
 i = 1;
 j = i+3;
-b = true;
+b = VRAI;
 LIRE(k);
 i = -i;
 b = NON b;

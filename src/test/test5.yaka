@@ -1,13 +1,13 @@
 PROGRAMME testAffectConst
 
 PRINCIPAL
-CONST aa;
+CONST 
 aa = 1;
 VAR ENTIER i,j,k;
 VAR BOOLEEN b;
 i = 1;
 j = i+3;
-b = true;
+b = VRAI;
 LIRE(k);
 aa = k+8;
 FPRINCIPAL

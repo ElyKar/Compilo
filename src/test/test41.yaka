@@ -1,14 +1,15 @@
 PROGRAMME testConstAlreadyThere
 
 PRINCIPAL
-CONST c,d,c;
-c = 1;
-d = 5; 
+CONST 
+c = 1,
+d = 5,
+c = 8;
 VAR ENTIER i,j,k;
 VAR BOOLEEN b;
 i = 1;
 j = i+3;
-b = true;
+b = VRAI;
 LIRE(k);
 i = k+8;
 FPRINCIPAL
