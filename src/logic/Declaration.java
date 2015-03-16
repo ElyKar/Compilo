@@ -43,7 +43,7 @@ public class Declaration {
 			if (Yaka.tabIdent.getIdent(nextIdent) instanceof IdConst)
 				PrintError.affectConstant(nextIdent);
 			if (! Yaka.expression.checkType(Yaka.tabIdent.getIdent(nextIdent).getType())) {
-				PrintError.affectTypeMis(nextIdent, Yaka.tabIdent.getIdent(nextIdent).getType(), Yaka.expression.peek());
+				PrintError.affectTypeMis(nextIdent, Yaka.expression.peek(), Yaka.tabIdent.getIdent(nextIdent).getType());
 			}
 			Yaka.yvm.istore(Yaka.tabIdent.getIdent(nextIdent).getValue());
 		}
