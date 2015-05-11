@@ -52,4 +52,16 @@ public class PrintError {
 		System.out.println("Cannot declare a Type ERROR");
 	}
 
+	public static void tooManyParams(int length, int param) {
+		flag=true;
+		System.out.println("Error on line "+Yaka.line+" : Too many arguments");;
+		System.out.println("Parameter "+(param+1)+" but method has only "+length+" params");
+	}
+
+	public static void tooLittleParams(int length, Integer peek) {
+		flag=true;
+		System.out.println("Error on line "+Yaka.line+" : Too few arguments");
+		System.out.println(peek + " parameters but method must have "+length+" params");
+	}
+
 }

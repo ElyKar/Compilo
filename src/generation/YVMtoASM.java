@@ -9,12 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // CONFIGURE THE WORKSPACE FOR JAVA >= 1.7 !!
 public class YVMtoASM {
 	private YVMasm yvmasm;
 	private BufferedReader reader;
-	
+	private static final String TOKENIZE_REGEX = "\"([^\"]*)\"|\'([^\']*)\'|(\\S+)";
+
 	public YVMtoASM(String yvmfile, YVMasm yvmasm) throws IOException {
 		this.yvmasm = yvmasm;
 		this.reader = new BufferedReader(new FileReader(yvmfile));
@@ -59,18 +62,10 @@ public class YVMtoASM {
 				methodName = tokenizer.nextToken();
 				
 				//construct args list
-				while(tokenizer.hasMoreTokens()) {
-					token = tokenizer.nextToken();
-					try{
-						args.add(Integer.parseInt(token));
-					} catch(NumberFormatException e){
-						specvar += token;
-					}
+				if(methodName.trim().length() != line.trim().length()){
+					String argString = line.substring(methodName.length()+1);
+					args = tokenize(argString);
 				}
-				
-				if(!specvar.equals(""))
-					args.add(specvar);
-			
 				//find the appropriate method to call
 				if (methodName.charAt(methodName.length()-1)==':') {
 					methodToCall = label; //Handles the case of labels
@@ -98,5 +93,30 @@ public class YVMtoASM {
 			}
 		}
 		this.reader.close();
+	}
+	
+	private List<Object> tokenize(String args) {
+		List<Object> tokens = new ArrayList<Object>();
+	    Matcher m = Pattern.compile(TOKENIZE_REGEX).matcher(args);
+	    while (m.find()) {
+	        if (m.group(1) != null) {
+	        	// Double-quoted token
+	        	tokens.add(m.group(1));
+	        } 
+	        else if(m.group(2) != null){
+	        		// Single quoted token
+	        	tokens.add(m.group(2));
+	        }
+	        else {
+	        	String token = m.group(3);
+	        	try {
+	        		int i = Integer.parseInt(token);
+	        		tokens.add(i);
+	        	} catch (NumberFormatException e) {
+	        		tokens.add(token);
+	        	}
+	        }
+	    }
+	    return tokens;
 	}
 }

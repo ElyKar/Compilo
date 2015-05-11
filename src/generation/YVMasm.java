@@ -236,7 +236,7 @@ public class YVMasm extends YVM {
 	public void ecrireChaine(String s){
 		writeln("\t; ecrireChaine "+s);
 		writeln(".DATA");
-		writeln("\tmess"+msgCounter+" DB " + s.substring(0, s.length() -1) + "$\"");
+		writeln("\tmess"+msgCounter+" DB \"" + s.substring(0, s.length()) + "$\"");
 		writeln(".CODE");
 		lea("dx","mess"+msgCounter);
 		pushDx();

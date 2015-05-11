@@ -27,7 +27,9 @@ public class Call {
 	public void pushParameter() {
 		try {
 			int param = currentParam.pop();
-			if (!Yaka.expression.checkType(functions.peek().getParam()[param])) {
+			if(param >= functions.peek().getParam().length)
+				PrintError.tooManyParams(functions.peek().getParam().length, param);
+			else if (!Yaka.expression.checkType(functions.peek().getParam()[param])) {
 				PrintError.unTypeMis(functions.peek().getParam()[param], Yaka.expression.peek());
 			}
 			param++;
@@ -38,6 +40,8 @@ public class Call {
 	
 	public void call() {
 		Yaka.yvm.call(names.pop());
+		if(currentParam.peek() < functions.peek().getParam().length)
+			PrintError.tooLittleParams(functions.peek().getParam().length,currentParam.peek());
 		try {
 			currentParam.pop();
 		} catch (NoSuchElementException e) {}

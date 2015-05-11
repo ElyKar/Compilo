@@ -138,12 +138,12 @@ public class Expression {
 	}
 	
 	public void iegal() {
-		binOperation(Type.INTEGER, Type.BOOLEAN);
+		allTypesOperation(Type.BOOLEAN);
 		Yaka.yvm.iegal();
 	}
 	
 	public void idiff() {
-		binOperation(Type.INTEGER, Type.BOOLEAN);
+		allTypesOperation(Type.BOOLEAN);
 		Yaka.yvm.idiff();
 	}
 	
@@ -177,6 +177,17 @@ public class Expression {
 			Type t2 = types.pop();
 			types.push(Type.ERROR);
 			PrintError.binTypeMis(exp, exp, t1, t2);
+		}
+	}
+
+	private void allTypesOperation(Type ret){
+		Type t1 = types.pop();
+		Type t2 = types.pop();
+		if(t1.equals(t2))
+			types.push(ret);
+		else{
+			types.push(Type.ERROR);
+			PrintError.unTypeMis(t1,t2);
 		}
 	}
 	
